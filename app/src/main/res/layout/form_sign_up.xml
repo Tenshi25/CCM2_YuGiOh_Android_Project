@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="7dp"
         android:ems="10"
-        android:hint="@string/ET_username_text"
+        android:hint="@string/ET_username"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/ET_password_signUp"
         app:layout_constraintEnd_toEndOf="parent"

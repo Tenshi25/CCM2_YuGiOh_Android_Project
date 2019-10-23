@@ -2,11 +2,14 @@ package master.ccm.ccm2yugiohproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 import master.ccm.Manager.UserDBManager;
+import master.ccm.entity.Outils;
+import master.ccm.entity.User;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -35,29 +38,28 @@ public class SignUp_Activity extends AppCompatActivity {
 
     public void OnClickSignUp(View view) {
         UserDBManager userDBManager = new UserDBManager();
-        newUsername = editText_username.getText().toString();
-        newUserPassworld = editText_password.getText().toString();
-        newUserPassworld = md5(newUserPassworld);
-        userDBManager.AddUser(newUsername,newUserPassworld);
+        User newUser = new User();
+        newUser.setUsername(editText_username.getText().toString());
+        Outils outils = new Outils();
+        newUser.setPassword(outils.md5(editText_password.getText().toString()));
+        userDBManager.VerifUserExistBeforeInsert(newUser, this);
+
 
     }
 
-    public String md5(String s) {
-        try {
-            // Create MD5 Hash
-            MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
-            digest.update(s.getBytes());
-            byte messageDigest[] = digest.digest();
 
-            // Create Hex String
-            StringBuffer hexString = new StringBuffer();
-            for (int i=0; i<messageDigest.length; i++)
-                hexString.append(Integer.toHexString(0xFF & messageDigest[i]));
-            return hexString.toString();
 
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        return "";
+    public void RegisterSuccess(String id, String username) {
+        Toast.makeText(this,"Vous êtes connécté",Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, Home.class);
+        startActivity(intent);
+        finish();
     }
+
+    public void RegistertFail() {
+        Toast.makeText(this,"Erreur de connexion",Toast.LENGTH_SHORT).show();
+    }
+
+
+
 }

@@ -1,6 +1,5 @@
 package master.ccm.ccm2yugiohproject;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import master.ccm.Manager.UserDBManager;
 import master.ccm.entity.Outils;

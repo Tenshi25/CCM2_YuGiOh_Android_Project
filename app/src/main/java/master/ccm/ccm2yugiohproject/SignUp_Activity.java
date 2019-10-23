@@ -57,7 +57,7 @@ public class SignUp_Activity extends AppCompatActivity {
     }
 
     public void RegistertFail() {
-        Toast.makeText(this,"Erreur de connexion",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"Le login est déjà utilisé",Toast.LENGTH_SHORT).show();
     }
 
 

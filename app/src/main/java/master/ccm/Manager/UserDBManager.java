@@ -81,10 +81,13 @@ public class UserDBManager {
     {{
         Log.d("username", ""+user.getUsername());
         Log.d("mot de pass md5", ""+user.getPassword());
+
         database.collection("User").whereEqualTo("username",user.getUsername()).whereEqualTo("password",user.getPassword()).get(Source.DEFAULT).addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                Log.d("task.getResult().size", ""+task.getResult().size());
                 if (task.getResult().size() == 1) {
+
                     Log.d("affichage", ""+task.getResult().size());
                     DocumentSnapshot result = task.getResult().getDocuments().get(0);
                     Log.d("succes affichage", result.getId() + " => " + result.get("username"));

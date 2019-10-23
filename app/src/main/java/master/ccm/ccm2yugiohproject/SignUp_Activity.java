@@ -1,7 +1,7 @@
 package master.ccm.ccm2yugiohproject;
 
 import androidx.appcompat.app.AppCompatActivity;
-import master.ccm.Manager.UserDBManager;
+import master.ccm.manager.UserDBManager;
 import master.ccm.entity.Outils;
 import master.ccm.entity.User;
 
@@ -10,9 +10,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 public class SignUp_Activity extends AppCompatActivity {
     private EditText editText_username ;

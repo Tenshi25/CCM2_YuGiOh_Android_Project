@@ -1,7 +1,7 @@
 package master.ccm.ccm2yugiohproject;
 
 import androidx.appcompat.app.AppCompatActivity;
-import master.ccm.Manager.UserDBManager;
+import master.ccm.manager.UserDBManager;
 import master.ccm.entity.Outils;
 import master.ccm.entity.User;
 

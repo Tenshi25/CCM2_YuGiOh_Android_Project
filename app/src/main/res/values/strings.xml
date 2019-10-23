@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">CCM2YugiohProject</string>
+    <string name="bt_GLogin_text">Log in with Google</string>
+    <string name="default_web_client_id">244227933902-mgfaeffp3ca7uq78fm5ol6nsoug16qam.apps.googleusercontent.com</string>
+    <string name="ET_Name_Text">Name</string>
+    <string name="ET_Password_Text">Password</string>
+    <string name="bt_login_text">Log in</string>
+    <string name="bt_to_sign_up">Sign up here</string>
+    <string name="ET_username_text">username</string>
+    <string name="bt_sign_up">Sign up !</string>
+    <string name="bt_to_sign_in">Return to Sign in</string>
 </resources>

@@ -6,6 +6,8 @@ public class Deck {
     private String id;
     private String name;
     private String description;
+    private String idUser;
+
     private List<Card> listCard;
 
     public List<Card> getListCard() {
@@ -48,5 +50,11 @@ public class Deck {
         this.description = description;
     }
 
+    public String getIdUser() {
+        return idUser;
+    }
 
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
+    }
 }

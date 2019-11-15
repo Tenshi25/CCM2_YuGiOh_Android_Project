@@ -9,4 +9,14 @@
     <string name="bt_sign_up">Sign up !</string>
     <string name="bt_to_sign_in">Return to Sign in</string>
     <string name="ET_username">username</string>
+    <string name="tv_name_deck">undefined</string>
+    <string name="tv_desc_deck">undefined</string>
+    <string name="bt_Modify_deck">Modify</string>
+    <string name="bt_toListDeck">Decks list</string>
+    <string name="bt_quit">Exit</string>
+    <string name="title_menu_home">Menu</string>
+    <string name="bt_return">Return</string>
+    <string name="title_listDeck">Decks list</string>
+    <string name="title_form_createDeck">Form Create Deck</string>
+    <string name="bt_addDeck">Add this Deck</string>
 </resources>

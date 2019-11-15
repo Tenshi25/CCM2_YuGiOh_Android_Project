@@ -1,7 +1,8 @@
 package master.ccm.ccm2yugiohproject;
 
 import androidx.appcompat.app.AppCompatActivity;
-import master.ccm.Manager.UserDBManager;
+import master.ccm.entity.CurrentUser;
+import master.ccm.manager.UserDBManager;
 import master.ccm.entity.Outils;
 import master.ccm.entity.User;
 
@@ -56,7 +57,8 @@ public class Login_Activity extends AppCompatActivity {
     }
 
     public void ConnectSucess(String id, String username) {
-        Toast.makeText(this,"la connexion est un succès",Toast.LENGTH_SHORT).show();
+        CurrentUser.getInstance().setId(id);
+        Toast.makeText(this,"Bienvenue"+username,Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, Home.class);
         startActivity(intent);
     }

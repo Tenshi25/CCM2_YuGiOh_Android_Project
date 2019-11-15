@@ -4,13 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Home">
+    tools:context=".DeckBuilder_Activity">
 
-    <include
-        layout="@layout/form_menu_home"
-        android:layout_width="326dp"
-        android:layout_height="479dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="83dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,28 +9,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="@string/tv_name_deck" />
+        android:text="@string/tv_name_deck"
+        android:textAlignment="center" />
 
     <TextView
         android:id="@+id/tv_lineDeck_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="@string/tv_desc_deck" />
+        android:text="@string/tv_desc_deck"
+        android:textAlignment="center" />
 
-    <Button
+    <ImageButton
         android:id="@+id/bt_toModifDeck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="0.2"
+        android:backgroundTint="#FAF3A407"
         android:onClick="onClickModifyDeck"
-        android:text="@string/bt_Modify_deck" />
+        app:srcCompat="@android:drawable/ic_menu_preferences" />
 
     <ImageButton
         android:id="@+id/bt_delDeck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="0.2"
         android:backgroundTint="#DDA00F0F"
         android:onClick="onClickDeleteDeck"
         app:srcCompat="@android:drawable/ic_menu_delete" />

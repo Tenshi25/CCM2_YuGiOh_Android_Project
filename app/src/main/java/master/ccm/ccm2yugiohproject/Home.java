@@ -21,4 +21,10 @@ public class Home extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    public void onClickProfile_menu(View view){
+        Intent intent = new Intent(this, Profile_activity.class);
+        startActivity(intent);
+        finish();
+    }
 }

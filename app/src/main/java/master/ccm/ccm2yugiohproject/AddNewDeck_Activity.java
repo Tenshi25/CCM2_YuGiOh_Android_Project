@@ -44,6 +44,7 @@ public class AddNewDeck_Activity extends AppCompatActivity {
     }
 
     public void AddDeckSucess(Deck newDeck) {
+        Toast.makeText(this,"Le deck à été ajouter avec succées",Toast.LENGTH_LONG).show();
         CurrentUser.getInstance().getDeckList().add(newDeck);
     }
 

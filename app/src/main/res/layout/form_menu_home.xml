@@ -21,6 +21,13 @@
         android:text="@string/bt_toListDeck" />
 
     <Button
+        android:id="@+id/bt_profile_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClickProfile_menu"
+        android:text="@string/bt_profile" />
+
+    <Button
         android:id="@+id/bt_quit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

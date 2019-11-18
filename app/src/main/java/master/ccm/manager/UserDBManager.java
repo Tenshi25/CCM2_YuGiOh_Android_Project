@@ -3,6 +3,8 @@ package master.ccm.manager;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -15,7 +17,9 @@ import java.util.Map;
 
 import androidx.annotation.NonNull;
 import master.ccm.ccm2yugiohproject.Login_Activity;
+import master.ccm.ccm2yugiohproject.Profile_activity;
 import master.ccm.ccm2yugiohproject.SignUp_Activity;
+import master.ccm.entity.CurrentUser;
 import master.ccm.entity.User;
 
 public class UserDBManager {
@@ -27,6 +31,7 @@ public class UserDBManager {
             Map<String, Object> userMap = new HashMap<>();
             userMap.put("username", newUser.getUsername());
             userMap.put("password", newUser.getPassword());
+            userMap.put("pseudo", newUser.getUsername());
 
 
             database.collection("User").add(userMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
@@ -84,11 +89,15 @@ public class UserDBManager {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 Log.d("task.getResult().size", ""+task.getResult().size());
                 if (task.getResult().size() == 1) {
-
+                    String pseudo ="";
                     Log.d("affichage", ""+task.getResult().size());
                     DocumentSnapshot result = task.getResult().getDocuments().get(0);
                     Log.d("succes affichage", result.getId() + " => " + result.get("username"));
-                    context.ConnectSucess(result.getId(),result.get("username").toString());
+                    if(result.get("pseudo").toString().length()!=0){
+                         pseudo = result.get("pseudo").toString();
+                    }
+
+                    context.ConnectSucess(result.getId(),result.get("username").toString(),pseudo);
                 } else {
                     context.ConnectionFailed();
                     Log.w("erreur affichage", "Error getting documents.", task.getException());
@@ -98,6 +107,48 @@ public class UserDBManager {
     }}
     private static void setUserExist(boolean p_userExist) {
         UserDBManager.userExist = p_userExist;
+
+    }
+
+    public void updateUserWithoutPassword(final String p_pseudo, final Profile_activity context) {
+        DocumentReference washingtonRef = database.collection("User").document(CurrentUser.getInstance().getId());
+
+        washingtonRef
+                .update("pseudo", p_pseudo)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("update sucess", "DocumentSnapshot successfully updated!");
+                        context.OnUpdateSucess(p_pseudo);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("update Fail", "Error updating document", e);
+                    }
+                });
+
+    }
+    public void updateUserWithPassword(final  String p_pseudo,String p_password,final Profile_activity context) {
+        DocumentReference washingtonRef = database.collection("User").document(CurrentUser.getInstance().getId());
+
+        washingtonRef
+                .update("pseudo", p_pseudo,
+                        "password",p_password)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("update sucess", "DocumentSnapshot successfully updated!");
+                        context.OnUpdateSucess(p_pseudo);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("update Fail", "Error updating document", e);
+                    }
+                });
 
     }
 }

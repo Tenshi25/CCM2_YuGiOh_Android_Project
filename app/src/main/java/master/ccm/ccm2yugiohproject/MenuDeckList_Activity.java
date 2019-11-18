@@ -136,8 +136,8 @@ public class MenuDeckList_Activity extends AppCompatActivity {
         if (CurrentUser.getInstance().getDeckList().contains(deckASupprimer.getId())){
             CurrentUser.getInstance().getDeckList().remove(deckASupprimer.getId());
         }
-
-        deckDBManager.selectUserDecks(this);
+        RemplirListView(deckList);
+        //deckDBManager.selectUserDecks(this);
     }
 
     public void deleteDeckSucess() {

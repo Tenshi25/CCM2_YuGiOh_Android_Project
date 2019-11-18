@@ -56,11 +56,17 @@ public class Login_Activity extends AppCompatActivity {
         Log.i("Login", "Glogin");
     }
 
-    public void ConnectSucess(String id, String username) {
+    public void ConnectSucess(String id, String username,String pseudo) {
         CurrentUser.getInstance().setId(id);
-        Toast.makeText(this,"Bienvenue"+username,Toast.LENGTH_SHORT).show();
+        CurrentUser.getInstance().setName(username);
+        if(pseudo.length()!=0){
+            CurrentUser.getInstance().setPseudo(pseudo);
+        }
+
+        Toast.makeText(this,"Bienvenue "+username,Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, Home.class);
         startActivity(intent);
+        finish();
     }
 
     public void ConnectionFailed() {

@@ -6,6 +6,7 @@ public class CurrentUser {
 
     private String id = "0";
     private String name = "NULL";
+    private String pseudo;
     private Deck mainDeck;
     private ArrayList<Deck> deckList=new ArrayList<>();
 
@@ -51,5 +52,13 @@ public class CurrentUser {
 
     public void setDeckList(ArrayList<Deck> deckList) {
         this.deckList = deckList;
+    }
+
+    public String getPseudo() {
+        return pseudo;
+    }
+
+    public void setPseudo(String pseudo) {
+        this.pseudo = pseudo;
     }
 }

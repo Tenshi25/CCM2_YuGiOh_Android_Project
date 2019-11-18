@@ -98,11 +98,8 @@ public class DeckDBManager {
                         }
                     }
                 });
-
-
-
-
     }
+
     private static void setdeckExist(boolean p_deckExist) {
         DeckDBManager.deckExist = p_deckExist;
 

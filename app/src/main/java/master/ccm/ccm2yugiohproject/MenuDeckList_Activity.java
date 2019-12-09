@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import master.ccm.entity.CurrentUser;
 import master.ccm.entity.Deck;
 import master.ccm.manager.DeckDBManager;
-import master.ccm.manager.UserDBManager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -107,7 +105,7 @@ public class MenuDeckList_Activity extends AppCompatActivity {
                     convertView = getLayoutInflater()
                             .inflate(R.layout.line_deck_menu, parent, false);
                 }
-                TextView nameDeck = (TextView) convertView.findViewById(R.id.tv_lineDeck_name);
+                TextView nameDeck = (TextView) convertView.findViewById(R.id.tv_lineCardDeck_name);
                 TextView descDeck = (TextView) convertView.findViewById(R.id.tv_lineDeck_desc);
                 if(aDeck.getName()!= null){
                     nameDeck.setText(aDeck.getName());

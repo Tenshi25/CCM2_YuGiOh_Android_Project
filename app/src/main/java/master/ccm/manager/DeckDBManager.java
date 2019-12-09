@@ -20,7 +20,9 @@ import java.util.Map;
 
 import androidx.annotation.NonNull;
 import master.ccm.ccm2yugiohproject.AddNewDeck_Activity;
+import master.ccm.ccm2yugiohproject.DeckBuilder_Activity;
 import master.ccm.ccm2yugiohproject.MenuDeckList_Activity;
+import master.ccm.entity.Card;
 import master.ccm.entity.CurrentUser;
 import master.ccm.entity.Deck;
 import master.ccm.entity.User;
@@ -98,10 +100,6 @@ public class DeckDBManager {
                         }
                     }
                 });
-
-
-
-
     }
     private static void setdeckExist(boolean p_deckExist) {
         DeckDBManager.deckExist = p_deckExist;
@@ -127,4 +125,54 @@ public class DeckDBManager {
                 });
 
     }
+    public void addLinkDeckCard(Deck leDeck, Card card,final DeckBuilder_Activity context){
+        final Map<String, Object> DeckMap = new HashMap<>();
+        DeckMap.put("id_deck", leDeck.getId());
+        DeckMap.put("id_carte", card.getId());
+
+        database.collection("link").add(DeckMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentReference> task) {
+                if (task.isSuccessful()){
+                    Log.i("AddLink","Le lien à été ajouter");
+
+                    context.AddLinkSucess();
+                }else{
+                    context.AddLinkFail();
+                }
+            }
+        });
+
+
+    }
+    public void selectAllCardDeck(Deck leDeck,final DeckBuilder_Activity context) {
+        database.collection("Link")
+                .whereEqualTo("id_deck", leDeck.getId())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            ArrayList<Card> listCard = new ArrayList<Card>();
+                            List<DocumentSnapshot> result = task.getResult().getDocuments();
+                            for (DocumentSnapshot document : result) {
+                                Card aCard = new Card();
+                                aCard.setId(document.getId());
+                                aCard.setReference(document.get("reference").toString());
+                                aCard.setName(document.get("name").toString());
+                                aCard.setLevel(Integer.getInteger(document.get("level").toString()));
+                                aCard.setLimit(Integer.getInteger(document.get("limit").toString()));
+                                aCard.setAtk(Integer.getInteger(document.get("atk").toString()));
+                                aCard.setDef(Integer.getInteger(document.get("def").toString()));
+                                aCard.setDescription(document.get("description").toString());
+                                listCard.add(aCard);
+                            }
+                            context.selectAllCardDeckFini(listCard);
+                        } else {
+                            Log.w("selectAll", "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+    }
+
 }

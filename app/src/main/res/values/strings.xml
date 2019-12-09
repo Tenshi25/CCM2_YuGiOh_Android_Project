@@ -23,4 +23,5 @@
     <string name="et_pseudo">pseudo</string>
     <string name="et_new_password">nouveau mot de passe</string>
     <string name="bt_profile">Profile</string>
+    <string name="title_deckbuilder" >" Choix des cartes du deck"</string>
 </resources>

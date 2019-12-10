@@ -15,19 +15,40 @@
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="@string/title_deckbuilder"
             android:textAlignment="center"
             android:textStyle="bold" />
 
-        <ListView
-            android:id="@+id/lv_cards"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
 
-        <ListView
-            android:id="@+id/lv_deckCards"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ListView
+                    android:id="@+id/lv_cards"
+                    android:layout_width="match_parent"
+                    android:layout_height="239dp" />
+
+                <ListView
+                    android:id="@+id/lv_deckCards"
+                    android:layout_width="match_parent"
+                    android:layout_height="244dp">
+
+                </ListView>
+            </LinearLayout>
+        </ScrollView>
+
+        <Button
+            android:id="@+id/bt_retour_deckBuilder2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:onClick="onClickRetour"
+            android:text="@string/bt_return" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

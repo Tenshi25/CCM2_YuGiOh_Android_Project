@@ -20,6 +20,7 @@ public class Card {
     private int atk;
     private int def;
     private int limit;
+    private int duplicate;
 
     public String getId() {
         return id;
@@ -123,5 +124,13 @@ public class Card {
 
     public void setDef(int def) {
         this.def = def;
+    }
+
+    public int getDuplicate() {
+        return duplicate;
+    }
+
+    public void setDuplicate(int duplicate) {
+        this.duplicate = duplicate;
     }
 }

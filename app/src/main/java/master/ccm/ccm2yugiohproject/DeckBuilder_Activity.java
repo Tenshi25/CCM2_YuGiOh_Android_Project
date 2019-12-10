@@ -6,11 +6,11 @@ import master.ccm.entity.Deck;
 import master.ccm.manager.CardDBManager;
 import master.ccm.manager.DeckDBManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DeckBuilder_Activity extends AppCompatActivity {
+    private Deck leDeck;
+
     private ArrayList<Card> deckCardsList ;
     private ListView listViewDeckCards;
     private List<String> tableauChainesDeckCards = new ArrayList<String>();
@@ -37,16 +39,32 @@ public class DeckBuilder_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deck_builder);
 
+        Intent intent= getIntent();
+        Bundle extrasData = intent.getExtras();
+
+        leDeck = new Deck();
+        leDeck.setId(extrasData.get("idDeck").toString());
+        leDeck.setDescription(extrasData.get("deckDesc").toString());
+        leDeck.setName(extrasData.get("deckName").toString());
+
+        Log.i("extras : ","idDeck : " + extrasData.get("idDeck").toString() + " nom :"+extrasData.get("deckName").toString());
         listViewDeckCards = (ListView) findViewById(R.id.lv_deckCards);
         listViewCards = (ListView) findViewById(R.id.lv_cards);
-        Deck leDeck = new Deck();
 
         DeckDBManager deckDBManager =new DeckDBManager();
         deckDBManager.selectAllCardDeck(leDeck,this);
 
         CardDBManager cardDBManager =new CardDBManager();
-        cardDBManager.selectAllCards(leDeck,this);
+        cardDBManager.selectAllCards(this);
 
+        /*Card aCard = new Card ();
+        aCard.setId("12");
+        aCard.setName("nom");
+        aCard.setAtk(1200);
+        aCard.setDef(1600);
+        ArrayList<Card> deckCardsList = new ArrayList<Card>();
+        deckCardsList.add(aCard);
+        RemplirListViewDeckCard(deckCardsList);*/
         //userDBManager.selectUserDecks(this);
 
     }
@@ -79,21 +97,26 @@ public class DeckBuilder_Activity extends AppCompatActivity {
                             .inflate(R.layout.line_cards_builder, parent, false);
                 }
                 TextView cardName = (TextView) convertView.findViewById(R.id.tv_cards_buider_name);
-                TextView cardType = (TextView) convertView.findViewById(R.id.tv_cards_buider_cardtype);
+                TextView cardLevel = (TextView) convertView.findViewById(R.id.tv_cards_buider_duplicate);
+                TextView cardAtk = (TextView) convertView.findViewById(R.id.tv_cards_buider_atk);
+                TextView cardDef = (TextView) convertView.findViewById(R.id.tv_cards_buider_def);
+
                 if(aCard.getName()!= null){
                     cardName.setText(aCard.getName());
                 }
                 if(aCard.getDescription()!= null){
-                    cardType.setText(aCard.getDescription());
+                    cardLevel.setText(String.valueOf(aCard.getLevel()));
                 }
+                cardAtk.setText(String.valueOf(aCard.getAtk()));
+                cardDef.setText(String.valueOf(aCard.getDef()));
                 vraiPosition++;
                 return convertView;
             }
         };
-        listViewDeckCards.setAdapter(monArrayAdapter);
+        listViewCards.setAdapter(monArrayAdapter);
 
     }
-    public void RemplirListView(ArrayList<Card> p_cardsList) {
+    public void RemplirListViewDeckCard(ArrayList<Card> p_cardsList) {
 
         Log.i("logNomTailleListeDeck", "taille : " + p_cardsList.size());
 
@@ -108,7 +131,7 @@ public class DeckBuilder_Activity extends AppCompatActivity {
             cpt++;
         }
 
-        ArrayAdapter<Card> monArrayAdapter = new ArrayAdapter<Card>(this, R.layout.line_carddeck_builder, tabDeckCard){
+        ArrayAdapter<Card> DeckCardArrayAdapter = new ArrayAdapter<Card>(this, R.layout.line_carddeck_builder, tabDeckCard){
             private int vraiPosition=0;
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
@@ -118,24 +141,74 @@ public class DeckBuilder_Activity extends AppCompatActivity {
 
                 if(convertView == null){
                     convertView = getLayoutInflater()
-                            .inflate(R.layout.line_deck_menu, parent, false);
+                            .inflate(R.layout.line_carddeck_builder, parent, false);
                 }
-                TextView nameDeck = (TextView) convertView.findViewById(R.id.tv_lineCardDeck_name);
-                TextView descDeck = (TextView) convertView.findViewById(R.id.tv_lineDeck_desc);
+                TextView deckCardName = (TextView) convertView.findViewById(R.id.tv_deckCard_buider_name2);
+                TextView deckCardDuplicate = (TextView) convertView.findViewById(R.id.tv_deckCard_buider_duplicate);
+                TextView deckCardAtk = (TextView) convertView.findViewById(R.id.tv_deckCard_buider_atk);
+                TextView deckCardDef = (TextView) convertView.findViewById(R.id.tv_deckCard_buider_def);
+
                 if(aCard.getName()!= null){
-                    nameDeck.setText(aCard.getName());
+                    deckCardName.setText(aCard.getName());
                 }
-                if(aCard.getDescription()!= null){
-                    descDeck.setText(aCard.getDescription());
+                if(aCard.getDuplicate()!= 0){
+                    deckCardDuplicate.setText(String.valueOf(aCard.getDuplicate()));
                 }
+                deckCardAtk.setText(String.valueOf(aCard.getAtk()));
+                deckCardDef.setText(String.valueOf(aCard.getDef()));
                 vraiPosition++;
                 return convertView;
             }
         };
-        listViewDeckCards.setAdapter(monArrayAdapter);
+        listViewDeckCards.setAdapter(DeckCardArrayAdapter);
 
     }
+    public void onClickAddCardToDeck(View view) {
+        DeckDBManager deckDBManager = new DeckDBManager();
 
+        //on récupère la carte selectionner
+        View parentRow = (View) view.getParent();
+        ListView listView = (ListView) parentRow.getParent();
+        final int position = listView.getPositionForView(parentRow);
+        Card cardToAdd = cardsList.get(position);
+
+        //on ajoute le lien
+        if(cardToAdd.getLimit()> cardToAdd.getDuplicate() )
+        {
+            deckDBManager.addLinkDeckCard(leDeck,cardToAdd,this);
+            cardToAdd.setDuplicate(cardToAdd.getDuplicate()+1);
+            //on met à jour le tableau et la list view
+            if (!deckCardsList.contains(cardToAdd)){
+            deckCardsList.add(cardToAdd);
+            }
+
+        }else{
+            Toast.makeText(this,"Vous avez atient la limite",Toast.LENGTH_SHORT).show();
+
+        }
+        RemplirListViewDeckCard(deckCardsList);
+    }
+    public void onClickDeleteLinkCardDeck(View view) {
+        View parentRow = (View) view.getParent();
+        ListView listView = (ListView) parentRow.getParent();
+        final int position = listView.getPositionForView(parentRow);
+        Card cardASupprimer = deckCardsList.get(position);
+
+
+        cardASupprimer.setDuplicate(cardASupprimer.getDuplicate()-1);
+        if(cardASupprimer.getDuplicate() < 1 )
+        {
+            DeckDBManager deckDBManager =  new DeckDBManager();
+            deckDBManager.deleteLinkCardDeck(leDeck,cardASupprimer,this);
+            //on met à jour le tableau et la list view
+            if (deckCardsList.contains(cardASupprimer)){
+                deckCardsList.remove(cardASupprimer);
+            }
+        }
+
+        RemplirListViewDeckCard(deckCardsList);
+        //deckDBManager.selectUserDecks(this);
+    }
     public void AddLinkFail() {
         Toast.makeText(this,"La carte n'a pas été ajouter",Toast.LENGTH_SHORT).show();
     }
@@ -145,8 +218,24 @@ public class DeckBuilder_Activity extends AppCompatActivity {
     }
 
     public void selectAllCardDeckFini(ArrayList<Card> listCard) {
+        RemplirListViewDeckCard(listCard);
     }
 
     public void selectAllCards(ArrayList<Card> listCard) {
+        RemplirListViewCards(listCard);
+    }
+
+    public void onClickDeleteLinkCardDeckFail() {
+        Toast.makeText(this,"La carte n'a pas été retire du deck",Toast.LENGTH_SHORT).show();
+    }
+
+    public void onClickDeleteLinkCardDeckSucess() {
+        Toast.makeText(this,"La carte à été retirer au deck",Toast.LENGTH_SHORT).show();
+
+    }
+    public void onClickRetour(View view) {
+        Intent intent = new Intent(this, MenuDeckList_Activity.class);
+        startActivity(intent);
+        finish();
     }
 }

@@ -35,10 +35,10 @@ public class CardDBManager {
                                 aCard.setId(document.getId());
                                 aCard.setName(document.get("name").toString());
                                 aCard.setDescription(document.get("description").toString());
-                                aCard.setLevel(Integer.getInteger(document.get("level").toString()));
-                                aCard.setLimit(Integer.getInteger(document.get("limit").toString()));
-                                aCard.setAtk(Integer.getInteger(document.get("atk").toString()));
-                                aCard.setDef(Integer.getInteger(document.get("def").toString()));
+                                aCard.setLevel(Integer.parseInt(document.get("level").toString()));
+                                aCard.setLimit(Integer.parseInt(document.get("limit").toString()));
+                                aCard.setAtk(Integer.parseInt(document.get("atk").toString()));
+                                aCard.setDef(Integer.parseInt(document.get("def").toString()));
                                 listCard.add(aCard);
                             }
                             context.selectAllCards(listCard);

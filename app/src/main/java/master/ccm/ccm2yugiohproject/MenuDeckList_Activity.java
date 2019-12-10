@@ -70,9 +70,16 @@ public class MenuDeckList_Activity extends AppCompatActivity {
 
     }
     public void onClickModifyDeck(View view) {
+        View parentRow = (View) view.getParent();
+        ListView listView = (ListView) parentRow.getParent();
+        final int position = listView.getPositionForView(parentRow);
+        Deck deckAModifier = deckList.get(position);
 
-        // a faire passer le deck en question
         Intent intent = new Intent(this, DeckBuilder_Activity.class);
+        intent.putExtra("idDeck",deckAModifier.getId());
+        intent.putExtra("deckName",deckAModifier.getName());
+        intent.putExtra("deckDesc",deckAModifier.getDescription());
+
         startActivity(intent);
         finish();
 

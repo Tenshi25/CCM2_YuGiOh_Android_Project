@@ -5,37 +5,39 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/tv_lineCardDeck_name"
+        android:id="@+id/tv_deckCard_buider_name2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="@string/tv_name_deck"
-        android:textAlignment="center" />
+        android:text="TextView" />
 
     <TextView
-        android:id="@+id/tv_lineDeck_desc"
+        android:id="@+id/tv_deckCard_buider_duplicate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="@string/tv_desc_deck"
-        android:textAlignment="center" />
+        android:text="TextView" />
 
-    <ImageButton
-        android:id="@+id/bt_toModifDeck"
+    <TextView
+        android:id="@+id/tv_deckCard_buider_atk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0.2"
-        android:backgroundTint="#FAF3A407"
-        android:onClick="onClickModifyDeck"
-        app:srcCompat="@android:drawable/ic_menu_preferences" />
+        android:layout_weight="1"
+        android:text="TextView" />
 
-    <ImageButton
-        android:id="@+id/bt_delDeck"
+    <TextView
+        android:id="@+id/tv_deckCard_buider_def"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0.2"
+        android:layout_weight="1"
+        android:text="TextView" />
+
+    <ImageButton
+        android:id="@+id/bt_retCardDeck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:backgroundTint="#DDA00F0F"
-        android:onClick="onClickDeleteDeck"
+        android:onClick="onClickDeleteLinkCardDeck"
         app:srcCompat="@android:drawable/ic_menu_delete" />
-
 </LinearLayout>

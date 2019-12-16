@@ -7,15 +7,22 @@ import master.ccm.manager.CardDBManager;
 import master.ccm.manager.DeckDBManager;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,6 +107,7 @@ public class DeckBuilder_Activity extends AppCompatActivity {
                 TextView cardLevel = (TextView) convertView.findViewById(R.id.tv_cards_buider_duplicate);
                 TextView cardAtk = (TextView) convertView.findViewById(R.id.tv_cards_buider_atk);
                 TextView cardDef = (TextView) convertView.findViewById(R.id.tv_cards_buider_def);
+                ImageView cardImage = (ImageView) convertView.findViewById(R.id.id_iv_card_image_list);
 
                 if(aCard.getName()!= null){
                     cardName.setText(aCard.getName());
@@ -107,6 +115,13 @@ public class DeckBuilder_Activity extends AppCompatActivity {
                 if(aCard.getDescription()!= null){
                     cardLevel.setText(String.valueOf(aCard.getLevel()));
                 }
+
+                Log.i("UrlCard", "card url : " + aCard.getUrl());
+                if (aCard.getUrl() != null) {
+                    URL url = null;
+                    new MyDownloadTask().execute();
+                }
+
                 cardAtk.setText(String.valueOf(aCard.getAtk()));
                 cardDef.setText(String.valueOf(aCard.getDef()));
                 vraiPosition++;
@@ -237,5 +252,41 @@ public class DeckBuilder_Activity extends AppCompatActivity {
         Intent intent = new Intent(this, MenuDeckList_Activity.class);
         startActivity(intent);
         finish();
+    }
+
+    public void setImg(Bitmap bitmap) {
+        ImageView cardImage = (ImageView) findViewById(R.id.id_iv_card_image_list);
+        cardImage.setImageBitmap(bitmap);
+
+    }
+
+
+    class MyDownloadTask extends AsyncTask<Void,Void,Void>
+    {
+
+        protected void onPreExecute() {
+            //display progress dialog.
+
+        }
+        protected Void doInBackground(Void... params) {
+            try {
+                URL url = new URL("http://storage.googleapis.com/ygoprodeck.com/pics/07902349.jpg");
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setDoInput(true);
+                connection.connect();
+                InputStream input = connection.getInputStream();
+                Bitmap myBitmap = BitmapFactory.decodeStream(input);
+                setImg(myBitmap);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        protected void onPostExecute(Void result) {
+            // dismiss progress dialog and update ui
+        }
     }
 }

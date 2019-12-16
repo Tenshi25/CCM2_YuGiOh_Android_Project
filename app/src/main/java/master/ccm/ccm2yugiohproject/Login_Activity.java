@@ -1,6 +1,8 @@
 package master.ccm.ccm2yugiohproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import master.ccm.ccm2yugiohproject.utils.PermissionUtils;
 import master.ccm.entity.CurrentUser;
 import master.ccm.manager.UserDBManager;
 import master.ccm.entity.Outils;
@@ -32,6 +34,8 @@ public class Login_Activity extends AppCompatActivity {
         //login_Button.setOnClickListener();
         editText_username= findViewById(R.id.ET_Name);
         editText_password= findViewById(R.id.ET_Password);
+
+        PermissionUtils.askAllPermission(this);
 
     }
     public void OnClickToSignIn(View view){

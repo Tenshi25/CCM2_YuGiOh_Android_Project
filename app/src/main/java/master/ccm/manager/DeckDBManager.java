@@ -302,6 +302,7 @@ public class DeckDBManager {
                                 aCard.setDef(Integer.parseInt(document.get("def").toString()));
                                 aCard.setDuplicate(lalinkCard.getDuplicate());
                                 aCard.setDescription(document.get("description").toString());
+                                aCard.setUrl(document.get("imageUrl").toString());
 
                                 listCards.add(aCard);
                                 break;

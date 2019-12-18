@@ -1,6 +1,8 @@
 package master.ccm.ccm2yugiohproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import master.ccm.ccm2yugiohproject.utils.LoadImageTask;
 import master.ccm.entity.Card;
 import master.ccm.entity.Deck;
 import master.ccm.manager.CardDBManager;
@@ -8,8 +10,6 @@ import master.ccm.manager.DeckDBManager;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,31 +20,27 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
 public class DeckBuilder_Activity extends AppCompatActivity {
+    private static DeckBuilder_Activity staticActivity;
+
     private Deck leDeck;
 
     private ArrayList<Card> deckCardsList ;
     private ListView listViewDeckCards;
-    private List<String> tableauChainesDeckCards = new ArrayList<String>();
-    private Card selectedDeckCard;
     private Card[] tabDeckCard;
 
     private ArrayList<Card> cardsList ;
     private ListView listViewCards;
-    private List<String> tableauChainesCards = new ArrayList<String>();
-    private Card selectedCard;
     private Card[] tabCards;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deck_builder);
+
+        staticActivity = this;
 
         Intent intent= getIntent();
         Bundle extrasData = intent.getExtras();
@@ -63,17 +59,6 @@ public class DeckBuilder_Activity extends AppCompatActivity {
 
         CardDBManager cardDBManager =new CardDBManager();
         cardDBManager.selectAllCards(this);
-
-        /*Card aCard = new Card ();
-        aCard.setId("12");
-        aCard.setName("nom");
-        aCard.setAtk(1200);
-        aCard.setDef(1600);
-        ArrayList<Card> deckCardsList = new ArrayList<Card>();
-        deckCardsList.add(aCard);
-        RemplirListViewDeckCard(deckCardsList);*/
-        //userDBManager.selectUserDecks(this);
-
     }
 
     public void RemplirListViewCards(ArrayList<Card> p_cardsList) {
@@ -92,7 +77,6 @@ public class DeckBuilder_Activity extends AppCompatActivity {
         }
 
         ArrayAdapter<Card> monArrayAdapter = new ArrayAdapter<Card>(this, R.layout.line_cards_builder, tabCards){
-            private int vraiPosition=0;
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 Log.i("logDeckPos", "pos : "+ position);
@@ -103,6 +87,7 @@ public class DeckBuilder_Activity extends AppCompatActivity {
                     convertView = getLayoutInflater()
                             .inflate(R.layout.line_cards_builder, parent, false);
                 }
+
                 TextView cardName = (TextView) convertView.findViewById(R.id.tv_cards_buider_name);
                 TextView cardLevel = (TextView) convertView.findViewById(R.id.tv_cards_buider_duplicate);
                 TextView cardAtk = (TextView) convertView.findViewById(R.id.tv_cards_buider_atk);
@@ -116,15 +101,12 @@ public class DeckBuilder_Activity extends AppCompatActivity {
                     cardLevel.setText(String.valueOf(aCard.getLevel()));
                 }
 
-                Log.i("UrlCard", "card url : " + aCard.getUrl());
                 if (aCard.getUrl() != null) {
-                    URL url = null;
-                    new MyDownloadTask().execute();
+                    new LoadImageTask(aCard.getUrl(), cardImage).execute();
                 }
 
                 cardAtk.setText(String.valueOf(aCard.getAtk()));
                 cardDef.setText(String.valueOf(aCard.getDef()));
-                vraiPosition++;
                 return convertView;
             }
         };
@@ -147,7 +129,6 @@ public class DeckBuilder_Activity extends AppCompatActivity {
         }
 
         ArrayAdapter<Card> DeckCardArrayAdapter = new ArrayAdapter<Card>(this, R.layout.line_carddeck_builder, tabDeckCard){
-            private int vraiPosition=0;
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 Log.i("logDeckPos", "pos : "+ position);
@@ -158,10 +139,12 @@ public class DeckBuilder_Activity extends AppCompatActivity {
                     convertView = getLayoutInflater()
                             .inflate(R.layout.line_carddeck_builder, parent, false);
                 }
+
                 TextView deckCardName = (TextView) convertView.findViewById(R.id.tv_deckCard_buider_name2);
                 TextView deckCardDuplicate = (TextView) convertView.findViewById(R.id.tv_deckCard_buider_duplicate);
                 TextView deckCardAtk = (TextView) convertView.findViewById(R.id.tv_deckCard_buider_atk);
                 TextView deckCardDef = (TextView) convertView.findViewById(R.id.tv_deckCard_buider_def);
+                ImageView cardImage = (ImageView) convertView.findViewById(R.id.id_iv_list_card_in_deck);
 
                 if(aCard.getName()!= null){
                     deckCardName.setText(aCard.getName());
@@ -169,9 +152,13 @@ public class DeckBuilder_Activity extends AppCompatActivity {
                 if(aCard.getDuplicate()!= 0){
                     deckCardDuplicate.setText(String.valueOf(aCard.getDuplicate()));
                 }
+
+                if (aCard.getUrl() != null) {
+                    new LoadImageTask(aCard.getUrl(), cardImage).execute();
+                }
                 deckCardAtk.setText(String.valueOf(aCard.getAtk()));
                 deckCardDef.setText(String.valueOf(aCard.getDef()));
-                vraiPosition++;
+
                 return convertView;
             }
         };
@@ -254,39 +241,7 @@ public class DeckBuilder_Activity extends AppCompatActivity {
         finish();
     }
 
-    public void setImg(Bitmap bitmap) {
-        ImageView cardImage = (ImageView) findViewById(R.id.id_iv_card_image_list);
-        cardImage.setImageBitmap(bitmap);
-
-    }
-
-
-    class MyDownloadTask extends AsyncTask<Void,Void,Void>
-    {
-
-        protected void onPreExecute() {
-            //display progress dialog.
-
-        }
-        protected Void doInBackground(Void... params) {
-            try {
-                URL url = new URL("http://storage.googleapis.com/ygoprodeck.com/pics/07902349.jpg");
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setDoInput(true);
-                connection.connect();
-                InputStream input = connection.getInputStream();
-                Bitmap myBitmap = BitmapFactory.decodeStream(input);
-                setImg(myBitmap);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        protected void onPostExecute(Void result) {
-            // dismiss progress dialog and update ui
-        }
+    public static void setImg(Bitmap bitmap, ImageView imageView) {
+            imageView.setImageBitmap(bitmap);
     }
 }

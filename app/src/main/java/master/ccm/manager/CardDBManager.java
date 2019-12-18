@@ -11,6 +11,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
@@ -39,6 +41,8 @@ public class CardDBManager {
                                 aCard.setLimit(Integer.parseInt(document.get("limit").toString()));
                                 aCard.setAtk(Integer.parseInt(document.get("atk").toString()));
                                 aCard.setDef(Integer.parseInt(document.get("def").toString()));
+                                aCard.setUrl(document.get("imageUrl").toString());
+
                                 listCard.add(aCard);
                             }
                             context.selectAllCards(listCard);

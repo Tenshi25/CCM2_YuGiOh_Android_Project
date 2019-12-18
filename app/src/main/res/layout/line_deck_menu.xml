@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="@string/tv_name_deck"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textColor="@color/common_google_signin_btn_text_dark_default" />
 
     <TextView
         android:id="@+id/tv_lineDeck_desc"
@@ -18,14 +19,15 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="@string/tv_desc_deck"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textColor="@color/common_google_signin_btn_text_dark_default" />
 
     <ImageButton
         android:id="@+id/bt_toModifDeck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="0.2"
-        android:backgroundTint="#FAF3A407"
+        android:backgroundTint="@color/design_default_color_primary"
         android:onClick="onClickModifyDeck"
         app:srcCompat="@android:drawable/ic_menu_preferences" />
 

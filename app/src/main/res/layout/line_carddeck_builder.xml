@@ -6,37 +6,41 @@
 
     <ImageView
         android:id="@+id/id_iv_list_card_in_deck"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_launcher_background" />
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        app:srcCompat="@drawable/cardcover" />
 
     <TextView
         android:id="@+id/tv_deckCard_buider_name2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textColor="@color/common_google_signin_btn_text_dark_default" />
 
     <TextView
         android:id="@+id/tv_deckCard_buider_duplicate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textColor="@color/common_google_signin_btn_text_dark_default" />
 
     <TextView
         android:id="@+id/tv_deckCard_buider_atk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textColor="@color/common_google_signin_btn_text_dark_default" />
 
     <TextView
         android:id="@+id/tv_deckCard_buider_def"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textColor="@color/common_google_signin_btn_text_dark_default" />
 
     <ImageButton
         android:id="@+id/bt_retCardDeck"

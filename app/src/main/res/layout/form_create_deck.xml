@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:text="@string/title_form_createDeck"
         android:textAlignment="center"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -17,9 +18,15 @@
         android:id="@+id/et_create_deckName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/design_default_color_primary"
         android:ems="10"
         android:hint="Deck name"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:textColor="@android:color/white"
+        android:textColorHighlight="@color/design_default_color_primary"
+        android:textColorHint="@color/common_google_signin_btn_text_dark_default"
+        android:textColorLink="@color/design_default_color_primary"
+        android:textCursorDrawable="@android:drawable/status_bar_item_background" />
 
     <EditText
         android:id="@+id/et_create_deckDesc"
@@ -28,7 +35,12 @@
         android:ems="10"
         android:gravity="start|top"
         android:hint="Some description"
-        android:inputType="textMultiLine" />
+        android:inputType="textMultiLine"
+        android:textColor="@android:color/white"
+        android:textColorHighlight="@color/design_default_color_primary"
+        android:textColorHint="@color/common_google_signin_btn_text_dark_default"
+        android:textColorLink="@color/design_default_color_primary"
+        android:textCursorDrawable="@android:drawable/status_bar_item_background" />
 
     <Button
         android:id="@+id/bt_addDeck"

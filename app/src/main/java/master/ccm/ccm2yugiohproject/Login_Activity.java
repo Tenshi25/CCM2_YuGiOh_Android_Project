@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 
 public class Login_Activity extends AppCompatActivity {
-    private Button Gcloud_Button;
+    //private Button Gcloud_Button;
     private Button login_Button;
 
     private EditText editText_username ;
@@ -28,7 +28,7 @@ public class Login_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Gcloud_Button =findViewById(R.id.bt_GLogin);
+        //Gcloud_Button =findViewById(R.id.bt_GLogin);
         login_Button =findViewById(R.id.bt_login);
 
         //login_Button.setOnClickListener();

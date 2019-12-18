@@ -57,4 +57,8 @@ public class Deck {
     public void setIdUser(String idUser) {
         this.idUser = idUser;
     }
+    @Override
+    public String toString() {
+        return name;
+    }
 }

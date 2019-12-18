@@ -23,5 +23,11 @@
     <string name="et_pseudo">pseudo</string>
     <string name="et_new_password">nouveau mot de passe</string>
     <string name="bt_profile">Profile</string>
-    <string name="title_deckbuilder" >" Choix des cartes du deck"</string>
+    <string name="title_deckbuilder">" Choix des cartes du deck"</string>
+    <string name="title_conf_duel">Paramètre du duel</string>
+    <string name="bt_start_duel">It\'s time to Duel !</string>
+    <string name="tv_deck">Your deck</string>
+    <string name="tv_choix_ia">choix IA</string>
+    <string name="et_ia_deck">IA deck</string>
+    <string name="et_choix_lifepoint">start lifepoint</string>
 </resources>

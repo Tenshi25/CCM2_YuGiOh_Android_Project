@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondecranduel"
-    tools:context=".Home">
+    tools:context=".ConfStartDuel_activity" >
 
     <include
-        layout="@layout/form_menu_home"
-        android:layout_width="326dp"
-        android:layout_height="479dp"
+        layout="@layout/form_conf_duel"
+        android:layout_width="286dp"
+        android:layout_height="472dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="83dp" />
+        tools:layout_editor_absoluteY="82dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

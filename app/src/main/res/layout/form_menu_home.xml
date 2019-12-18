@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:text="@string/title_menu_home"
         android:textAlignment="center"
+        android:textColor="@android:color/white"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -19,6 +20,13 @@
         android:layout_height="wrap_content"
         android:onClick="onClickToDeckList"
         android:text="@string/bt_toListDeck" />
+
+    <Button
+        android:id="@+id/bt_duel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClickDuel"
+        android:text="@string/bt_start_duel" />
 
     <Button
         android:id="@+id/bt_profile_menu"

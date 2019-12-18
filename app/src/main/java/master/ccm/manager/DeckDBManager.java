@@ -1,5 +1,6 @@
 package master.ccm.manager;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,10 +22,13 @@ import java.util.Map;
 import androidx.annotation.NonNull;
 import master.ccm.ccm2yugiohproject.AddNewDeck_Activity;
 import master.ccm.ccm2yugiohproject.DeckBuilder_Activity;
+import master.ccm.ccm2yugiohproject.Game_activity;
+import master.ccm.ccm2yugiohproject.Home;
 import master.ccm.ccm2yugiohproject.MenuDeckList_Activity;
 import master.ccm.entity.Card;
 import master.ccm.entity.CurrentUser;
 import master.ccm.entity.Deck;
+import master.ccm.entity.Player;
 import master.ccm.entity.User;
 
 public class DeckDBManager {
@@ -75,7 +79,7 @@ public class DeckDBManager {
 
 
     }
-    public void selectUserDecks( final MenuDeckList_Activity context) {
+    public void selectUserDecks( final Context context) {
         database.collection("Deck")
                 .whereEqualTo("id_user", CurrentUser.getInstance().getId())
                 .get()
@@ -94,7 +98,13 @@ public class DeckDBManager {
                                 unDeck.setDescription(document.get("description").toString());
                                 listDeck.add(unDeck);
                             }
-                            context.selectAllUserDeckFini(listDeck);
+                            if(context.getClass() == MenuDeckList_Activity.class)
+                            {
+                                ((MenuDeckList_Activity) context).selectAllUserDeckFini(listDeck);
+                            }else if(context.getClass() == Home.class){
+                                ((Home) context).selectAllUserDeckFini(listDeck);
+                            }
+
                         } else {
                             Log.w("selectAll", "Error getting documents.", task.getException());
                         }
@@ -317,3 +327,5 @@ public class DeckDBManager {
         });
     }
 }
+
+

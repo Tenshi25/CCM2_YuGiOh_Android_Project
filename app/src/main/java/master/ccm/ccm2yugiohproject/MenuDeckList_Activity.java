@@ -53,6 +53,7 @@ public class MenuDeckList_Activity extends AppCompatActivity {
         Toast.makeText(this,"deck : " + p_deck.getName(),Toast.LENGTH_SHORT).show();
     }
     public void selectAllUserDeckFini(ArrayList<Deck> listDeck) {
+        CurrentUser.getInstance().setDeckList(listDeck);
         RemplirListView(listDeck);
     }
 

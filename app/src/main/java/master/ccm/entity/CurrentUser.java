@@ -61,4 +61,21 @@ public class CurrentUser {
     public void setPseudo(String pseudo) {
         this.pseudo = pseudo;
     }
+
+    public ArrayList<String> getNamesDeckList() {
+        ArrayList<String> listDecksName = new ArrayList<>();
+        for (Deck aDeck : deckList){
+            listDecksName.add(aDeck.getName());
+        }
+        return listDecksName;
+    }
+    public Deck getDeckByID(String id){
+        Deck theDeck = new Deck();
+        for (Deck adeck :deckList){
+            if(adeck.getName().equals(id)){
+                theDeck =adeck;
+            }
+        }
+        return theDeck;
+    }
 }

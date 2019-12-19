@@ -9,6 +9,7 @@ import master.ccm.entity.Outils;
 import master.ccm.entity.User;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,6 +30,8 @@ public class Login_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         //Gcloud_Button =findViewById(R.id.bt_GLogin);
+
+
         login_Button =findViewById(R.id.bt_login);
 
         //login_Button.setOnClickListener();

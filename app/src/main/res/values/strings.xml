@@ -35,4 +35,7 @@
     <string name="tv_image_carte">image</string>
     <string name="tv_atk_carte">atk</string>
     <string name="tv_def_carte">def</string>
+    <string name="tv_duplicat_carte">duplicat</string>
+    <string name="tv_del">delete</string>
+    <string name="tv_add">add</string>
 </resources>

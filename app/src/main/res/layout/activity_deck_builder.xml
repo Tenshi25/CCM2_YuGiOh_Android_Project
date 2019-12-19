@@ -4,51 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fondecranduel"
     tools:context=".DeckBuilder_Activity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/title_deckbuilder"
-            android:textAlignment="center"
-            android:textStyle="bold" />
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <ListView
-                    android:id="@+id/lv_cards"
-                    android:layout_width="match_parent"
-                    android:layout_height="239dp" />
-
-                <ListView
-                    android:id="@+id/lv_deckCards"
-                    android:layout_width="match_parent"
-                    android:layout_height="244dp">
-
-                </ListView>
-            </LinearLayout>
-        </ScrollView>
-
-        <Button
-            android:id="@+id/bt_retour_deckBuilder2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onClickRetour"
-            android:text="@string/bt_return" />
-
-    </LinearLayout>
+    <include
+        android:id="@+id/include"
+        layout="@layout/form_deck_builder"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,17 +7,122 @@
     android:background="@drawable/bgduel"
     tools:context=".Game_activity">
 
+    <Button
+        android:id="@+id/bt_drawPhase"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="235dp"
+        android:text="@string/bt_drawPhase"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bt_stanbyPhase"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.498" />
+
+    <Button
+        android:id="@+id/bt_stanbyPhase"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:text="@string/bt_standbyPhase"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bt_mainPhase"
+        app:layout_constraintStart_toEndOf="@+id/bt_drawPhase"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.497" />
+
+    <Button
+        android:id="@+id/bt_mainPhase"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:text="@string/bt_mainPhase"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bt_battlePhase"
+        app:layout_constraintStart_toEndOf="@+id/bt_stanbyPhase"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.497" />
+
+    <Button
+        android:id="@+id/bt_battlePhase"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:onClick="onClickBP"
+        android:text="@string/bt_battlePhase"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bt_mainPhase2"
+        app:layout_constraintStart_toEndOf="@+id/bt_mainPhase"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.497" />
+
+    <Button
+        android:id="@+id/bt_mainPhase2"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="1dp"
+        android:onClick="onClickMP2"
+        android:text="@string/bt_mainPhase2"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bt_endPhase"
+        app:layout_constraintStart_toEndOf="@+id/bt_battlePhase"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.497" />
+
+    <Button
+        android:id="@+id/bt_endPhase"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="249dp"
+        android:onClick="onClickEP"
+        android:text="@string/bt_endPhase"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/bt_mainPhase2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.498" />
+
     <ImageButton
-        android:id="@+id/imageButton3"
-        android:layout_width="738dp"
-        android:layout_height="0dp"
+        android:id="@+id/iv_deckia"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginTop="40dp"
+        android:layout_marginBottom="32dp"
         android:background="@color/common_google_signin_btn_text_dark_disabled"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/field" />
+
+    <ImageView
+        android:id="@+id/iv_deckPlayer"
+        android:layout_width="0dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="464dp"
+        android:layout_marginEnd="54dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/id_tv_name_player"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.901"
+        app:srcCompat="@drawable/cardcover" />
+
+    <ImageView
+        android:id="@+id/iv_deckPlayer2"
+        android:layout_width="0dp"
+        android:layout_height="57dp"
+        android:layout_marginEnd="465dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/id_tv_nameIA"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.124"
+        app:srcCompat="@drawable/cardcover" />
 
     <TextView
         android:id="@+id/id_tv_lifepoint_IA"
@@ -32,9 +137,12 @@
         android:id="@+id/id_tv_name_player"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="46dp"
         android:text="TextView"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/id_tv_lifepoint_player"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_deckPlayer"
         app:layout_constraintStart_toStartOf="@+id/id_tv_lifepoint_player" />
 
     <TextView
@@ -54,9 +162,29 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="37dp"
         android:layout_marginTop="44dp"
+        android:layout_marginEnd="62dp"
         android:text="TextView"
         android:textColor="@android:color/white"
+        app:layout_constraintEnd_toStartOf="@+id/iv_deckPlayer2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_nbDeckCardsPlayer"
+        android:layout_width="45dp"
+        android:layout_height="35dp"
+        android:text="TextView"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        tools:layout_editor_absoluteX="494dp"
+        tools:layout_editor_absoluteY="331dp" />
+
+    <TextView
+        android:id="@+id/tv_nbDeckCardsIA"
+        android:layout_width="45dp"
+        android:layout_height="35dp"
+        android:text="TextView"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        tools:layout_editor_absoluteX="190dp"
+        tools:layout_editor_absoluteY="54dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

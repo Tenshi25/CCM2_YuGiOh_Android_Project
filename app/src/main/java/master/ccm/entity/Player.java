@@ -1,5 +1,8 @@
 package master.ccm.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Player {
     private String name;
     private Deck playerDeck;
@@ -18,7 +21,8 @@ public class Player {
     }
 
     public void setPlayerDeck(Deck playerDeck) {
-        this.playerDeck = playerDeck;
+        //this.getPlayerDeck().setListCard(initDeckToPlay(playerDeck.getListCard()));
+            this.playerDeck = playerDeck;
     }
 
     public Integer getLifepoint() {
@@ -38,6 +42,15 @@ public class Player {
         if (this.lifepoint < 0){
             this.lifepoint =0;
         }
+    }
+    public List<Card> initDeckToPlay(List<Card> listCard){
+        List<Card> deckToPlay = new ArrayList<Card>();
+        for (Card aCard : listCard) {
+            for(int i = 0; i < aCard.getDuplicate(); i++){
+                deckToPlay.add(aCard);
+            }
+        }
+        return deckToPlay;
     }
 
 }

@@ -18,7 +18,7 @@
         android:id="@+id/et_create_deckName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/design_default_color_primary"
+        android:backgroundTint="@color/common_google_signin_btn_text_dark_pressed"
         android:ems="10"
         android:hint="Deck name"
         android:inputType="textPersonName"

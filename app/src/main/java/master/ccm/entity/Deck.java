@@ -1,5 +1,9 @@
 package master.ccm.entity;
 
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Deck {
@@ -61,4 +65,32 @@ public class Deck {
     public String toString() {
         return name;
     }
+
+    // Mélanger deck
+    public void shuffleDeck(){
+        Log.i("Remi_DECK", "Avant Shuffle : " + getListCard().get(0).getName() + " " + getListCard().get(1).getName() + " " + getListCard().get(2).getName());
+        Collections.shuffle(this.getListCard());
+        Log.i("Remi_DECK", "Apres Shuffle : " + getListCard().get(0).getName() + " " + getListCard().get(1).getName() + " " + getListCard().get(2).getName());
+    }
+    // Piocher X carte
+    public List<Card> drawCard(int numberCard){
+        List<Card> listCardDraw = new ArrayList<Card>();
+        for(int i = 0; i < numberCard; i++){
+            if(!noMoreDeckCard()) {
+                listCardDraw.add(this.getListCard().get(0));
+                this.getListCard().remove(0);
+            }
+        }
+        return listCardDraw;
+    }
+
+    // Nombre de carte dans le deck
+    public int countDeckCard(){
+        return this.listCard.size();
+    }
+    // Test si plus de carte
+    public boolean noMoreDeckCard(){
+        return countDeckCard() == 0;
+    }
+
 }

@@ -1,61 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout2"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-
-    <Button
-        android:id="@+id/bt_Sign_up"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="14dp"
-        android:onClick="OnClickSignUp"
-        android:text="@string/bt_sign_up"
-        app:layout_constraintBottom_toTopOf="@+id/bt_return_Sign_in"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ET_password_signUp" />
-
-    <Button
-        android:id="@+id/bt_return_Sign_in"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="OnClickReturnSignIn"
-        android:text="@string/bt_to_sign_in"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bt_Sign_up" />
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <EditText
         android:id="@+id/ET_userneame_SignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="7dp"
+        android:backgroundTint="@color/common_google_signin_btn_text_dark_default"
         android:ems="10"
         android:hint="@string/ET_username"
         android:inputType="textPersonName"
-        android:textCursorDrawable="@android:drawable/status_bar_item_background"
-        app:layout_constraintBottom_toTopOf="@+id/ET_password_signUp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:textColorHint="@color/common_google_signin_btn_text_dark_default"
+        android:textCursorDrawable="@android:drawable/status_bar_item_background" />
 
     <EditText
         android:id="@+id/ET_password_signUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
+        android:backgroundTint="@color/common_google_signin_btn_text_dark_default"
         android:ems="10"
         android:hint="@string/ET_Password_Text"
         android:inputType="textPersonName"
         android:password="true"
-        android:textCursorDrawable="@android:drawable/status_bar_item_background"
-        app:layout_constraintBottom_toTopOf="@+id/bt_Sign_up"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ET_userneame_SignUp" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:textColorHint="@color/common_google_signin_btn_text_dark_default"
+        android:textCursorDrawable="@android:drawable/status_bar_item_background" />
+
+    <Button
+        android:id="@+id/bt_Sign_up"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:onClick="OnClickSignUp"
+        android:text="@string/bt_sign_up" />
+
+    <Button
+        android:id="@+id/bt_return_Sign_in"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="OnClickReturnSignIn"
+        android:text="@string/bt_to_sign_in" />
+
+</LinearLayout>

@@ -1,11 +1,18 @@
 package master.ccm.entity;
 
+import android.widget.EditText;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
     private String name;
     private Deck playerDeck;
+    private Main playerMain = new Main();
+    private Cimetiere playerCimetiere = new Cimetiere();
+    private ExtraDeck playerExtra =  new ExtraDeck();
+    private Bannisement playerBannisement = new Bannisement();
+
     private Integer lifepoint;
 
     public String getName() {
@@ -43,14 +50,45 @@ public class Player {
             this.lifepoint =0;
         }
     }
-    public List<Card> initDeckToPlay(List<Card> listCard){
-        List<Card> deckToPlay = new ArrayList<Card>();
+    public void initDeckToPlay(List<Card> listCard){
+        ArrayList<Card> deckToPlay = new ArrayList<Card>();
         for (Card aCard : listCard) {
             for(int i = 0; i < aCard.getDuplicate(); i++){
                 deckToPlay.add(aCard);
             }
         }
-        return deckToPlay;
+        this.playerDeck.setListCard(deckToPlay);
     }
 
+    public Main getPlayerMain() {
+        return playerMain;
+    }
+
+    public void setPlayerMain(Main playerMain) {
+        this.playerMain = playerMain;
+    }
+
+    public Cimetiere getPlayerCimetiere() {
+        return playerCimetiere;
+    }
+
+    public void setPlayerCimetiere(Cimetiere playerCimetiere) {
+        this.playerCimetiere = playerCimetiere;
+    }
+
+    public ExtraDeck getPlayerExtra() {
+        return playerExtra;
+    }
+
+    public void setPlayerExtra(ExtraDeck playerExtra) {
+        this.playerExtra = playerExtra;
+    }
+
+    public Bannisement getPlayerBannisement() {
+        return playerBannisement;
+    }
+
+    public void setPlayerBannisement(Bannisement playerBannisement) {
+        this.playerBannisement = playerBannisement;
+    }
 }

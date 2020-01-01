@@ -36,10 +36,13 @@ public class SignUp_Activity extends AppCompatActivity {
     public void OnClickSignUp(View view) {
         UserDBManager userDBManager = new UserDBManager();
         User newUser = new User();
-        newUser.setUsername(editText_username.getText().toString());
-        Outils outils = new Outils();
-        newUser.setPassword(outils.md5(editText_password.getText().toString()));
-        userDBManager.VerifUserExistBeforeInsert(newUser, this);
+        if(editText_username.getText().toString().equals(null)){
+            newUser.setUsername(editText_username.getText().toString());
+            Outils outils = new Outils();
+            newUser.setPassword(outils.md5(editText_password.getText().toString()));
+            userDBManager.VerifUserExistBeforeInsert(newUser, this);
+        }
+
 
 
     }

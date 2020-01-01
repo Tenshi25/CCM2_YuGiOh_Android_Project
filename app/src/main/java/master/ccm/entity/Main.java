@@ -1,4 +1,4 @@
 package master.ccm.entity;
 
-public class Main {
+public class Main extends PileCarte {
 }

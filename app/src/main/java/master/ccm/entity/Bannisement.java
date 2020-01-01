@@ -1,4 +1,4 @@
 package master.ccm.entity;
 
-public class Bannisement {
+public class Bannisement extends PileCarte {
 }

@@ -72,7 +72,7 @@ public class CurrentUser {
     public Deck getDeckByID(String id){
         Deck theDeck = new Deck();
         for (Deck adeck :deckList){
-            if(adeck.getName().equals(id)){
+            if(adeck.getId().equals(id)){
                 theDeck =adeck;
             }
         }

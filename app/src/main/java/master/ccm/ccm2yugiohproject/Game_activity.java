@@ -6,7 +6,6 @@ import master.ccm.entity.CurrentUser;
 import master.ccm.entity.Deck;
 import master.ccm.entity.Phase;
 import master.ccm.entity.Player;
-import master.ccm.entity.User;
 import master.ccm.manager.DeckDBManager;
 
 import android.content.Intent;
@@ -14,6 +13,7 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -96,6 +96,10 @@ public class Game_activity extends AppCompatActivity {
 
         listPlayer.add(player);
 
+        //chargement du deck de lutilisateur
+        Log.w("selectCard", "deck id : "+player.getPlayerDeck().getId());
+        deckDBManager.selectAllCardDeck(CurrentUser.getInstance().getDeckByID(player.getPlayerDeck().getId()),this);
+
         // set ia
 
 
@@ -111,7 +115,7 @@ public class Game_activity extends AppCompatActivity {
 
         listPlayer.add(player);
 
-        deckDBManager.selectAllCardDeck(CurrentUser.getInstance().getDeckByID(extrasData.get("idIADeck").toString()),this);
+
 
         // find text view phase and deck
         bt_drawPhase = findViewById(R.id.bt_drawPhase);
@@ -121,22 +125,23 @@ public class Game_activity extends AppCompatActivity {
         bt_mainPhase2 = findViewById(R.id.bt_mainPhase2);
         bt_EndPhase = findViewById(R.id.bt_endPhase);
 
+        iv_deckIA = (ImageView) findViewById(R.id.iv_background);
+
+        tv_nbdeckCardPlayer = findViewById(R.id.tv_nbDeckCardsPlayer);
+        tv_nbdeckCardIA = findViewById(R.id.tv_nbDeckCardsIA);
+
         iv_deckPlayer = (ImageView) findViewById(R.id.iv_deckPlayer);
         iv_deckPlayer.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
-                List<Card> lesCartes =currentplayer.getPlayerDeck().drawCard(1);
-                /*for (Card aCard : lesCartes){
-                    log.d("pioche",aCard.getName());
-                }*/
+                List<Card> lesCartes =listPlayer.get(0).getPlayerDeck().drawCard(1);
+                ShowDrawCard((ArrayList<Card>) lesCartes);
+
             }
 
         });
 
-        iv_deckIA = (ImageView) findViewById(R.id.iv_deckia);
 
-        tv_nbdeckCardPlayer = findViewById(R.id.tv_nbDeckCardsPlayer);
-        tv_nbdeckCardIA = findViewById(R.id.tv_nbDeckCardsIA);
 
     }
 
@@ -207,15 +212,38 @@ public class Game_activity extends AppCompatActivity {
     public void OnFinishSelectPlayerCard(ArrayList<Card> listCards){
         if(!deckPlayerCharger) {
             deckPlayerCharger =true;
+            listPlayer.get(0).initDeckToPlay(listCards);
+            Toast.makeText(this,"premiere carte "+listCards.get(0).getName(),Toast.LENGTH_SHORT).show();
+            Log.w("premiere carte", "premiere carte "+listPlayer.get(0).getPlayerDeck().getListCard().get(0).getName());
+            Log.w("premiere carte", "premiere carte 2"+listCards.get(0).getName());
             //listPlayer.get(0).setPlayerDeck(listPlayer.get(0).initDeckToPlay(listCards));;
             //listPlayer.get(0).getPlayerDeck().setListCard(listCards);
             DeckDBManager deckDBManager = new DeckDBManager();
             deckDBManager.selectAllCardDeck(listPlayer.get(1).getPlayerDeck(),this);
             Toast.makeText(this,"deck joueur charger ",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this,"premiere carte "+listPlayer.get(0).getPlayerDeck().getListCard().get(0).getName(),Toast.LENGTH_SHORT).show();
+
+
         }else{
             //listPlayer.get(1).getPlayerDeck().setListCard(listCards);
             listPlayer.get(1).initDeckToPlay(listCards);
+            majNBPlayerDeckCard();
         }
+    }
+    public void ShowDrawCard(ArrayList<Card> p_listCards){
+        for (Card aCard : p_listCards){
+                    Toast.makeText(this,"pioche :"+ aCard.getName(),Toast.LENGTH_SHORT).show();
+                    Log.d("pioche",aCard.getName());
+                    listPlayer.get(0).getPlayerMain().getListCards().add(aCard);
+                    majNBPlayerDeckCard();
+                    Log.d("pioche"," nb carte main : " + listPlayer.get(0).getPlayerMain().getListCards().size());
+        }
+
+
+    }
+    public void majNBPlayerDeckCard(){
+        tv_nbdeckCardPlayer.setText(String.valueOf(listPlayer.get(0).getPlayerDeck().getListCard().size()));
+        tv_nbdeckCardIA.setText(String.valueOf(listPlayer.get(1).getPlayerDeck().getListCard().size()));
     }
 
 

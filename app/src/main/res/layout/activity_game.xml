@@ -86,7 +86,7 @@
         app:layout_constraintVertical_bias="0.498" />
 
     <ImageButton
-        android:id="@+id/iv_deckia"
+        android:id="@+id/iv_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="40dp"
@@ -115,13 +115,13 @@
     <ImageView
         android:id="@+id/iv_deckPlayer2"
         android:layout_width="0dp"
-        android:layout_height="57dp"
-        android:layout_marginEnd="465dp"
+        android:layout_height="55dp"
+        android:layout_marginEnd="462dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/id_tv_nameIA"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.124"
+        app:layout_constraintVertical_bias="0.123"
         app:srcCompat="@drawable/cardcover" />
 
     <TextView
@@ -142,7 +142,7 @@
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/id_tv_lifepoint_player"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/iv_deckPlayer"
+        app:layout_constraintStart_toEndOf="@+id/tv_nbDeckCardsPlayer"
         app:layout_constraintStart_toStartOf="@+id/id_tv_lifepoint_player" />
 
     <TextView
@@ -162,7 +162,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="37dp"
         android:layout_marginTop="44dp"
-        android:layout_marginEnd="62dp"
+        android:layout_marginEnd="55dp"
         android:text="TextView"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toStartOf="@+id/iv_deckPlayer2"
@@ -170,21 +170,30 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_nbDeckCardsPlayer"
-        android:layout_width="45dp"
-        android:layout_height="35dp"
+        android:id="@+id/tv_nbDeckCardsIA"
+        android:layout_width="57dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="496dp"
+        android:layout_marginBottom="10dp"
         android:text="TextView"
         android:textColor="@color/common_google_signin_btn_text_dark_default"
-        tools:layout_editor_absoluteX="494dp"
-        tools:layout_editor_absoluteY="331dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/iv_deckPlayer2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/id_tv_nameIA"
+        app:layout_constraintTop_toTopOf="@+id/iv_deckPlayer2"
+        app:layout_constraintVertical_bias="0.518" />
 
     <TextView
-        android:id="@+id/tv_nbDeckCardsIA"
-        android:layout_width="45dp"
-        android:layout_height="35dp"
+        android:id="@+id/tv_nbDeckCardsPlayer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="18dp"
         android:text="TextView"
         android:textColor="@color/common_google_signin_btn_text_dark_default"
-        tools:layout_editor_absoluteX="190dp"
-        tools:layout_editor_absoluteY="54dp" />
+        app:layout_constraintEnd_toEndOf="@+id/iv_deckPlayer"
+        app:layout_constraintTop_toTopOf="@+id/iv_deckPlayer" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

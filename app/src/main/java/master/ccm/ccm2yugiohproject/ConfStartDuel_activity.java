@@ -1,6 +1,8 @@
 package master.ccm.ccm2yugiohproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import master.ccm.ccm2yugiohproject.utils.SoundMusicUtils;
 import master.ccm.entity.CurrentUser;
 import master.ccm.entity.Deck;
 import master.ccm.entity.Game;
@@ -124,6 +126,7 @@ public class ConfStartDuel_activity extends AppCompatActivity implements Adapter
         intent.putExtra("typeIA",selected_ia);
 
         startActivity(intent);
+        SoundMusicUtils.LaunchSoundMusic(this, R.raw.passionate_duelist_theme, true);
         finish();
     }
     public void onClickRetour(View view){

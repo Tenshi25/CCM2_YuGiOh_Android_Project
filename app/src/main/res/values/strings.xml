@@ -38,4 +38,10 @@
     <string name="tv_duplicat_carte">duplicat</string>
     <string name="tv_del">delete</string>
     <string name="tv_add">add</string>
+    <string name="bt_drawPhase">DP</string>
+    <string name="bt_mainPhase">MP</string>
+    <string name="bt_mainPhase2">MP2</string>
+    <string name="bt_battlePhase">BP</string>
+    <string name="bt_standbyPhase">SP</string>
+    <string name="bt_endPhase">EP</string>
 </resources>

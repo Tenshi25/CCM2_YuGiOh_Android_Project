@@ -9,6 +9,7 @@ import master.ccm.entity.Game;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -120,14 +121,16 @@ public class ConfStartDuel_activity extends AppCompatActivity implements Adapter
     public void onClickDuelStart(View view){
         Intent intent = new Intent(this, Game_activity.class);
 
+
+
         intent.putExtra("idIADeck",selected_ia_deck.getId());
         intent.putExtra("idPlayerDeck",selected_player_deck.getId());
         intent.putExtra("lifepoint",selected_lifePoint);
         intent.putExtra("typeIA",selected_ia);
 
         startActivity(intent);
+
         SoundMusicUtils.launchSoundMusic(this, R.raw.passionate_duelist_theme, true, 0.5);
-        finish();
     }
     public void onClickRetour(View view){
         Intent intent = new Intent(this, Home.class);

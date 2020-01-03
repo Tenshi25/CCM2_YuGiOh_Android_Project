@@ -36,10 +36,15 @@ public class SignUp_Activity extends AppCompatActivity {
     public void OnClickSignUp(View view) {
         UserDBManager userDBManager = new UserDBManager();
         User newUser = new User();
-        newUser.setUsername(editText_username.getText().toString());
-        Outils outils = new Outils();
-        newUser.setPassword(outils.md5(editText_password.getText().toString()));
-        userDBManager.VerifUserExistBeforeInsert(newUser, this);
+        if(!editText_username.getText().toString().equals("") && !editText_password.getText().toString().equals("")){
+            newUser.setUsername(editText_username.getText().toString());
+            Outils outils = new Outils();
+            newUser.setPassword(outils.md5(editText_password.getText().toString()));
+            userDBManager.VerifUserExistBeforeInsert(newUser, this);
+        }else{
+            Toast.makeText(this,"le champ du login et ou du mot de passe ne peuvent pas être vide",Toast.LENGTH_SHORT).show();
+        }
+
 
 
     }

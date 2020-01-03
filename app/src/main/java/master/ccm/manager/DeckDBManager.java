@@ -195,7 +195,7 @@ public class DeckDBManager {
 
 
     }
-    public void selectAllCardDeck(final Deck leDeck,final DeckBuilder_Activity context) {
+    public void selectAllCardDeck(final Deck leDeck,final Context context) {
         Log.w("selectCard", "deck id : "+leDeck.getId());
         database.collection("Link")
                 .whereEqualTo("id_deck", leDeck.getId())
@@ -287,7 +287,7 @@ public class DeckDBManager {
 
 
     }
-    public void selectAllCardDeck2(final ArrayList<Card> tabidCardDeck,Deck leDeck,final DeckBuilder_Activity context) {
+    public void selectAllCardDeck2(final ArrayList<Card> tabidCardDeck,Deck leDeck,final Context context) {
         database.collection("cards").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -319,7 +319,12 @@ public class DeckDBManager {
                             }
                         }
                     }
-                    context.selectAllCardDeckFini(listCards);
+                    if(context.getClass() == DeckBuilder_Activity.class)
+                    {
+                        ((DeckBuilder_Activity) context).selectAllCardDeckFini(listCards);
+                    }else if(context.getClass() == Game_activity.class){
+                        ((Game_activity) context).OnFinishSelectPlayerCard(listCards);
+                    }
 
                 } else {
                     Log.w("selectAll", "Error getting documents.", task.getException());

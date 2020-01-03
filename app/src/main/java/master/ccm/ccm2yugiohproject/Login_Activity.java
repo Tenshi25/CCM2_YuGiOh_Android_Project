@@ -32,7 +32,7 @@ public class Login_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         //Gcloud_Button =findViewById(R.id.bt_GLogin);
 
-        SoundMusicUtils.LaunchSoundMusic(this, R.raw.transformation_theme, true);
+        SoundMusicUtils.launchSoundMusic(this, R.raw.transformation_theme, true, 0.5);
 
         login_Button =findViewById(R.id.bt_login);
 

@@ -126,7 +126,7 @@ public class ConfStartDuel_activity extends AppCompatActivity implements Adapter
         intent.putExtra("typeIA",selected_ia);
 
         startActivity(intent);
-        SoundMusicUtils.LaunchSoundMusic(this, R.raw.passionate_duelist_theme, true);
+        SoundMusicUtils.launchSoundMusic(this, R.raw.passionate_duelist_theme, true, 0.5);
         finish();
     }
     public void onClickRetour(View view){

@@ -3,6 +3,7 @@ package master.ccm.ccm2yugiohproject;
 import androidx.appcompat.app.AppCompatActivity;
 
 import master.ccm.ccm2yugiohproject.utils.PermissionUtils;
+import master.ccm.ccm2yugiohproject.utils.SoundMusicUtils;
 import master.ccm.entity.CurrentUser;
 import master.ccm.manager.UserDBManager;
 import master.ccm.entity.Outils;
@@ -31,6 +32,7 @@ public class Login_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         //Gcloud_Button =findViewById(R.id.bt_GLogin);
 
+        SoundMusicUtils.launchSoundMusic(this, R.raw.transformation_theme, true, 0.5);
 
         login_Button =findViewById(R.id.bt_login);
 

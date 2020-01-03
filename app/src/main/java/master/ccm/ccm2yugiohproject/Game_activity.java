@@ -1,6 +1,7 @@
 package master.ccm.ccm2yugiohproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+import master.ccm.ccm2yugiohproject.utils.LoadImageTask;
 import master.ccm.entity.Card;
 import master.ccm.entity.CurrentUser;
 import master.ccm.entity.Deck;
@@ -52,6 +53,28 @@ public class Game_activity extends AppCompatActivity {
     private ImageView iv_deckPlayer;
     private ImageView iv_deckIA;
 
+    private  ImageView iv_mainPlayerCard_1;
+    private  ImageView iv_mainPlayerCard_2;
+    private  ImageView iv_mainPlayerCard_3;
+    private  ImageView iv_mainPlayerCard_4;
+    private  ImageView iv_mainPlayerCard_5;
+    private  ImageView iv_mainPlayerCard_6;
+    private  ImageView iv_mainPlayerCard_7;
+    private  ImageView iv_mainPlayerCard_8;
+    private  ImageView iv_mainPlayerCard_9;
+    private  ImageView iv_mainPlayerCard_10;
+
+    private  ImageView iv_mainIACard_1;
+    private  ImageView iv_mainIACard_2;
+    private  ImageView iv_mainIACard_3;
+    private  ImageView iv_mainIACard_4;
+    private  ImageView iv_mainIACard_5;
+    private  ImageView iv_mainIACard_6;
+    private  ImageView iv_mainIACard_7;
+    private  ImageView iv_mainIACard_8;
+    private  ImageView iv_mainIACard_9;
+    private  ImageView iv_mainIACard_10;
+
     //private Evenement Chaine;
     private ArrayList<Player> listPlayer = new ArrayList<>();
     private ArrayList<Phase> listePhase = new ArrayList<>();
@@ -73,6 +96,29 @@ public class Game_activity extends AppCompatActivity {
         tv_playerLifePoint = findViewById(R.id.id_tv_lifepoint_player);
         tv_playerName = findViewById(R.id.id_tv_name_player);
 
+        iv_mainIACard_1 = findViewById(R.id.iv_mainIA_1);
+        iv_mainIACard_2 = findViewById(R.id.iv_mainIA_2);
+        iv_mainIACard_3 = findViewById(R.id.iv_mainIA_3);
+        iv_mainIACard_4 = findViewById(R.id.iv_mainIA_4);
+        iv_mainIACard_5 = findViewById(R.id.iv_mainIA_5);
+        iv_mainIACard_6 = findViewById(R.id.iv_mainIA_6);
+        iv_mainIACard_7 = findViewById(R.id.iv_mainIA_7);
+        iv_mainIACard_8 = findViewById(R.id.iv_mainIA_8);
+        iv_mainIACard_9 = findViewById(R.id.iv_mainIA_9);
+        iv_mainIACard_10 = findViewById(R.id.iv_mainIA_10);
+
+        iv_mainPlayerCard_1 = findViewById(R.id.iv_mainPlayer_1);
+        iv_mainPlayerCard_2 = findViewById(R.id.iv_mainPlayer_2);
+        iv_mainPlayerCard_3 = findViewById(R.id.iv_mainPlayer_3);
+        iv_mainPlayerCard_4 = findViewById(R.id.iv_mainPlayer_4);
+        iv_mainPlayerCard_5 = findViewById(R.id.iv_mainPlayer_5);
+        iv_mainPlayerCard_6 = findViewById(R.id.iv_mainPlayer_6);
+        iv_mainPlayerCard_7 = findViewById(R.id.iv_mainPlayer_7);
+        iv_mainPlayerCard_8 = findViewById(R.id.iv_mainPlayer_8);
+        iv_mainPlayerCard_9 = findViewById(R.id.iv_mainPlayer_9);
+        iv_mainPlayerCard_10 = findViewById(R.id.iv_mainPlayer_10);
+
+
         Intent intent= getIntent();
         extrasData= intent.getExtras();
 
@@ -92,7 +138,10 @@ public class Game_activity extends AppCompatActivity {
         tv_playerName.setText(player.getName());
         player.setLifepoint(Integer.parseInt(extrasData.get("lifepoint").toString()));
         tv_playerLifePoint.setText(String.valueOf(player.getLifepoint()));
-        player.setPlayerDeck(CurrentUser.getInstance().getDeckByID(extrasData.get("idPlayerDeck").toString()));
+        //player.setPlayerDeck(CurrentUser.getInstance().getDeckByID(extrasData.get("idPlayerDeck").toString()));
+        Deck playerDeck = new Deck();
+        playerDeck.setId(extrasData.get("idPlayerDeck").toString());
+        player.setPlayerDeck(playerDeck);
 
         listPlayer.add(player);
 
@@ -103,17 +152,20 @@ public class Game_activity extends AppCompatActivity {
         // set ia
 
 
-        player = new Player();
+        Player IAplayer = new Player();
         String nomIA = extrasData.get("typeIA").toString();
-        player.setName(nomIA);
-        tv_iaName.setText(player.getName());
-        player.setLifepoint(Integer.parseInt(extrasData.get("lifepoint").toString()));
-        tv_iaLifePoint.setText(String.valueOf(player.getLifepoint()));
-        Toast.makeText(this,String.valueOf(player.getLifepoint()),Toast.LENGTH_SHORT).show();
-        player.setPlayerDeck(CurrentUser.getInstance().getDeckByID(extrasData.get("idIADeck").toString()));
+        IAplayer.setName(nomIA);
+        tv_iaName.setText(IAplayer.getName());
+        IAplayer.setLifepoint(Integer.parseInt(extrasData.get("lifepoint").toString()));
+        tv_iaLifePoint.setText(String.valueOf(IAplayer.getLifepoint()));
+        Toast.makeText(this,String.valueOf(IAplayer.getLifepoint()),Toast.LENGTH_SHORT).show();
+        //IAplayer.setPlayerDeck(CurrentUser.getInstance().getDeckByID(extrasData.get("idIADeck").toString()));
+        Deck IADeck = new Deck();
+        IADeck.setId(extrasData.get("idIADeck").toString());
+        IAplayer.setPlayerDeck(IADeck);
         //player.setPlayerDeck(playerDeck);
 
-        listPlayer.add(player);
+        listPlayer.add(IAplayer);
 
 
 
@@ -125,7 +177,7 @@ public class Game_activity extends AppCompatActivity {
         bt_mainPhase2 = findViewById(R.id.bt_mainPhase2);
         bt_EndPhase = findViewById(R.id.bt_endPhase);
 
-        iv_deckIA = (ImageView) findViewById(R.id.iv_background);
+        iv_deckIA = (ImageView) findViewById(R.id.iv_deckPlayerIA);
 
         tv_nbdeckCardPlayer = findViewById(R.id.tv_nbDeckCardsPlayer);
         tv_nbdeckCardIA = findViewById(R.id.tv_nbDeckCardsIA);
@@ -136,7 +188,7 @@ public class Game_activity extends AppCompatActivity {
             {
                 List<Card> lesCartes =listPlayer.get(0).getPlayerDeck().drawCard(1);
                 ShowDrawCard((ArrayList<Card>) lesCartes);
-
+                majMain();
             }
 
         });
@@ -146,9 +198,15 @@ public class Game_activity extends AppCompatActivity {
     }
 
 
-    public void gameStart(ArrayList<Player> p_listPlayer) {
+    public void gameStart() {
         nbplayer = listPlayer.size();
         phaseInit();
+        //for (int i=0; i==listPlayer.size() ;i++){
+        listPlayer.get(0).getPlayerDeck().shuffleDeck();
+        listPlayer.get(1).getPlayerDeck().shuffleDeck();
+
+        majMain();
+
 
     }
     public void nextTurn(){
@@ -195,9 +253,13 @@ public class Game_activity extends AppCompatActivity {
         }
     }
     public void ChangePhase(int p_numPhase){
-        ordrePhase =p_numPhase;
-        currentPhase = listePhase.get(ordrePhase);
-        Toast.makeText(this,currentPhase.getName(),Toast.LENGTH_SHORT).show();
+
+        if(ordrePhase > p_numPhase)
+        {
+            ordrePhase =p_numPhase;
+            currentPhase = listePhase.get(ordrePhase);
+            Toast.makeText(this,currentPhase.getName(),Toast.LENGTH_SHORT).show();
+        }
 
     }
     public void onClickBP(View view){
@@ -228,6 +290,7 @@ public class Game_activity extends AppCompatActivity {
             //listPlayer.get(1).getPlayerDeck().setListCard(listCards);
             listPlayer.get(1).initDeckToPlay(listCards);
             majNBPlayerDeckCard();
+            gameStart();
         }
     }
     public void ShowDrawCard(ArrayList<Card> p_listCards){
@@ -244,6 +307,249 @@ public class Game_activity extends AppCompatActivity {
     public void majNBPlayerDeckCard(){
         tv_nbdeckCardPlayer.setText(String.valueOf(listPlayer.get(0).getPlayerDeck().getListCard().size()));
         tv_nbdeckCardIA.setText(String.valueOf(listPlayer.get(1).getPlayerDeck().getListCard().size()));
+        //Toast.makeText(this,"joueur ia :"+ listPlayer.get(1).getPlayerDeck().getListCard().size(),Toast.LENGTH_SHORT).show();
+    }
+    public void majMain(){
+        ArrayList<Card> mainJoueur =listPlayer.get(0).getPlayerMain().getListCards();
+        switch (mainJoueur.size()){
+            case 1:
+                new LoadImageTask(mainJoueur.get(0).getUrl(), iv_mainPlayerCard_5).execute();
+                break;
+            case 2:
+                new LoadImageTask(mainJoueur.get(0).getUrl(), iv_mainPlayerCard_5).execute();
+                new LoadImageTask(mainJoueur.get(1).getUrl(), iv_mainPlayerCard_6).execute();
+                break;
+            case 3:
+
+                new LoadImageTask(mainJoueur.get(0).getUrl(), iv_mainPlayerCard_4).execute();
+                new LoadImageTask(mainJoueur.get(1).getUrl(), iv_mainPlayerCard_5).execute();
+                new LoadImageTask(mainJoueur.get(2).getUrl(), iv_mainPlayerCard_6).execute();
+                break;
+            case 4:
+
+                new LoadImageTask(mainJoueur.get(0).getUrl(), iv_mainPlayerCard_4).execute();
+                new LoadImageTask(mainJoueur.get(1).getUrl(), iv_mainPlayerCard_5).execute();
+                new LoadImageTask(mainJoueur.get(2).getUrl(), iv_mainPlayerCard_6).execute();
+                new LoadImageTask(mainJoueur.get(3).getUrl(), iv_mainPlayerCard_7).execute();
+                break;
+            case 5:
+
+                new LoadImageTask(mainJoueur.get(0).getUrl(), iv_mainPlayerCard_3).execute();
+                new LoadImageTask(mainJoueur.get(1).getUrl(), iv_mainPlayerCard_4).execute();
+                new LoadImageTask(mainJoueur.get(2).getUrl(), iv_mainPlayerCard_5).execute();
+                new LoadImageTask(mainJoueur.get(3).getUrl(), iv_mainPlayerCard_6).execute();
+                new LoadImageTask(mainJoueur.get(4).getUrl(), iv_mainPlayerCard_7).execute();
+                break;
+            case 6:
+
+                new LoadImageTask(mainJoueur.get(0).getUrl(), iv_mainPlayerCard_3).execute();
+                new LoadImageTask(mainJoueur.get(1).getUrl(), iv_mainPlayerCard_4).execute();
+                new LoadImageTask(mainJoueur.get(2).getUrl(), iv_mainPlayerCard_5).execute();
+                new LoadImageTask(mainJoueur.get(3).getUrl(), iv_mainPlayerCard_6).execute();
+                new LoadImageTask(mainJoueur.get(4).getUrl(), iv_mainPlayerCard_7).execute();
+                new LoadImageTask(mainJoueur.get(5).getUrl(), iv_mainPlayerCard_8).execute();
+                break;
+            case 7:
+
+                new LoadImageTask(mainJoueur.get(0).getUrl(), iv_mainPlayerCard_2).execute();
+                new LoadImageTask(mainJoueur.get(1).getUrl(), iv_mainPlayerCard_3).execute();
+                new LoadImageTask(mainJoueur.get(2).getUrl(), iv_mainPlayerCard_4).execute();
+                new LoadImageTask(mainJoueur.get(3).getUrl(), iv_mainPlayerCard_5).execute();
+                new LoadImageTask(mainJoueur.get(4).getUrl(), iv_mainPlayerCard_6).execute();
+                new LoadImageTask(mainJoueur.get(5).getUrl(), iv_mainPlayerCard_7).execute();
+                new LoadImageTask(mainJoueur.get(6).getUrl(), iv_mainPlayerCard_8).execute();
+                break;
+            case 8:
+
+                new LoadImageTask(mainJoueur.get(0).getUrl(), iv_mainPlayerCard_2).execute();
+                new LoadImageTask(mainJoueur.get(1).getUrl(), iv_mainPlayerCard_3).execute();
+                new LoadImageTask(mainJoueur.get(2).getUrl(), iv_mainPlayerCard_4).execute();
+                new LoadImageTask(mainJoueur.get(3).getUrl(), iv_mainPlayerCard_5).execute();
+                new LoadImageTask(mainJoueur.get(4).getUrl(), iv_mainPlayerCard_6).execute();
+                new LoadImageTask(mainJoueur.get(5).getUrl(), iv_mainPlayerCard_7).execute();
+                new LoadImageTask(mainJoueur.get(6).getUrl(), iv_mainPlayerCard_8).execute();
+                new LoadImageTask(mainJoueur.get(7).getUrl(), iv_mainPlayerCard_9).execute();
+                break;
+            case 9:
+
+                new LoadImageTask(mainJoueur.get(0).getUrl(), iv_mainPlayerCard_1).execute();
+                new LoadImageTask(mainJoueur.get(1).getUrl(), iv_mainPlayerCard_2).execute();
+                new LoadImageTask(mainJoueur.get(2).getUrl(), iv_mainPlayerCard_3).execute();
+                new LoadImageTask(mainJoueur.get(3).getUrl(), iv_mainPlayerCard_4).execute();
+                new LoadImageTask(mainJoueur.get(4).getUrl(), iv_mainPlayerCard_5).execute();
+                new LoadImageTask(mainJoueur.get(5).getUrl(), iv_mainPlayerCard_6).execute();
+                new LoadImageTask(mainJoueur.get(6).getUrl(), iv_mainPlayerCard_7).execute();
+                new LoadImageTask(mainJoueur.get(7).getUrl(), iv_mainPlayerCard_8).execute();
+                new LoadImageTask(mainJoueur.get(8).getUrl(), iv_mainPlayerCard_9).execute();
+                break;
+            case 10:
+
+                new LoadImageTask(mainJoueur.get(0).getUrl(), iv_mainPlayerCard_1).execute();
+                new LoadImageTask(mainJoueur.get(1).getUrl(), iv_mainPlayerCard_2).execute();
+                new LoadImageTask(mainJoueur.get(2).getUrl(), iv_mainPlayerCard_3).execute();
+                new LoadImageTask(mainJoueur.get(3).getUrl(), iv_mainPlayerCard_4).execute();
+                new LoadImageTask(mainJoueur.get(4).getUrl(), iv_mainPlayerCard_5).execute();
+                new LoadImageTask(mainJoueur.get(5).getUrl(), iv_mainPlayerCard_6).execute();
+                new LoadImageTask(mainJoueur.get(6).getUrl(), iv_mainPlayerCard_7).execute();
+                new LoadImageTask(mainJoueur.get(7).getUrl(), iv_mainPlayerCard_8).execute();
+                new LoadImageTask(mainJoueur.get(8).getUrl(), iv_mainPlayerCard_9).execute();
+                new LoadImageTask(mainJoueur.get(9).getUrl(), iv_mainPlayerCard_10).execute();
+                break;
+        }
+        ArrayList<Card> mainIA =listPlayer.get(1).getPlayerMain().getListCards();
+        switch (mainIA.size()){
+            case 1:
+                iv_mainIACard_5.setImageDrawable(getDrawable(R.drawable.cardcover));
+                //new LoadImageTask(mainJoueur.get(0).getUrl(), iv_mainPlayerCard_5).execute();
+                break;
+            case 2:
+                iv_mainIACard_5.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_6.setImageDrawable(getDrawable(R.drawable.cardcover));
+                //new LoadImageTask(mainJoueur.get(0).getUrl(), iv_mainPlayerCard_5).execute();
+                //new LoadImageTask(mainJoueur.get(1).getUrl(), iv_mainPlayerCard_6).execute();
+                break;
+            case 3:
+                iv_mainIACard_4.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_5.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_6.setImageDrawable(getDrawable(R.drawable.cardcover));
+                /*new LoadImageTask(mainJoueur.get(0).getUrl(), iv_mainPlayerCard_4).execute();
+                new LoadImageTask(mainJoueur.get(1).getUrl(), iv_mainPlayerCard_5).execute();
+                new LoadImageTask(mainJoueur.get(2).getUrl(), iv_mainPlayerCard_6).execute();*/
+                break;
+            case 4:
+
+                iv_mainIACard_4.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_5.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_6.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_7.setImageDrawable(getDrawable(R.drawable.cardcover));
+                /*
+                new LoadImageTask(mainJoueur.get(0).getUrl(), iv_mainPlayerCard_4).execute();
+                new LoadImageTask(mainJoueur.get(1).getUrl(), iv_mainPlayerCard_5).execute();
+                new LoadImageTask(mainJoueur.get(2).getUrl(), iv_mainPlayerCard_6).execute();
+                new LoadImageTask(mainJoueur.get(3).getUrl(), iv_mainPlayerCard_7).execute();
+                */
+                break;
+            case 5:
+                iv_mainIACard_3.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_4.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_5.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_6.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_7.setImageDrawable(getDrawable(R.drawable.cardcover));
+                /*
+                new LoadImageTask(mainJoueur.get(0).getUrl(), iv_mainPlayerCard_3).execute();
+                new LoadImageTask(mainJoueur.get(1).getUrl(), iv_mainPlayerCard_4).execute();
+                new LoadImageTask(mainJoueur.get(2).getUrl(), iv_mainPlayerCard_5).execute();
+                new LoadImageTask(mainJoueur.get(3).getUrl(), iv_mainPlayerCard_6).execute();
+                new LoadImageTask(mainJoueur.get(4).getUrl(), iv_mainPlayerCard_7).execute();
+                */
+                break;
+            case 6:
+                iv_mainIACard_3.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_4.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_5.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_6.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_7.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_8.setImageDrawable(getDrawable(R.drawable.cardcover));
+                /*
+                new LoadImageTask(mainJoueur.get(0).getUrl(), iv_mainPlayerCard_3).execute();
+                new LoadImageTask(mainJoueur.get(1).getUrl(), iv_mainPlayerCard_4).execute();
+                new LoadImageTask(mainJoueur.get(2).getUrl(), iv_mainPlayerCard_5).execute();
+                new LoadImageTask(mainJoueur.get(3).getUrl(), iv_mainPlayerCard_6).execute();
+                new LoadImageTask(mainJoueur.get(4).getUrl(), iv_mainPlayerCard_7).execute();
+                new LoadImageTask(mainJoueur.get(5).getUrl(), iv_mainPlayerCard_8).execute();
+                */
+                break;
+
+            case 7:
+                iv_mainIACard_2.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_3.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_4.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_5.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_6.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_7.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_8.setImageDrawable(getDrawable(R.drawable.cardcover));
+
+                /*
+                new LoadImageTask(mainJoueur.get(0).getUrl(), iv_mainPlayerCard_2).execute();
+                new LoadImageTask(mainJoueur.get(1).getUrl(), iv_mainPlayerCard_3).execute();
+                new LoadImageTask(mainJoueur.get(2).getUrl(), iv_mainPlayerCard_4).execute();
+                new LoadImageTask(mainJoueur.get(3).getUrl(), iv_mainPlayerCard_5).execute();
+                new LoadImageTask(mainJoueur.get(4).getUrl(), iv_mainPlayerCard_6).execute();
+                new LoadImageTask(mainJoueur.get(5).getUrl(), iv_mainPlayerCard_7).execute();
+                new LoadImageTask(mainJoueur.get(6).getUrl(), iv_mainPlayerCard_8).execute();
+                */
+                break;
+
+            case 8:
+
+                iv_mainIACard_2.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_3.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_4.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_5.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_6.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_7.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_8.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_9.setImageDrawable(getDrawable(R.drawable.cardcover));
+                /*
+                new LoadImageTask(mainJoueur.get(0).getUrl(), iv_mainPlayerCard_2).execute();
+                new LoadImageTask(mainJoueur.get(1).getUrl(), iv_mainPlayerCard_3).execute();
+                new LoadImageTask(mainJoueur.get(2).getUrl(), iv_mainPlayerCard_4).execute();
+                new LoadImageTask(mainJoueur.get(3).getUrl(), iv_mainPlayerCard_5).execute();
+                new LoadImageTask(mainJoueur.get(4).getUrl(), iv_mainPlayerCard_6).execute();
+                new LoadImageTask(mainJoueur.get(5).getUrl(), iv_mainPlayerCard_7).execute();
+                new LoadImageTask(mainJoueur.get(6).getUrl(), iv_mainPlayerCard_8).execute();
+                new LoadImageTask(mainJoueur.get(7).getUrl(), iv_mainPlayerCard_9).execute();
+                */
+                break;
+
+            case 9:
+
+                iv_mainIACard_1.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_2.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_3.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_4.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_5.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_6.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_7.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_8.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_9.setImageDrawable(getDrawable(R.drawable.cardcover));
+                /*
+                new LoadImageTask(mainJoueur.get(0).getUrl(), iv_mainPlayerCard_1).execute();
+                new LoadImageTask(mainJoueur.get(1).getUrl(), iv_mainPlayerCard_2).execute();
+                new LoadImageTask(mainJoueur.get(2).getUrl(), iv_mainPlayerCard_3).execute();
+                new LoadImageTask(mainJoueur.get(3).getUrl(), iv_mainPlayerCard_4).execute();
+                new LoadImageTask(mainJoueur.get(4).getUrl(), iv_mainPlayerCard_5).execute();
+                new LoadImageTask(mainJoueur.get(5).getUrl(), iv_mainPlayerCard_6).execute();
+                new LoadImageTask(mainJoueur.get(6).getUrl(), iv_mainPlayerCard_7).execute();
+                new LoadImageTask(mainJoueur.get(7).getUrl(), iv_mainPlayerCard_8).execute();
+                new LoadImageTask(mainJoueur.get(8).getUrl(), iv_mainPlayerCard_9).execute();*/
+                break;
+            case 10:
+
+                iv_mainIACard_1.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_2.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_3.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_4.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_5.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_6.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_7.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_8.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_9.setImageDrawable(getDrawable(R.drawable.cardcover));
+                iv_mainIACard_10.setImageDrawable(getDrawable(R.drawable.cardcover));
+                /*
+                new LoadImageTask(mainJoueur.get(0).getUrl(), iv_mainPlayerCard_1).execute();
+                new LoadImageTask(mainJoueur.get(1).getUrl(), iv_mainPlayerCard_2).execute();
+                new LoadImageTask(mainJoueur.get(2).getUrl(), iv_mainPlayerCard_3).execute();
+                new LoadImageTask(mainJoueur.get(3).getUrl(), iv_mainPlayerCard_4).execute();
+                new LoadImageTask(mainJoueur.get(4).getUrl(), iv_mainPlayerCard_5).execute();
+                new LoadImageTask(mainJoueur.get(5).getUrl(), iv_mainPlayerCard_6).execute();
+                new LoadImageTask(mainJoueur.get(6).getUrl(), iv_mainPlayerCard_7).execute();
+                new LoadImageTask(mainJoueur.get(7).getUrl(), iv_mainPlayerCard_8).execute();
+                new LoadImageTask(mainJoueur.get(8).getUrl(), iv_mainPlayerCard_9).execute();
+                new LoadImageTask(mainJoueur.get(9).getUrl(), iv_mainPlayerCard_10).execute();*/
+                break;
+        }
+
     }
 
 

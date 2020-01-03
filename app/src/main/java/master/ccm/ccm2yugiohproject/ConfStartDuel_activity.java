@@ -127,7 +127,7 @@ public class ConfStartDuel_activity extends AppCompatActivity implements Adapter
         intent.putExtra("typeIA",selected_ia);
 
         startActivity(intent);
-        finish();
+
     }
     public void onClickRetour(View view){
         Intent intent = new Intent(this, Home.class);

@@ -240,7 +240,7 @@ public class Game_activity extends AppCompatActivity {
         listePhase.add(newphase);
 
         //set first phase
-        ordrePhase =0;
+        ChangePhase(0);
     }
     public void nextPhase(){
         ordrePhase ++;
@@ -254,7 +254,7 @@ public class Game_activity extends AppCompatActivity {
     }
     public void ChangePhase(int p_numPhase){
 
-        if(ordrePhase > p_numPhase)
+        if(ordrePhase < p_numPhase)
         {
             ordrePhase =p_numPhase;
             currentPhase = listePhase.get(ordrePhase);

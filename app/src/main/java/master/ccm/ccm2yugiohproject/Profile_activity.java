@@ -1,18 +1,25 @@
 package master.ccm.ccm2yugiohproject;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import master.ccm.ccm2yugiohproject.utils.NavigationMenuUtils;
 import master.ccm.entity.CurrentUser;
 import master.ccm.entity.Outils;
 import master.ccm.manager.UserDBManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 public class Profile_activity extends AppCompatActivity {
     private EditText et_pseudo,et_password,et_v_password;
+    private BottomNavigationView bottomNavigation;
 
 
     @Override
@@ -29,6 +36,25 @@ public class Profile_activity extends AppCompatActivity {
             et_pseudo.setText(currentUser.getPseudo());
         }
 
+        bottomNavigation = findViewById(R.id.id_settings_bottom_navigation);
+        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.navigation_home:
+                        NavigationMenuUtils.onClickHome(Profile_activity.this);
+                        return true;
+                    case R.id.navigation_deck:
+                        NavigationMenuUtils.onClickToDeckList(Profile_activity.this);
+                        return true;
+                    case R.id.navigation_party:
+                        NavigationMenuUtils.onClickDuel(Profile_activity.this);
+                        return true;
+                    case R.id.navigation_setting:
+                        return true;
+                }
+                return false;
+            }
+        });
 
     }
     public void onClickRetourProfile(View view) {

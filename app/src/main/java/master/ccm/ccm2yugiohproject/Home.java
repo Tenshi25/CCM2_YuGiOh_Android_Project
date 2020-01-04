@@ -33,7 +33,6 @@ public class Home extends AppCompatActivity {
                     @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.navigation_home:
-                                NavigationMenuUtils.onClickHome(Home.this);
                                 return true;
                             case R.id.navigation_deck:
                                 NavigationMenuUtils.onClickToDeckList(Home.this);

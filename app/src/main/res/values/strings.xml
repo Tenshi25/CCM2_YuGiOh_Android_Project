@@ -44,4 +44,8 @@
     <string name="bt_battlePhase">BP</string>
     <string name="bt_standbyPhase">SP</string>
     <string name="bt_endPhase">EP</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_party">Play</string>
+    <string name="nav_setting">Setting</string>
+    <string name="nav_deck">Deck</string>
 </resources>

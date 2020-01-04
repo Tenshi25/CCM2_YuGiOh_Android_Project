@@ -2,6 +2,7 @@ package master.ccm.ccm2yugiohproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 import master.ccm.ccm2yugiohproject.utils.LoadImageTask;
+import master.ccm.entity.Action;
 import master.ccm.entity.Card;
 import master.ccm.entity.CurrentUser;
 import master.ccm.entity.Deck;
@@ -14,6 +15,7 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -186,9 +188,13 @@ public class Game_activity extends AppCompatActivity {
         iv_deckPlayer.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
-                List<Card> lesCartes =listPlayer.get(0).getPlayerDeck().drawCard(1);
-                ShowDrawCard((ArrayList<Card>) lesCartes);
-                majMain();
+
+                if(currentPhase.containsActionByName("Pioche") && currentplayer.equals(listPlayer.get(0))) {
+                    List<Card> lesCartes = listPlayer.get(0).getPlayerDeck().drawCard(1);
+                    ShowDrawCard((ArrayList<Card>) lesCartes);
+                    majMain();
+                    nextPhase();
+                }
             }
 
         });
@@ -200,23 +206,47 @@ public class Game_activity extends AppCompatActivity {
 
     public void gameStart() {
         nbplayer = listPlayer.size();
+        currentplayer = listPlayer.get(0);
+        Log.d("remiplayer",currentplayer.getName());
+        Log.d("remiplayer",listPlayer.get(0).getName());
         phaseInit();
         //for (int i=0; i==listPlayer.size() ;i++){
         listPlayer.get(0).getPlayerDeck().shuffleDeck();
         listPlayer.get(1).getPlayerDeck().shuffleDeck();
-
         majMain();
-
+        //gameCore();
 
     }
+/*
+    private void gameCore() {
+
+        if(listPlayer.get(0).getLifepoint() <=0 || listPlayer.get(1).getLifepoint() <=0){
+
+        }else{
+            gameCore();
+        }
+    }*/
+
     public void nextTurn(){
         nbTurn = nbTurn +1;
+        Log.d("numPhasenbTurn",""+nbTurn);
+        Log.d("numPhasenbplayer",""+nbplayer);
         int playerTurn = nbTurn % nbplayer;
         currentplayer = listPlayer.get(playerTurn);
+        Toast.makeText(this,"Changement de tour !",Toast.LENGTH_SHORT).show();
     }
+
+
+
     public void phaseInit(){
         //draw phase
         Phase newphase = new Phase("DrawPhase");
+        Action actionPioche = new Action();
+        actionPioche.setNom("Pioche");
+        //action activer carte piege
+        ArrayList<Action> listeAction =  new ArrayList<Action>();
+        listeAction.add(actionPioche);
+        newphase.setListAction(listeAction);
         listePhase.add(newphase);
 
         //standby phase
@@ -244,32 +274,114 @@ public class Game_activity extends AppCompatActivity {
     }
     public void nextPhase(){
         ordrePhase ++;
-        ordrePhase =ordrePhase % 6;
-        currentPhase = listePhase.get(ordrePhase);
-        Toast.makeText(this,currentPhase.getName(),Toast.LENGTH_SHORT).show();
-        //nouvelle draw phase
-        if(ordrePhase == 0 ){
+        if(ordrePhase == 6 ){
             nextTurn();
         }
+        ordrePhase =ordrePhase % 6;
+        ChangePhase(ordrePhase);
+        /*currentPhase = listePhase.get(ordrePhase);
+        Toast.makeText(this,currentPhase.getName(),Toast.LENGTH_SHORT).show();*/
+        //nouvelle draw phase
+
     }
     public void ChangePhase(int p_numPhase){
+        Log.d("numPhase",""+p_numPhase);
+        Log.d("numPhasecurrentplayer",""+currentplayer.getName());
+        ordrePhase =p_numPhase;
+        currentPhase = listePhase.get(ordrePhase);
+        Toast.makeText(this,currentPhase.getName(),Toast.LENGTH_LONG).show();
+        if (currentplayer.getName().equals(listPlayer.get(0).getName())){
+            switch (ordrePhase){
 
-        if(ordrePhase < p_numPhase)
-        {
-            ordrePhase =p_numPhase;
-            currentPhase = listePhase.get(ordrePhase);
-            Toast.makeText(this,currentPhase.getName(),Toast.LENGTH_SHORT).show();
+                case 0:
+                    //draw phase
+                    bt_drawPhase.setTextColor(Color.BLUE);
+                    bt_stanby.setTextColor(Color.BLUE);
+                    bt_mainPhase.setTextColor(Color.BLUE);
+                    bt_battlePhase.setTextColor(Color.BLUE);
+                    bt_mainPhase2.setTextColor(Color.BLUE);
+                    bt_EndPhase.setTextColor(Color.BLUE);
+                    break;
+
+                case 1:
+                    //stand by
+
+                    nextPhase();
+                    break;
+
+                case 2:
+                    //Main phase
+                    break;
+                case 3:
+                    //Battle phase
+                    break;
+                case 4:
+                    //main phase 2
+                    break;
+                case 5:
+                    //end phase
+                    nextPhase();
+                    break;
+            }
+
+        }else{
+            switch (ordrePhase){
+
+                case 0:
+                    //draw phase
+                    bt_drawPhase.setTextColor(Color.RED);
+                    bt_stanby.setTextColor(Color.RED);
+                    bt_mainPhase.setTextColor(Color.RED);
+                    bt_battlePhase.setTextColor(Color.RED);
+                    bt_mainPhase2.setTextColor(Color.RED);
+                    bt_EndPhase.setTextColor(Color.RED);
+                    //bt_EndPhase.setBackgroundColor(Color.RED);
+
+                    List<Card> lesCartes =currentplayer.getPlayerDeck().drawCard(1);
+                    //ShowDrawCard((ArrayList<Card>) lesCartes);
+                    for (Card aCard : lesCartes) {
+                        listPlayer.get(1).getPlayerMain().getListCards().add(aCard);
+                    }
+                    majMain();
+                    majNBPlayerDeckCard();
+                    nextPhase();
+                    break;
+
+                case 1:
+                case 3:
+                case 2:
+                case 4:
+                    //main phase 2
+                    //Main phase
+                    //Battle phase
+                    //stand by
+                    nextPhase();
+                    break;
+                case 5:
+                    //end phase
+                    //nextTurn();
+                    nextPhase();
+                    break;
+            }
         }
+
+
 
     }
     public void onClickBP(View view){
-        ChangePhase(3);
+        if(ordrePhase <3) {
+            ChangePhase(3);
+        }
     }
     public void onClickMP2(View view){
-        ChangePhase(4);
+        if(ordrePhase <4) {
+            ChangePhase(4);
+        }
     }
     public void onClickEP(View view){
-        ChangePhase(5);
+        if(ordrePhase <5) {
+            ChangePhase(5);
+        }
     }
     public void OnFinishSelectPlayerCard(ArrayList<Card> listCards){
         if(!deckPlayerCharger) {
@@ -348,6 +460,7 @@ public class Game_activity extends AppCompatActivity {
                 new LoadImageTask(mainJoueur.get(3).getUrl(), iv_mainPlayerCard_6).execute();
                 new LoadImageTask(mainJoueur.get(4).getUrl(), iv_mainPlayerCard_7).execute();
                 new LoadImageTask(mainJoueur.get(5).getUrl(), iv_mainPlayerCard_8).execute();
+
                 break;
             case 7:
 
@@ -358,6 +471,7 @@ public class Game_activity extends AppCompatActivity {
                 new LoadImageTask(mainJoueur.get(4).getUrl(), iv_mainPlayerCard_6).execute();
                 new LoadImageTask(mainJoueur.get(5).getUrl(), iv_mainPlayerCard_7).execute();
                 new LoadImageTask(mainJoueur.get(6).getUrl(), iv_mainPlayerCard_8).execute();
+
                 break;
             case 8:
 
@@ -369,6 +483,7 @@ public class Game_activity extends AppCompatActivity {
                 new LoadImageTask(mainJoueur.get(5).getUrl(), iv_mainPlayerCard_7).execute();
                 new LoadImageTask(mainJoueur.get(6).getUrl(), iv_mainPlayerCard_8).execute();
                 new LoadImageTask(mainJoueur.get(7).getUrl(), iv_mainPlayerCard_9).execute();
+
                 break;
             case 9:
 
@@ -381,6 +496,7 @@ public class Game_activity extends AppCompatActivity {
                 new LoadImageTask(mainJoueur.get(6).getUrl(), iv_mainPlayerCard_7).execute();
                 new LoadImageTask(mainJoueur.get(7).getUrl(), iv_mainPlayerCard_8).execute();
                 new LoadImageTask(mainJoueur.get(8).getUrl(), iv_mainPlayerCard_9).execute();
+
                 break;
             case 10:
 
@@ -400,21 +516,17 @@ public class Game_activity extends AppCompatActivity {
         switch (mainIA.size()){
             case 1:
                 iv_mainIACard_5.setImageDrawable(getDrawable(R.drawable.cardcover));
-                //new LoadImageTask(mainJoueur.get(0).getUrl(), iv_mainPlayerCard_5).execute();
                 break;
             case 2:
                 iv_mainIACard_5.setImageDrawable(getDrawable(R.drawable.cardcover));
                 iv_mainIACard_6.setImageDrawable(getDrawable(R.drawable.cardcover));
-                //new LoadImageTask(mainJoueur.get(0).getUrl(), iv_mainPlayerCard_5).execute();
-                //new LoadImageTask(mainJoueur.get(1).getUrl(), iv_mainPlayerCard_6).execute();
+
                 break;
             case 3:
                 iv_mainIACard_4.setImageDrawable(getDrawable(R.drawable.cardcover));
                 iv_mainIACard_5.setImageDrawable(getDrawable(R.drawable.cardcover));
                 iv_mainIACard_6.setImageDrawable(getDrawable(R.drawable.cardcover));
-                /*new LoadImageTask(mainJoueur.get(0).getUrl(), iv_mainPlayerCard_4).execute();
-                new LoadImageTask(mainJoueur.get(1).getUrl(), iv_mainPlayerCard_5).execute();
-                new LoadImageTask(mainJoueur.get(2).getUrl(), iv_mainPlayerCard_6).execute();*/
+
                 break;
             case 4:
 
@@ -422,12 +534,7 @@ public class Game_activity extends AppCompatActivity {
                 iv_mainIACard_5.setImageDrawable(getDrawable(R.drawable.cardcover));
                 iv_mainIACard_6.setImageDrawable(getDrawable(R.drawable.cardcover));
                 iv_mainIACard_7.setImageDrawable(getDrawable(R.drawable.cardcover));
-                /*
-                new LoadImageTask(mainJoueur.get(0).getUrl(), iv_mainPlayerCard_4).execute();
-                new LoadImageTask(mainJoueur.get(1).getUrl(), iv_mainPlayerCard_5).execute();
-                new LoadImageTask(mainJoueur.get(2).getUrl(), iv_mainPlayerCard_6).execute();
-                new LoadImageTask(mainJoueur.get(3).getUrl(), iv_mainPlayerCard_7).execute();
-                */
+
                 break;
             case 5:
                 iv_mainIACard_3.setImageDrawable(getDrawable(R.drawable.cardcover));
@@ -435,13 +542,7 @@ public class Game_activity extends AppCompatActivity {
                 iv_mainIACard_5.setImageDrawable(getDrawable(R.drawable.cardcover));
                 iv_mainIACard_6.setImageDrawable(getDrawable(R.drawable.cardcover));
                 iv_mainIACard_7.setImageDrawable(getDrawable(R.drawable.cardcover));
-                /*
-                new LoadImageTask(mainJoueur.get(0).getUrl(), iv_mainPlayerCard_3).execute();
-                new LoadImageTask(mainJoueur.get(1).getUrl(), iv_mainPlayerCard_4).execute();
-                new LoadImageTask(mainJoueur.get(2).getUrl(), iv_mainPlayerCard_5).execute();
-                new LoadImageTask(mainJoueur.get(3).getUrl(), iv_mainPlayerCard_6).execute();
-                new LoadImageTask(mainJoueur.get(4).getUrl(), iv_mainPlayerCard_7).execute();
-                */
+
                 break;
             case 6:
                 iv_mainIACard_3.setImageDrawable(getDrawable(R.drawable.cardcover));
@@ -450,14 +551,7 @@ public class Game_activity extends AppCompatActivity {
                 iv_mainIACard_6.setImageDrawable(getDrawable(R.drawable.cardcover));
                 iv_mainIACard_7.setImageDrawable(getDrawable(R.drawable.cardcover));
                 iv_mainIACard_8.setImageDrawable(getDrawable(R.drawable.cardcover));
-                /*
-                new LoadImageTask(mainJoueur.get(0).getUrl(), iv_mainPlayerCard_3).execute();
-                new LoadImageTask(mainJoueur.get(1).getUrl(), iv_mainPlayerCard_4).execute();
-                new LoadImageTask(mainJoueur.get(2).getUrl(), iv_mainPlayerCard_5).execute();
-                new LoadImageTask(mainJoueur.get(3).getUrl(), iv_mainPlayerCard_6).execute();
-                new LoadImageTask(mainJoueur.get(4).getUrl(), iv_mainPlayerCard_7).execute();
-                new LoadImageTask(mainJoueur.get(5).getUrl(), iv_mainPlayerCard_8).execute();
-                */
+
                 break;
 
             case 7:
@@ -469,15 +563,6 @@ public class Game_activity extends AppCompatActivity {
                 iv_mainIACard_7.setImageDrawable(getDrawable(R.drawable.cardcover));
                 iv_mainIACard_8.setImageDrawable(getDrawable(R.drawable.cardcover));
 
-                /*
-                new LoadImageTask(mainJoueur.get(0).getUrl(), iv_mainPlayerCard_2).execute();
-                new LoadImageTask(mainJoueur.get(1).getUrl(), iv_mainPlayerCard_3).execute();
-                new LoadImageTask(mainJoueur.get(2).getUrl(), iv_mainPlayerCard_4).execute();
-                new LoadImageTask(mainJoueur.get(3).getUrl(), iv_mainPlayerCard_5).execute();
-                new LoadImageTask(mainJoueur.get(4).getUrl(), iv_mainPlayerCard_6).execute();
-                new LoadImageTask(mainJoueur.get(5).getUrl(), iv_mainPlayerCard_7).execute();
-                new LoadImageTask(mainJoueur.get(6).getUrl(), iv_mainPlayerCard_8).execute();
-                */
                 break;
 
             case 8:
@@ -490,16 +575,7 @@ public class Game_activity extends AppCompatActivity {
                 iv_mainIACard_7.setImageDrawable(getDrawable(R.drawable.cardcover));
                 iv_mainIACard_8.setImageDrawable(getDrawable(R.drawable.cardcover));
                 iv_mainIACard_9.setImageDrawable(getDrawable(R.drawable.cardcover));
-                /*
-                new LoadImageTask(mainJoueur.get(0).getUrl(), iv_mainPlayerCard_2).execute();
-                new LoadImageTask(mainJoueur.get(1).getUrl(), iv_mainPlayerCard_3).execute();
-                new LoadImageTask(mainJoueur.get(2).getUrl(), iv_mainPlayerCard_4).execute();
-                new LoadImageTask(mainJoueur.get(3).getUrl(), iv_mainPlayerCard_5).execute();
-                new LoadImageTask(mainJoueur.get(4).getUrl(), iv_mainPlayerCard_6).execute();
-                new LoadImageTask(mainJoueur.get(5).getUrl(), iv_mainPlayerCard_7).execute();
-                new LoadImageTask(mainJoueur.get(6).getUrl(), iv_mainPlayerCard_8).execute();
-                new LoadImageTask(mainJoueur.get(7).getUrl(), iv_mainPlayerCard_9).execute();
-                */
+
                 break;
 
             case 9:
@@ -513,16 +589,7 @@ public class Game_activity extends AppCompatActivity {
                 iv_mainIACard_7.setImageDrawable(getDrawable(R.drawable.cardcover));
                 iv_mainIACard_8.setImageDrawable(getDrawable(R.drawable.cardcover));
                 iv_mainIACard_9.setImageDrawable(getDrawable(R.drawable.cardcover));
-                /*
-                new LoadImageTask(mainJoueur.get(0).getUrl(), iv_mainPlayerCard_1).execute();
-                new LoadImageTask(mainJoueur.get(1).getUrl(), iv_mainPlayerCard_2).execute();
-                new LoadImageTask(mainJoueur.get(2).getUrl(), iv_mainPlayerCard_3).execute();
-                new LoadImageTask(mainJoueur.get(3).getUrl(), iv_mainPlayerCard_4).execute();
-                new LoadImageTask(mainJoueur.get(4).getUrl(), iv_mainPlayerCard_5).execute();
-                new LoadImageTask(mainJoueur.get(5).getUrl(), iv_mainPlayerCard_6).execute();
-                new LoadImageTask(mainJoueur.get(6).getUrl(), iv_mainPlayerCard_7).execute();
-                new LoadImageTask(mainJoueur.get(7).getUrl(), iv_mainPlayerCard_8).execute();
-                new LoadImageTask(mainJoueur.get(8).getUrl(), iv_mainPlayerCard_9).execute();*/
+
                 break;
             case 10:
 
@@ -536,17 +603,7 @@ public class Game_activity extends AppCompatActivity {
                 iv_mainIACard_8.setImageDrawable(getDrawable(R.drawable.cardcover));
                 iv_mainIACard_9.setImageDrawable(getDrawable(R.drawable.cardcover));
                 iv_mainIACard_10.setImageDrawable(getDrawable(R.drawable.cardcover));
-                /*
-                new LoadImageTask(mainJoueur.get(0).getUrl(), iv_mainPlayerCard_1).execute();
-                new LoadImageTask(mainJoueur.get(1).getUrl(), iv_mainPlayerCard_2).execute();
-                new LoadImageTask(mainJoueur.get(2).getUrl(), iv_mainPlayerCard_3).execute();
-                new LoadImageTask(mainJoueur.get(3).getUrl(), iv_mainPlayerCard_4).execute();
-                new LoadImageTask(mainJoueur.get(4).getUrl(), iv_mainPlayerCard_5).execute();
-                new LoadImageTask(mainJoueur.get(5).getUrl(), iv_mainPlayerCard_6).execute();
-                new LoadImageTask(mainJoueur.get(6).getUrl(), iv_mainPlayerCard_7).execute();
-                new LoadImageTask(mainJoueur.get(7).getUrl(), iv_mainPlayerCard_8).execute();
-                new LoadImageTask(mainJoueur.get(8).getUrl(), iv_mainPlayerCard_9).execute();
-                new LoadImageTask(mainJoueur.get(9).getUrl(), iv_mainPlayerCard_10).execute();*/
+
                 break;
         }
 

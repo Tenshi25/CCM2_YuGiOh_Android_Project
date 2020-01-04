@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Phase {
     private String name;
-    private ArrayList<Action> listAction;
+    private ArrayList<Action> listAction = new ArrayList<Action>();
 
     public Phase(String name) {
         this.name = name;
@@ -24,5 +24,26 @@ public class Phase {
 
     public void setListAction(ArrayList<Action> listAction) {
         this.listAction = listAction;
+    }
+
+    public Action findActionByName(String p_actionName){
+        Action theAction =new Action();
+        for (Action aAction : listAction){
+            if(aAction.getNom().equals(p_actionName)){
+                return theAction;
+            }
+
+        }
+        return null;
+    }
+    public boolean containsActionByName(String p_actionName){
+        Action theAction =new Action();
+        for (Action aAction : listAction){
+            if(aAction.getNom().equals(p_actionName)){
+                return true;
+            }
+
+        }
+        return false;
     }
 }

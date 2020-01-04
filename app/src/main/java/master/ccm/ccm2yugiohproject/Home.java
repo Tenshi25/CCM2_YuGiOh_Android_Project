@@ -47,7 +47,7 @@ public class Home extends AppCompatActivity {
                         return false;
                     }
                 });
-
+        bottomNavigation.setSelectedItemId(R.id.navigation_home);
     }
 
     public void selectAllUserDeckFini(ArrayList<Deck> listDeck) {

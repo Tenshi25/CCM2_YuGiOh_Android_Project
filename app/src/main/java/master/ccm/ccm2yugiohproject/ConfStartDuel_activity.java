@@ -117,6 +117,8 @@ public class ConfStartDuel_activity extends AppCompatActivity implements Adapter
                 return false;
             }
         });
+        bottomNavigation.setSelectedItemId(R.id.navigation_party);
+
     }
 
     @Override

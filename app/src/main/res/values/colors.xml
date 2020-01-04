@@ -6,4 +6,6 @@
     <color name="blue">#0066ff</color>
     <color name="red">#cc0000</color>
     <color name="black">#000000</color>
+    <color name="colorAccentDark">#4aa87a</color>
+
 </resources>

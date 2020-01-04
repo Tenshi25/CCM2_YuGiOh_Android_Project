@@ -75,6 +75,7 @@ public class MenuDeckList_Activity extends AppCompatActivity {
                 return false;
             }
         });
+        bottomNavigation.setSelectedItemId(R.id.navigation_deck);
 
     }
     public void OnDeckClick(Deck p_deck) {

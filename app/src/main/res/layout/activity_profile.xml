@@ -31,9 +31,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="@color/colorPrimary"
-            app:itemIconTint="@color/colorAccent"
-            app:itemTextColor="@color/colorPrimaryDark"
+            android:background="@color/design_default_color_primary_dark"
+            app:itemIconTint="@menu/bottom_navigation_color"
+            app:itemTextColor="@menu/bottom_navigation_color"
             app:menu="@menu/bottom_navigation_bar" />
 
     </FrameLayout>

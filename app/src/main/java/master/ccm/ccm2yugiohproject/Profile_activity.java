@@ -55,6 +55,8 @@ public class Profile_activity extends AppCompatActivity {
                 return false;
             }
         });
+        bottomNavigation.setSelectedItemId(R.id.navigation_setting);
+
 
     }
     public void onClickRetourProfile(View view) {

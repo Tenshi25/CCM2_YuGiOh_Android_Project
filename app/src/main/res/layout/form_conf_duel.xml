@@ -103,11 +103,4 @@
         android:onClick="onClickDuelStart"
         android:text="@string/bt_start_duel" />
 
-    <Button
-        android:id="@+id/bt_return"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onClickRetour"
-        android:text="@string/bt_return" />
-
 </LinearLayout>

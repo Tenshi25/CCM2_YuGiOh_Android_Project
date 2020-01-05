@@ -35,22 +35,10 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/bt_return"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="@android:dimen/app_icon_size"
-            android:layout_weight="1"
-            android:onClick="onClickReturn"
-            android:text="@string/bt_return"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingActionButton"
-            android:layout_width="166dp"
-            android:layout_height="208dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginStart="@android:dimen/app_icon_size"
             android:layout_marginTop="@android:dimen/app_icon_size"
             android:layout_weight="1"

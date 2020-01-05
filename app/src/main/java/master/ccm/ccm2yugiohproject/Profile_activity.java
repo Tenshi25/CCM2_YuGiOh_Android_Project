@@ -59,12 +59,7 @@ public class Profile_activity extends AppCompatActivity {
 
 
     }
-    public void onClickRetourProfile(View view) {
-        Intent intent = new Intent(this, Home.class);
-        startActivity(intent);
-        finish();
 
-    }
     public void onClickModifyProfile(View view) {
        String newPassword = et_password.getText().toString();
         String newVPassword = et_v_password.getText().toString();

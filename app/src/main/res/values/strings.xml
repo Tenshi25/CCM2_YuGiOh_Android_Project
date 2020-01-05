@@ -19,7 +19,7 @@
     <string name="title_listDeck">Decks list</string>
     <string name="title_form_createDeck">Form Create Deck</string>
     <string name="bt_addDeck">Add this Deck</string>
-    <string name="title_profile">Profile Stettings</string>
+    <string name="title_profile">Profile Settings</string>
     <string name="et_pseudo">pseudo</string>
     <string name="et_new_password">nouveau mot de passe</string>
     <string name="bt_profile">Profile</string>

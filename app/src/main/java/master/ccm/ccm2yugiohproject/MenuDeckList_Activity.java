@@ -93,12 +93,7 @@ public class MenuDeckList_Activity extends AppCompatActivity {
             finish();
 
     }
-    public void onClickReturn(View view) {
-        Intent intent = new Intent(this, Home.class);
-        startActivity(intent);
-        finish();
 
-    }
     public void onClickModifyDeck(View view) {
         View parentRow = (View) view.getParent();
         ListView listView = (ListView) parentRow.getParent();

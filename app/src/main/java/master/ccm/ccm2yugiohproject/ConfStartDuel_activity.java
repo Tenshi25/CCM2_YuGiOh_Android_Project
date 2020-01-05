@@ -161,9 +161,4 @@ public class ConfStartDuel_activity extends AppCompatActivity implements Adapter
 
         SoundMusicUtils.launchSoundMusic(this, R.raw.passionate_duelist_theme, true, 0.5);
     }
-    public void onClickRetour(View view){
-        Intent intent = new Intent(this, Home.class);
-        startActivity(intent);
-        finish();
-    }
 }

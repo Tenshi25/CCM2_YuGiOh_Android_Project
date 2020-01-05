@@ -7,13 +7,29 @@
     android:background="@drawable/fondecranduel"
     tools:context=".ConfStartDuel_activity" >
 
-    <include
-        layout="@layout/form_conf_duel"
-        android:layout_width="286dp"
-        android:layout_height="472dp"
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent=".85"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="82dp" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <include
+            layout="@layout/form_conf_duel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="82dp" />
+
+    </FrameLayout>
+
 
     <FrameLayout
         android:id="@+id/container"
@@ -21,8 +37,10 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent=".15"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/id_conf_duel_bottom_navigation"

@@ -1,20 +1,29 @@
 package master.ccm.ccm2yugiohproject;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import master.ccm.ccm2yugiohproject.utils.NavigationMenuUtils;
 import master.ccm.entity.CurrentUser;
 import master.ccm.entity.Deck;
 import master.ccm.manager.DeckDBManager;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +35,17 @@ public class MenuDeckList_Activity extends AppCompatActivity {
     private List<String> tableauChaines = new ArrayList<String>();
     private Deck selectedDeck;
     private Deck[] tabDeck;
+    private BottomNavigationView bottomNavigation;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_deck_list);
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         //on récupére le recyclerView
         listView = (ListView) findViewById(R.id.id_lv_listDeck);
@@ -48,6 +63,27 @@ public class MenuDeckList_Activity extends AppCompatActivity {
         DeckDBManager userDBManager =new DeckDBManager();
         userDBManager.selectUserDecks(this);
 
+        bottomNavigation = findViewById(R.id.id_deck_list_bottom_navigation);
+        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.navigation_home:
+                        NavigationMenuUtils.onClickHome(MenuDeckList_Activity.this);
+                        return true;
+                    case R.id.navigation_deck:
+                        return true;
+                    case R.id.navigation_party:
+                        NavigationMenuUtils.onClickDuel(MenuDeckList_Activity.this);
+                        return true;
+                    case R.id.navigation_setting:
+                        NavigationMenuUtils.onClickProfile(MenuDeckList_Activity.this);
+                        return true;
+                }
+                return false;
+            }
+        });
+        bottomNavigation.setSelectedItemId(R.id.navigation_deck);
+
     }
     public void OnDeckClick(Deck p_deck) {
         Toast.makeText(this,"deck : " + p_deck.getName(),Toast.LENGTH_SHORT).show();
@@ -64,12 +100,7 @@ public class MenuDeckList_Activity extends AppCompatActivity {
             finish();
 
     }
-    public void onClickReturn(View view) {
-        Intent intent = new Intent(this, Home.class);
-        startActivity(intent);
-        finish();
 
-    }
     public void onClickModifyDeck(View view) {
         View parentRow = (View) view.getParent();
         ListView listView = (ListView) parentRow.getParent();

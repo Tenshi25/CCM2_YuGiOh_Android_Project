@@ -1,20 +1,28 @@
 package master.ccm.ccm2yugiohproject;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import master.ccm.ccm2yugiohproject.utils.NavigationMenuUtils;
 import master.ccm.ccm2yugiohproject.utils.SoundMusicUtils;
 import master.ccm.entity.CurrentUser;
 import master.ccm.entity.Deck;
 import master.ccm.entity.Game;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
@@ -28,12 +36,18 @@ public class ConfStartDuel_activity extends AppCompatActivity implements Adapter
     private Spinner spinnerIA;
     private Spinner spinnerPlayerDecks;
     private Spinner spinnerIAListeDeck;
+    private BottomNavigationView bottomNavigation;
+
 
     private ArrayList<Deck> listDeck = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conf_start_duel);
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 
         //spinner lifepoint
@@ -90,6 +104,28 @@ public class ConfStartDuel_activity extends AppCompatActivity implements Adapter
         selected_ia= spinnerIA.getSelectedItem().toString();
         selected_player_deck = (Deck) spinnerPlayerDecks.getSelectedItem();
         selected_ia_deck = (Deck) spinnerIAListeDeck.getSelectedItem();
+
+        bottomNavigation = findViewById(R.id.id_conf_duel_bottom_navigation);
+        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.navigation_home:
+                        NavigationMenuUtils.onClickHome(ConfStartDuel_activity.this);
+                        return true;
+                    case R.id.navigation_deck:
+                        NavigationMenuUtils.onClickToDeckList(ConfStartDuel_activity.this);
+                        return true;
+                    case R.id.navigation_party:
+                        return true;
+                    case R.id.navigation_setting:
+                        NavigationMenuUtils.onClickProfile(ConfStartDuel_activity.this);
+                        return true;
+                }
+                return false;
+            }
+        });
+        bottomNavigation.setSelectedItemId(R.id.navigation_party);
+
     }
 
     @Override
@@ -131,10 +167,5 @@ public class ConfStartDuel_activity extends AppCompatActivity implements Adapter
         startActivity(intent);
 
         SoundMusicUtils.launchSoundMusic(this, R.raw.passionate_duelist_theme, true, 0.5);
-    }
-    public void onClickRetour(View view){
-        Intent intent = new Intent(this, Home.class);
-        startActivity(intent);
-        finish();
     }
 }

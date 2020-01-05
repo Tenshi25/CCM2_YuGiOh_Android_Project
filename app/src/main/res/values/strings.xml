@@ -45,7 +45,7 @@
     <string name="bt_standbyPhase">SP</string>
     <string name="bt_endPhase">EP</string>
     <string name="nav_home">Home</string>
-    <string name="nav_party">Play</string>
+    <string name="nav_party">Duel</string>
     <string name="nav_setting">Settings</string>
     <string name="nav_deck">Decks</string>
 </resources>

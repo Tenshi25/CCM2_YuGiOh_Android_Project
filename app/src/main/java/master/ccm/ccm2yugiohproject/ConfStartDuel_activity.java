@@ -158,14 +158,17 @@ public class ConfStartDuel_activity extends AppCompatActivity implements Adapter
         Intent intent = new Intent(this, Game_activity.class);
 
 
+        if (selected_ia_deck != null && selected_player_deck != null) {
+            intent.putExtra("idIADeck", selected_ia_deck.getId());
+            intent.putExtra("idPlayerDeck", selected_player_deck.getId());
+            intent.putExtra("lifepoint", selected_lifePoint);
+            intent.putExtra("typeIA", selected_ia);
 
-        intent.putExtra("idIADeck",selected_ia_deck.getId());
-        intent.putExtra("idPlayerDeck",selected_player_deck.getId());
-        intent.putExtra("lifepoint",selected_lifePoint);
-        intent.putExtra("typeIA",selected_ia);
+            startActivity(intent);
 
-        startActivity(intent);
-
-        SoundMusicUtils.launchSoundMusic(this, R.raw.passionate_duelist_theme, true, 0.5);
+            SoundMusicUtils.launchSoundMusic(this, R.raw.passionate_duelist_theme, true, 0.5);
+        }else{
+            Toast.makeText(this,"Vous devez d'abord crée un deck",Toast.LENGTH_SHORT).show();
+        }
     }
 }

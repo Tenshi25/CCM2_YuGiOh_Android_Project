@@ -8,6 +8,8 @@ import master.ccm.entity.CurrentUser;
 import master.ccm.entity.Deck;
 import master.ccm.manager.DeckDBManager;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -94,7 +96,6 @@ public class MenuDeckList_Activity extends AppCompatActivity {
     }
 
     public void onClickAdd(View view) {
-        Toast.makeText(this,"click",Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, AddNewDeck_Activity.class);
             startActivity(intent);
             finish();
@@ -163,18 +164,12 @@ public class MenuDeckList_Activity extends AppCompatActivity {
     }
 
     public void onClickDeleteDeck(View view) {
+
         View parentRow = (View) view.getParent();
         ListView listView = (ListView) parentRow.getParent();
         final int position = listView.getPositionForView(parentRow);
         Deck deckASupprimer = deckList.get(position);
-        DeckDBManager deckDBManager =  new DeckDBManager();
-        deckDBManager.deleteDeck(deckASupprimer.getId(),this);
-        deckList.remove(deckASupprimer);
-        if (CurrentUser.getInstance().getDeckList().contains(deckASupprimer.getId())){
-            CurrentUser.getInstance().getDeckList().remove(deckASupprimer.getId());
-        }
-        RemplirListView(deckList);
-        //deckDBManager.selectUserDecks(this);
+        createAndShowDialog(deckASupprimer,"Supression du deck : " +deckASupprimer.getName());
     }
 
     public void deleteDeckSucess() {
@@ -183,5 +178,50 @@ public class MenuDeckList_Activity extends AppCompatActivity {
 
     public void deleteDeckFail() {
         Toast.makeText(this,"Erreur ! le deck n'a pas été supprimer",Toast.LENGTH_SHORT).show();
+    }
+    private void createAndShowDialog(Exception exception, String title) {
+        Throwable ex = exception;
+        if(exception.getCause() != null){
+            ex = exception.getCause();
+        }
+        createAndShowDialog(ex.getMessage(), title);
+    }
+    private void createAndShowDialog(final Deck decktoDel, final String title) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setMessage(R.string.alert_Supp_message);
+        builder.setPositiveButton(R.string.alert_Supp_yes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // FIRE ZE MISSILES!
+                deleteDeck(decktoDel);
+
+            }
+        })
+                .setNegativeButton(R.string.alert_Supp_no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                });
+        builder.setTitle(title);
+        builder.create().show();
+    }
+
+    private void createAndShowDialog(final String message, final String title) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setMessage(message);
+        builder.setTitle(title);
+        builder.create().show();
+    }
+
+    private void deleteDeck(Deck deckASupprimer){
+
+        DeckDBManager deckDBManager =  new DeckDBManager();
+        deckDBManager.deleteDeck(deckASupprimer.getId(),this);
+        deckList.remove(deckASupprimer);
+        if (CurrentUser.getInstance().getDeckList().contains(deckASupprimer.getId())){
+            CurrentUser.getInstance().getDeckList().remove(deckASupprimer.getId());
+        }
+        RemplirListView(deckList);
     }
 }

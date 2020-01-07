@@ -51,7 +51,7 @@
     <string name="ET_Name_Text">Pseudo</string>
     <string name="alert_Supp_yes">Oui</string>
     <string name="alert_Supp_no">Non</string>
-    <string name="alert_Supp_message">Êtes vous sûr de supprimer ce deck</string>
+    <string name="alert_Supp_message">Êtes vous sûr de supprimer ce deck ?</string>
     <string name="titile_login">Connexion</string>
     <string name="title_signup">Inscription</string>
 </resources>

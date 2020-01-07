@@ -23,10 +23,11 @@
 
         <ImageButton
             android:id="@+id/imageButton"
-            android:layout_width="100dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:backgroundTint="#A30C3C6F"
+            android:backgroundTint="#C3103D6F"
+            android:onClick="onClickAdd"
             app:srcCompat="@android:drawable/ic_input_add" />
 
     </LinearLayout>

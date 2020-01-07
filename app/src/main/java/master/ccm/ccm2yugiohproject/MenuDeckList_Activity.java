@@ -96,7 +96,6 @@ public class MenuDeckList_Activity extends AppCompatActivity {
     }
 
     public void onClickAdd(View view) {
-        Toast.makeText(this,"click",Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, AddNewDeck_Activity.class);
             startActivity(intent);
             finish();
@@ -170,7 +169,7 @@ public class MenuDeckList_Activity extends AppCompatActivity {
         ListView listView = (ListView) parentRow.getParent();
         final int position = listView.getPositionForView(parentRow);
         Deck deckASupprimer = deckList.get(position);
-        createAndShowDialog(deckASupprimer,"test");
+        createAndShowDialog(deckASupprimer,"Supression du deck : " +deckASupprimer.getName());
     }
 
     public void deleteDeckSucess() {

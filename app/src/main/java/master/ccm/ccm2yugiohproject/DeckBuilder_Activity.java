@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import master.ccm.ccm2yugiohproject.utils.LoadImageTask;
 import master.ccm.entity.Card;
-import master.ccm.entity.Deck;
+import master.ccm.entity.PileDeCarte.Deck;
 import master.ccm.manager.CardDBManager;
 import master.ccm.manager.DeckDBManager;
 

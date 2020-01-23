@@ -10,7 +10,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Source;
 
@@ -27,9 +26,7 @@ import master.ccm.ccm2yugiohproject.Home;
 import master.ccm.ccm2yugiohproject.MenuDeckList_Activity;
 import master.ccm.entity.Card;
 import master.ccm.entity.CurrentUser;
-import master.ccm.entity.Deck;
-import master.ccm.entity.Player;
-import master.ccm.entity.User;
+import master.ccm.entity.PileDeCarte.Deck;
 
 public class DeckDBManager {
     private FirebaseFirestore database = FirebaseFirestore.getInstance();

@@ -1,4 +1,4 @@
-package master.ccm.entity;
+package master.ccm.entity.PileDeCarte;
 
 public class Bannisement extends PileCarte {
 }

@@ -1,9 +1,13 @@
 package master.ccm.entity;
 
-import android.widget.EditText;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import master.ccm.entity.PileDeCarte.Bannisement;
+import master.ccm.entity.PileDeCarte.Cimetiere;
+import master.ccm.entity.PileDeCarte.Deck;
+import master.ccm.entity.PileDeCarte.ExtraDeck;
+import master.ccm.entity.PileDeCarte.Main;
 
 public class Player {
     private String name;

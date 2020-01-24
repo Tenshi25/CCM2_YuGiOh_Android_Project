@@ -177,15 +177,33 @@ public class DeckBuilder_Activity extends AppCompatActivity {
         //on ajoute le lien
         if(cardToAdd.getLimit()> cardToAdd.getDuplicate() )
         {
-            deckDBManager.addLinkDeckCard(leDeck,cardToAdd,this);
-            cardToAdd.setDuplicate(cardToAdd.getDuplicate()+1);
             //on met à jour le tableau et la list view
+            boolean exist = false;
+            if(deckCardsList.size()!=0) {
+                for (Card cardIn : deckCardsList) {
+                    if (cardIn.getName().equals(cardToAdd.getName())) {
+                        exist = true;
+                        cardToAdd.setDuplicate(cardIn.getDuplicate() + 1);
+                        cardIn.setDuplicate(cardToAdd.getDuplicate());
+                        //deckCardsList.get(cardIn);
+                        //deckCardsList.add(cardToAdd);
+                        deckDBManager.addLinkDeckCard(leDeck, cardToAdd, this);
+                    }
+                }
+            }
+            if(!exist){
+                cardToAdd.setDuplicate(cardToAdd.getDuplicate()+1);
+                deckCardsList.add(cardToAdd);
+                deckDBManager.addLinkDeckCard(leDeck,cardToAdd,this);
+            }
+/*
             if (!deckCardsList.contains(cardToAdd)){
             deckCardsList.add(cardToAdd);
-            }
+            }*/
 
         }else{
             Toast.makeText(this,"Vous avez atient la limite",Toast.LENGTH_SHORT).show();
+
 
         }
         RemplirListViewDeckCard(deckCardsList);
@@ -196,16 +214,18 @@ public class DeckBuilder_Activity extends AppCompatActivity {
         final int position = listView.getPositionForView(parentRow);
         Card cardASupprimer = deckCardsList.get(position);
 
-
         cardASupprimer.setDuplicate(cardASupprimer.getDuplicate()-1);
+
+        DeckDBManager deckDBManager =  new DeckDBManager();
+        deckDBManager.deleteLinkCardDeck(leDeck,cardASupprimer,this);
+
         if(cardASupprimer.getDuplicate() < 1 )
         {
-            DeckDBManager deckDBManager =  new DeckDBManager();
-            deckDBManager.deleteLinkCardDeck(leDeck,cardASupprimer,this);
             //on met à jour le tableau et la list view
             if (deckCardsList.contains(cardASupprimer)){
                 deckCardsList.remove(cardASupprimer);
             }
+            //Toast.makeText(this,"la carte a été retirée",Toast.LENGTH_SHORT).show();
         }
 
         RemplirListViewDeckCard(deckCardsList);
@@ -232,7 +252,7 @@ public class DeckBuilder_Activity extends AppCompatActivity {
     }
 
     public void onClickDeleteLinkCardDeckSucess() {
-        Toast.makeText(this,"La carte à été retirer au deck",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"La carte à été retirée du deck",Toast.LENGTH_SHORT).show();
 
     }
     public void onClickRetour(View view) {
@@ -243,5 +263,9 @@ public class DeckBuilder_Activity extends AppCompatActivity {
 
     public static void setImg(Bitmap bitmap, ImageView imageView) {
             imageView.setImageBitmap(bitmap);
+    }
+    public void onUpdateLinkCardSuccess() {
+
+        Toast.makeText(this, "un exemplaire a été retirée", Toast.LENGTH_SHORT).show();
     }
 }

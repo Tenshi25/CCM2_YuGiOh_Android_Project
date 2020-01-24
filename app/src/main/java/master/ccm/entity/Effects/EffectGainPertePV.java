@@ -11,7 +11,7 @@ public class EffectGainPertePV extends EffectCard {
     public void execute(ArrayList<Player> listJoueurs, int joueurCibler, int nb, PileCarte dePileA, PileCarte aPileB, ArrayList<Card> filtre) {
         if(joueurCibler<2){
             if(nb<0){
-                listJoueurs.get(joueurCibler).perteLifepoint(nb);
+                listJoueurs.get(joueurCibler).perteLifepoint(-nb);
             }else{
                 listJoueurs.get(joueurCibler).gainLifepoint(nb);
             }
@@ -19,7 +19,7 @@ public class EffectGainPertePV extends EffectCard {
         }else{
             if(nb<0){
                 for (Player joueur : listJoueurs) {
-                    joueur.perteLifepoint(nb);
+                    joueur.perteLifepoint(-nb);
                 }
             }else{
                 for (Player joueur : listJoueurs){

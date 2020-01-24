@@ -12,13 +12,13 @@ public class Deck extends PileCarte {
     private String description;
     private String idUser;
 
-    private List<Card> listCard;
+    private ArrayList<Card> listCard = new ArrayList<Card>();
 
     public List<Card> getListCard() {
         return listCard;
     }
 
-    public void setListCard(List<Card> listCard) {
+    public void setListCard(ArrayList<Card> listCard) {
         this.listCard = listCard;
     }
 

@@ -32,20 +32,20 @@ import master.ccm.entity.Player;
 import master.ccm.entity.User;
 
 public class DeckDBManager {
-    private  FirebaseFirestore database = FirebaseFirestore.getInstance();
-    private static Boolean deckExist ;
+    private FirebaseFirestore database = FirebaseFirestore.getInstance();
+    private static Boolean deckExist;
 
     public void BeforeAddDeck(final Deck deck, final AddNewDeck_Activity context) {
-        database.collection("Deck").whereEqualTo("name",deck.getName()).whereEqualTo("id_user",CurrentUser.getInstance().getId()).get(Source.DEFAULT).addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        database.collection("Deck").whereEqualTo("name", deck.getName()).whereEqualTo("id_user", CurrentUser.getInstance().getId()).get(Source.DEFAULT).addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.getResult().size() >= 1) {
-                    Log.i("task.getResult()",""+task.getResult().size());
-                    Log.i("selectDeck","Le deck existe déjà");
+                    Log.i("task.getResult()", "" + task.getResult().size());
+                    Log.i("selectDeck", "Le deck existe déjà");
                     context.DeckAlreadyExists();
 
-                }else{
-                    AddDeck(deck,context);
+                } else {
+                    AddDeck(deck, context);
                 }
 
             }
@@ -54,32 +54,29 @@ public class DeckDBManager {
 
     public void AddDeck(final Deck newDeck, final AddNewDeck_Activity context) {
 
-            Map<String, Object> DeckMap = new HashMap<>();
-            DeckMap.put("id_user", newDeck.getIdUser());
-            DeckMap.put("name", newDeck.getName());
-            DeckMap.put("description", newDeck.getDescription());
+        Map<String, Object> DeckMap = new HashMap<>();
+        DeckMap.put("id_user", newDeck.getIdUser());
+        DeckMap.put("name", newDeck.getName());
+        DeckMap.put("description", newDeck.getDescription());
 
 
-            database.collection("Deck").add(DeckMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentReference> task) {
-                    if (task.isSuccessful()){
-                        Log.i("AddDeck","Le deck à été ajouter");
-                        newDeck.setId(task.getResult().getId());
-                        context.AddDeckSucess(newDeck);
-                    }else{
+        database.collection("Deck").add(DeckMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentReference> task) {
+                if (task.isSuccessful()) {
+                    Log.i("AddDeck", "Le deck à été ajouter");
+                    newDeck.setId(task.getResult().getId());
+                    context.AddDeckSucess(newDeck);
+                } else {
                     context.AddDeckFail();
                 }
-                }
-            });
-
-
-
-
+            }
+        });
 
 
     }
-    public void selectUserDecks( final Context context) {
+
+    public void selectUserDecks(final Context context) {
         database.collection("Deck")
                 .whereEqualTo("id_user", CurrentUser.getInstance().getId())
                 .get()
@@ -98,10 +95,9 @@ public class DeckDBManager {
                                 unDeck.setDescription(document.get("description").toString());
                                 listDeck.add(unDeck);
                             }
-                            if(context.getClass() == MenuDeckList_Activity.class)
-                            {
+                            if (context.getClass() == MenuDeckList_Activity.class) {
                                 ((MenuDeckList_Activity) context).selectAllUserDeckFini(listDeck);
-                            }else if(context.getClass() == Home.class){
+                            } else if (context.getClass() == Home.class) {
                                 ((Home) context).selectAllUserDeckFini(listDeck);
                             }
 
@@ -111,12 +107,13 @@ public class DeckDBManager {
                     }
                 });
     }
+
     private static void setdeckExist(boolean p_deckExist) {
         DeckDBManager.deckExist = p_deckExist;
 
     }
 
-    public void deleteDeck (String idDeck,final MenuDeckList_Activity context){
+    public void deleteDeck(String idDeck, final MenuDeckList_Activity context) {
         database.collection("Deck").document(idDeck)
                 .delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -135,68 +132,69 @@ public class DeckDBManager {
                 });
 
     }
-    public void addLinkDeckCard(final Deck leDeck,final Card card,final DeckBuilder_Activity context){
 
-                database.collection("Link")
-                        .whereEqualTo("id_deck", leDeck.getId()).whereEqualTo("id_card", card.getId())
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    if (task.getResult().size() >= 1) {
+    public void addLinkDeckCard(final Deck leDeck, final Card card, final DeckBuilder_Activity context) {
 
-                                        int duplicate = card.getDuplicate();
-                                        if(duplicate < 3){
-                                            duplicate = duplicate + 1;
-                                            DocumentReference linkRef = database.collection("Link").document(task.getResult().getDocuments().get(0).getId());
-                                            linkRef
-                                                    .update("duplicate", duplicate)
-                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                        @Override
-                                                        public void onSuccess(Void aVoid) {
-                                                            Log.d("update", "DocumentSnapshot successfully updated!");
-                                                        }
-                                                    })
-                                                    .addOnFailureListener(new OnFailureListener() {
-                                                        @Override
-                                                        public void onFailure(@NonNull Exception e) {
-                                                            Log.w("update", "Error updating document", e);
-                                                        }
-                                                    });
-                                        }
+        database.collection("Link")
+                .whereEqualTo("id_deck", leDeck.getId()).whereEqualTo("id_card", card.getId())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            if (task.getResult().size() >= 1) {
 
-
-                                    }else{
-                                        Map<String, Object> DeckMap = new HashMap<>();
-                                        DeckMap.put("id_deck", leDeck.getId());
-                                        DeckMap.put("id_card", card.getId());
-                                        DeckMap.put("duplicate", 1);
-                                        database.collection("Link").add(DeckMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<DocumentReference> task) {
-                                                if (task.isSuccessful()){
-                                                    Log.i("AddLink","Le lien à été ajouter");
-
-                                                    context.AddLinkSucess();
-                                                }else{
-                                                    context.AddLinkFail();
+                                int duplicate = card.getDuplicate();
+                                //int duplicate = (int) task.getResult().getDocuments().get(0).get("duplicate");
+                                if (duplicate < 4) {
+                                    //duplicate = duplicate + 1;
+                                    DocumentReference linkRef = database.collection("Link").document(task.getResult().getDocuments().get(0).getId());
+                                    linkRef
+                                            .update("duplicate", duplicate)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Log.d("update", "DocumentSnapshot successfully updated!");
                                                 }
-                                            }
-                                        });
-                                    }
-                                } else {
-                                    Log.d("addLink", "Error getting documents: ", task.getException());
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.w("update", "Error updating document", e);
+                                                }
+                                            });
                                 }
+
+
+                            } else {
+                                Map<String, Object> DeckMap = new HashMap<>();
+                                DeckMap.put("id_deck", leDeck.getId());
+                                DeckMap.put("id_card", card.getId());
+                                DeckMap.put("duplicate", 1);
+                                database.collection("Link").add(DeckMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                                        if (task.isSuccessful()) {
+                                            Log.i("AddLink", "Le lien à été ajouter");
+
+                                            context.AddLinkSucess();
+                                        } else {
+                                            context.AddLinkFail();
+                                        }
+                                    }
+                                });
                             }
-                        });
-
-
+                        } else {
+                            Log.d("addLink", "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
 
 
     }
-    public void selectAllCardDeck(final Deck leDeck,final Context context) {
-        Log.w("selectCard", "deck id : "+leDeck.getId());
+
+    public void selectAllCardDeck(final Deck leDeck, final Context context) {
+        Log.w("selectCard", "deck id : " + leDeck.getId());
         database.collection("Link")
                 .whereEqualTo("id_deck", leDeck.getId())
                 .get()
@@ -206,7 +204,7 @@ public class DeckDBManager {
                         if (task.isSuccessful()) {
 
                             //liste de cartes
-                             final ArrayList<Card> listlinkCard = new ArrayList<Card>();
+                            final ArrayList<Card> listlinkCard = new ArrayList<Card>();
 
                             //select des cartes du deck
                             final List<DocumentSnapshot> result = task.getResult().getDocuments();
@@ -217,7 +215,7 @@ public class DeckDBManager {
                                 aCard.setDuplicate(Integer.parseInt(document.get("duplicate").toString()));
                                 listlinkCard.add(aCard);
                             }
-                            selectAllCardDeck2(listlinkCard,leDeck,context);
+                            selectAllCardDeck2(listlinkCard, leDeck, context);
                             //context.selectAllCardDeckFini(listCard);
 
                         } else {
@@ -239,22 +237,27 @@ public class DeckDBManager {
                                 List<DocumentSnapshot> result = task.getResult().getDocuments();
                                 for (DocumentSnapshot document : result) {
                                     int nbDuplicate = card.getDuplicate();
-                                    if(nbDuplicate > 1){
+
+
+                                    Log.d("updateLink", "" + nbDuplicate);
+                                    if(nbDuplicate > 0){
                                         int duplicate = Integer.parseInt(document.get("duplicate").toString());
                                         duplicate = duplicate -1;
-                                        DocumentReference linkRef = database.collection("Link").document(task.getResult().getDocuments().get(0).getId());
+                                        DocumentReference linkRef = database.collection("Link").document(document.getId());
                                         linkRef
                                                 .update("duplicate",duplicate)
                                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                     @Override
                                                     public void onSuccess(Void aVoid) {
-                                                        Log.d("update", "DocumentSnapshot successfully updated!");
+                                                        Log.d("updateLink", "DocumentSnapshot successfully updated!");
+                                                        deckBuilder_activity.onUpdateLinkCardSuccess();
                                                     }
+
                                                 })
                                                 .addOnFailureListener(new OnFailureListener() {
                                                     @Override
                                                     public void onFailure(@NonNull Exception e) {
-                                                        Log.w("update", "Error updating document", e);
+                                                        Log.w("updateLink", "Error updating document", e);
                                                     }
                                                 });
                                     }else{

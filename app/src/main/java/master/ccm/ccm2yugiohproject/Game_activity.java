@@ -5,6 +5,8 @@ import master.ccm.ccm2yugiohproject.utils.LoadImageTask;
 import master.ccm.entity.Action;
 import master.ccm.entity.Card;
 import master.ccm.entity.CurrentUser;
+import master.ccm.entity.Effects.EffectCard;
+import master.ccm.entity.Effects.EffectGainPertePV;
 import master.ccm.entity.Effects.EffectPioche;
 import master.ccm.entity.PileDeCarte.Deck;
 import master.ccm.entity.Phase;
@@ -343,25 +345,29 @@ public class Game_activity extends AppCompatActivity {
                     bt_mainPhase2.setTextColor(Color.RED);
                     bt_EndPhase.setTextColor(Color.RED);
                     //bt_EndPhase.setBackgroundColor(Color.RED);
+
+
                     currentPhase.findActionByName("Pioche").getEffect().execute(this,listPlayer,1,1,null,null,null);
-                    //List<Card> lesCartes =currentplayer.getPlayerDeck().drawCard(1);
-                    //ShowDrawCard((ArrayList<Card>) lesCartes);
-                    /*for (Card aCard : lesCartes) {
-                        listPlayer.get(1).getPlayerMain().getListCards().add(aCard);
-                    }*/
+
+                    // test pour faire perdre un des joueur avec les pv
+                    /*EffectGainPertePV perte500 = new EffectGainPertePV();
+                    Action perteAction = new Action("pertePV",perte500);
+                    perteAction.getEffect().execute(this,listPlayer,0,-500,null,null,null);
+                    majPv();*/
+
                     majMain();
                     majNBPlayerDeckCard();
                     nextPhase();
                     break;
 
                 case 1:
-                case 3:
                 case 2:
+                case 3:
                 case 4:
-                    //main phase 2
+                    //stand by
                     //Main phase
                     //Battle phase
-                    //stand by
+                    //main phase 2
                     nextPhase();
                     break;
                 case 5:
@@ -376,17 +382,17 @@ public class Game_activity extends AppCompatActivity {
 
     }
     public void onClickBP(View view){
-        if(ordrePhase <3) {
+        if(ordrePhase == 2) {
             ChangePhase(3);
         }
     }
     public void onClickMP2(View view){
-        if(ordrePhase <4) {
+        if(ordrePhase == 3) {
             ChangePhase(4);
         }
     }
     public void onClickEP(View view){
-        if(ordrePhase <5) {
+        if(ordrePhase <5 && ordrePhase >1) {
             ChangePhase(5);
         }
     }
@@ -424,8 +430,33 @@ public class Game_activity extends AppCompatActivity {
 
     }
     public void majNBPlayerDeckCard(){
-        tv_nbdeckCardPlayer.setText(String.valueOf(listPlayer.get(0).getPlayerDeck().getListCard().size()));
-        tv_nbdeckCardIA.setText(String.valueOf(listPlayer.get(1).getPlayerDeck().getListCard().size()));
+
+        // nombre de carte du joueur
+        int nbcardDeckPlayer = listPlayer.get(0).getPlayerDeck().getListCard().size();
+        tv_nbdeckCardPlayer.setText(String.valueOf(nbcardDeckPlayer));
+
+        // on fait disparaitre l'image si on a plus de carte dans  le deck du joueur
+        // fait bien disparaitre l'image mais ne la rend plus clicable
+        /*if(nbcardDeckPlayer <= 0){
+            //iv_deckPlayer.setVisibility(View.INVISIBLE);
+            iv_deckPlayer.setVisibility(View.INVISIBLE);
+        }else{
+            iv_deckPlayer.setVisibility(View.VISIBLE);
+        }*/
+
+        //nombre de carte de l'ia
+        int nbcardDeckIA = listPlayer.get(1).getPlayerDeck().getListCard().size();
+        tv_nbdeckCardIA.setText(String.valueOf(nbcardDeckIA));
+
+
+        // on fait disparaitre l'image si on a plus de carte dans  le deck de l'ia
+        if(nbcardDeckIA <= 0){
+            iv_deckIA.setVisibility(View.INVISIBLE);
+
+        }else{
+            iv_deckIA.setVisibility(View.VISIBLE);
+        }
+
         //Toast.makeText(this,"joueur ia :"+ listPlayer.get(1).getPlayerDeck().getListCard().size(),Toast.LENGTH_SHORT).show();
     }
     public void majMain(){
@@ -622,6 +653,10 @@ public class Game_activity extends AppCompatActivity {
                 break;
         }
 
+    }
+    public void majPv(){
+        tv_iaLifePoint.setText(String.valueOf(listPlayer.get(1).getLifepoint()));
+        tv_playerLifePoint.setText(String.valueOf(listPlayer.get(0).getLifepoint()));
     }
 
 

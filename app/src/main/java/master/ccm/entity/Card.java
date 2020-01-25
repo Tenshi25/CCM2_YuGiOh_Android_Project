@@ -1,5 +1,6 @@
 package master.ccm.entity;
 
+import androidx.annotation.Nullable;
 import master.ccm.types.AttributeType;
 import master.ccm.types.CardType;
 import master.ccm.types.CardTypeSub;
@@ -132,5 +133,19 @@ public class Card {
 
     public void setDuplicate(int duplicate) {
         this.duplicate = duplicate;
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if(obj == null){
+            return false;
+        }
+        if(obj.getClass() != this.getClass()){
+            return false;
+        }
+        if(((Card) obj).getId().equals(this.getId())){
+            return  true;
+        }
+        return false;
     }
 }

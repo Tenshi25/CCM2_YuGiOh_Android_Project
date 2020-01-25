@@ -52,6 +52,7 @@ public class Player {
         this.lifepoint =  this.lifepoint - p_perte;
         if (this.lifepoint < 0){
             this.lifepoint =0;
+
         }
     }
     public void initDeckToPlay(List<Card> listCard){

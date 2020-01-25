@@ -27,7 +27,7 @@
     <string name="et_ia_deck">IA deck</string>
     <string name="et_choix_lifepoint">start lifepoint</string>
     <string name="tv_nom_carte">name</string>
-    <string name="tv_niv_carte" >level</string>
+    <string name="tv_niv_carte">level</string>
     <string name="tv_image_carte">image</string>
     <string name="tv_atk_carte">atk</string>
     <string name="tv_def_carte">def</string>
@@ -51,6 +51,8 @@
     <string name="alert_Supp_yes">Yes</string>
     <string name="alert_Supp_no">No</string>
     <string name="alert_Supp_message">Are you sure to delete this deck ?</string>
-    <string name="titile_login" >Login</string>
+    <string name="titile_login">Login</string>
     <string name="title_signup">sign up</string>
+    <string name="labelVictory">Victory</string>
+    <string name="labelDefeat">Defeat</string>
 </resources>

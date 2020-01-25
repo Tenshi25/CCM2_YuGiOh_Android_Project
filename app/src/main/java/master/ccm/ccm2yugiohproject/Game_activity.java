@@ -193,7 +193,7 @@ public class Game_activity extends AppCompatActivity {
 
                 if(currentPhase.containsActionByName("Pioche") && currentplayer.equals(listPlayer.get(0))) {
 
-                    currentPhase.findActionByName("Pioche").getEffect().execute(listPlayer,0,1,null,null,null);
+                    currentPhase.findActionByName("Pioche").getEffect().execute(v.getContext(),listPlayer,0,1,null,null,null);
                     //List<Card> lesCartes = listPlayer.get(0).getPlayerDeck().drawCard(1);
 
                     majNBPlayerDeckCard();
@@ -343,12 +343,12 @@ public class Game_activity extends AppCompatActivity {
                     bt_mainPhase2.setTextColor(Color.RED);
                     bt_EndPhase.setTextColor(Color.RED);
                     //bt_EndPhase.setBackgroundColor(Color.RED);
-
-                    List<Card> lesCartes =currentplayer.getPlayerDeck().drawCard(1);
+                    currentPhase.findActionByName("Pioche").getEffect().execute(this,listPlayer,1,1,null,null,null);
+                    //List<Card> lesCartes =currentplayer.getPlayerDeck().drawCard(1);
                     //ShowDrawCard((ArrayList<Card>) lesCartes);
-                    for (Card aCard : lesCartes) {
+                    /*for (Card aCard : lesCartes) {
                         listPlayer.get(1).getPlayerMain().getListCards().add(aCard);
-                    }
+                    }*/
                     majMain();
                     majNBPlayerDeckCard();
                     nextPhase();

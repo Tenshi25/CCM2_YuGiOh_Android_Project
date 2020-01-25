@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import master.ccm.ccm2yugiohproject.utils.LoadImageTask;
 import master.ccm.entity.Card;
-import master.ccm.entity.Deck;
+import master.ccm.entity.PileDeCarte.Deck;
 import master.ccm.manager.CardDBManager;
 import master.ccm.manager.DeckDBManager;
 
@@ -184,8 +184,15 @@ public class DeckBuilder_Activity extends AppCompatActivity {
         final int position = listView.getPositionForView(parentRow);
         Card cardToAdd = cardsList.get(position);
 
+        // Verifier si la carte est deja dans le deck : si oui ==> reprendre le bon objet avec le bon duplicate. Sinon Meh...
+
+        for (Card cardIn : deckCardsList) {
+            if (cardIn.equals(cardToAdd)) {
+                cardToAdd = cardIn;
+            }
+        }
         //on ajoute le lien
-        if(cardToAdd.getLimit()> cardToAdd.getDuplicate() )
+        if(cardToAdd.getLimit() > cardToAdd.getDuplicate() )
         {
             //on met à jour le tableau et la list view
             boolean exist = false;
@@ -206,11 +213,6 @@ public class DeckBuilder_Activity extends AppCompatActivity {
                 deckCardsList.add(cardToAdd);
                 deckDBManager.addLinkDeckCard(leDeck,cardToAdd,this);
             }
-/*
-            if (!deckCardsList.contains(cardToAdd)){
-            deckCardsList.add(cardToAdd);
-            }*/
-
         }else{
             Toast.makeText(this,"Vous avez atient la limite",Toast.LENGTH_SHORT).show();
 
@@ -224,7 +226,7 @@ public class DeckBuilder_Activity extends AppCompatActivity {
         final int position = listView.getPositionForView(parentRow);
         Card cardASupprimer = deckCardsList.get(position);
 
-        cardASupprimer.setDuplicate(cardASupprimer.getDuplicate()-1);
+        deckCardsList.get(position).setDuplicate(cardASupprimer.getDuplicate()-1);
 
         DeckDBManager deckDBManager =  new DeckDBManager();
         deckDBManager.deleteLinkCardDeck(leDeck,cardASupprimer,this);

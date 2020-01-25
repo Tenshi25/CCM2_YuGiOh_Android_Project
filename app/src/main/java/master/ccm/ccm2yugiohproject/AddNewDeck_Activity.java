@@ -2,7 +2,7 @@ package master.ccm.ccm2yugiohproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 import master.ccm.entity.CurrentUser;
-import master.ccm.entity.Deck;
+import master.ccm.entity.PileDeCarte.Deck;
 import master.ccm.manager.DeckDBManager;
 
 import android.content.Intent;

@@ -6,14 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import master.ccm.ccm2yugiohproject.utils.NavigationMenuUtils;
 import master.ccm.ccm2yugiohproject.utils.SoundMusicUtils;
 import master.ccm.entity.CurrentUser;
-import master.ccm.entity.Deck;
-import master.ccm.entity.Game;
+import master.ccm.entity.PileDeCarte.Deck;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;

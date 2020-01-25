@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="master.ccm.ccm2yugiohproject">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Game_activity"></activity>
+        <activity android:name=".EndGame_activity"></activity>
+        <activity android:name=".Game_activity" />
         <activity android:name=".ConfStartDuel_activity" />
         <activity android:name=".Profile_activity" />
         <activity android:name=".DeckBuilder_Activity" />
@@ -27,5 +26,7 @@
             </intent-filter>
         </activity>
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

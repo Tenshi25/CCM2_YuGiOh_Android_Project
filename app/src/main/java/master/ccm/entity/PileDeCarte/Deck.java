@@ -1,10 +1,13 @@
-package master.ccm.entity;
+package master.ccm.entity.PileDeCarte;
 
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import master.ccm.entity.Card;
+import master.ccm.entity.PileDeCarte.PileCarte;
 
 public class Deck extends PileCarte {
     private String id;

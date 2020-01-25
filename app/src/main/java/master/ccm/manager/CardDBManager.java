@@ -5,21 +5,14 @@ import android.util.Log;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
-import master.ccm.ccm2yugiohproject.AddNewDeck_Activity;
 import master.ccm.ccm2yugiohproject.DeckBuilder_Activity;
 import master.ccm.entity.Card;
-import master.ccm.entity.Deck;
 
 public class CardDBManager {
     private FirebaseFirestore database = FirebaseFirestore.getInstance();

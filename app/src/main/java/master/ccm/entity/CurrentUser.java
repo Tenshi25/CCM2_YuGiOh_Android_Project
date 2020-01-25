@@ -2,6 +2,8 @@ package master.ccm.entity;
 
 import java.util.ArrayList;
 
+import master.ccm.entity.PileDeCarte.Deck;
+
 public class CurrentUser {
 
     private String id = "0";

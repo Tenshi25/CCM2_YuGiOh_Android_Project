@@ -30,7 +30,7 @@ public class Phase {
         Action theAction =new Action();
         for (Action aAction : listAction){
             if(aAction.getNom().equals(p_actionName)){
-                return theAction;
+                return aAction;
             }
 
         }

@@ -5,6 +5,7 @@ import master.ccm.ccm2yugiohproject.utils.LoadImageTask;
 import master.ccm.entity.Action;
 import master.ccm.entity.Card;
 import master.ccm.entity.CurrentUser;
+import master.ccm.entity.Effects.EffectPioche;
 import master.ccm.entity.PileDeCarte.Deck;
 import master.ccm.entity.Phase;
 import master.ccm.entity.Player;
@@ -191,8 +192,13 @@ public class Game_activity extends AppCompatActivity {
             {
 
                 if(currentPhase.containsActionByName("Pioche") && currentplayer.equals(listPlayer.get(0))) {
-                    List<Card> lesCartes = listPlayer.get(0).getPlayerDeck().drawCard(1);
-                    ShowDrawCard((ArrayList<Card>) lesCartes);
+
+                    currentPhase.findActionByName("Pioche").getEffect().execute(listPlayer,0,1,null,null,null);
+                    //List<Card> lesCartes = listPlayer.get(0).getPlayerDeck().drawCard(1);
+
+                    majNBPlayerDeckCard();
+
+                    //ShowDrawCard((ArrayList<Card>) lesCartes);
                     majMain();
                     nextPhase();
                 }
@@ -242,8 +248,8 @@ public class Game_activity extends AppCompatActivity {
     public void phaseInit(){
         //draw phase
         Phase newphase = new Phase("DrawPhase");
-        Action actionPioche = new Action();
-        actionPioche.setNom("Pioche");
+        EffectPioche effectPioche = new EffectPioche();
+        Action actionPioche = new Action("Pioche",effectPioche );
         //action activer carte piege
         ArrayList<Action> listeAction =  new ArrayList<Action>();
         listeAction.add(actionPioche);

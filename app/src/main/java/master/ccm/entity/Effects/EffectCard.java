@@ -8,5 +8,5 @@ import master.ccm.entity.Player;
 
 public abstract class EffectCard {
 
-    public abstract void execute(ArrayList<Player> listJoueurs, int joueurCibler, int nb , PileCarte dePileA, PileCarte aPileB, ArrayList<Card> filtre);
+    public abstract void execute(ArrayList<Player> listJoueurs, int joueurCibler, int nb , PileCarte dePileA , PileCarte aPileB, ArrayList<Card> filtre);
 }

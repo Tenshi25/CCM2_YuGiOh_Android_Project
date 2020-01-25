@@ -20,6 +20,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 public class DeckBuilder_Activity extends AppCompatActivity {
@@ -102,7 +104,11 @@ public class DeckBuilder_Activity extends AppCompatActivity {
                 }
 
                 if (aCard.getUrl() != null) {
-                    new LoadImageTask(aCard.getUrl(), cardImage).execute();
+                    //new LoadImageTask(aCard.getUrl(), cardImage).execute();
+                    Picasso.with(getContext())
+                            .load(aCard.getUrl())
+                            .error(R.drawable.cardcover)
+                            .into(cardImage);
                 }
 
                 cardAtk.setText(String.valueOf(aCard.getAtk()));
@@ -154,7 +160,11 @@ public class DeckBuilder_Activity extends AppCompatActivity {
                 }
 
                 if (aCard.getUrl() != null) {
-                    new LoadImageTask(aCard.getUrl(), cardImage).execute();
+                    //new LoadImageTask(aCard.getUrl(), cardImage).execute();
+                    Picasso.with(getContext())
+                            .load(aCard.getUrl())
+                            .error(R.drawable.cardcover)
+                            .into(cardImage);
                 }
                 deckCardAtk.setText(String.valueOf(aCard.getAtk()));
                 deckCardDef.setText(String.valueOf(aCard.getDef()));

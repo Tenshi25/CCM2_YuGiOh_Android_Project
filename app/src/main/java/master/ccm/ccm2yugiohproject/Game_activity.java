@@ -91,6 +91,11 @@ public class Game_activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        View decorView = getWindow().getDecorView();
+        // Hide the status bar.
+        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
+
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -222,7 +227,13 @@ public class Game_activity extends AppCompatActivity {
         //for (int i=0; i==listPlayer.size() ;i++){
         listPlayer.get(0).getPlayerDeck().shuffleDeck();
         listPlayer.get(1).getPlayerDeck().shuffleDeck();
+
+        currentPhase.findActionByName("Pioche").getEffect().execute(this,listPlayer,0,5,null,null,null);
+        currentPhase.findActionByName("Pioche").getEffect().execute(this,listPlayer,1,5,null,null,null);
+
+
         majMain();
+        majNBPlayerDeckCard();
         //gameCore();
 
     }
@@ -436,13 +447,13 @@ public class Game_activity extends AppCompatActivity {
         tv_nbdeckCardPlayer.setText(String.valueOf(nbcardDeckPlayer));
 
         // on fait disparaitre l'image si on a plus de carte dans  le deck du joueur
-        // fait bien disparaitre l'image mais ne la rend plus clicable
-        /*if(nbcardDeckPlayer <= 0){
+
+        if(nbcardDeckPlayer <= 0){
             //iv_deckPlayer.setVisibility(View.INVISIBLE);
-            iv_deckPlayer.setVisibility(View.INVISIBLE);
+            iv_deckPlayer.setImageResource(R.drawable.caseterrain);
         }else{
-            iv_deckPlayer.setVisibility(View.VISIBLE);
-        }*/
+            iv_deckPlayer.setImageResource(R.drawable.cardcover);
+        }
 
         //nombre de carte de l'ia
         int nbcardDeckIA = listPlayer.get(1).getPlayerDeck().getListCard().size();
@@ -451,10 +462,10 @@ public class Game_activity extends AppCompatActivity {
 
         // on fait disparaitre l'image si on a plus de carte dans  le deck de l'ia
         if(nbcardDeckIA <= 0){
-            iv_deckIA.setVisibility(View.INVISIBLE);
+            iv_deckIA.setImageResource(R.drawable.caseterrain);
 
         }else{
-            iv_deckIA.setVisibility(View.VISIBLE);
+            iv_deckIA.setImageResource(R.drawable.cardcover);
         }
 
         //Toast.makeText(this,"joueur ia :"+ listPlayer.get(1).getPlayerDeck().getListCard().size(),Toast.LENGTH_SHORT).show();

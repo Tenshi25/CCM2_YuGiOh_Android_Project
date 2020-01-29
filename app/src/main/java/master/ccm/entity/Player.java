@@ -1,5 +1,7 @@
 package master.ccm.entity;
 
+import android.widget.ImageView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +14,7 @@ import master.ccm.entity.PileDeCarte.Main;
 public class Player {
     private String name;
     private Deck playerDeck;
-    private Main playerMain = new Main();
+    private Main playerMain;
     private Cimetiere playerCimetiere = new Cimetiere();
     private ExtraDeck playerExtra =  new ExtraDeck();
     private Bannisement playerBannisement = new Bannisement();
@@ -95,5 +97,13 @@ public class Player {
 
     public void setPlayerBannisement(Bannisement playerBannisement) {
         this.playerBannisement = playerBannisement;
+    }
+
+    public Player() {
+        playerMain = new Main();
+    }
+    public void setListIvMain(ArrayList<ImageView> listIv){
+
+        this.playerMain.setListIv_main(listIv);
     }
 }

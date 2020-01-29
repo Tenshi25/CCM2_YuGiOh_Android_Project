@@ -119,6 +119,7 @@
         app:layout_constraintStart_toEndOf="@id/id_tv_nameIA"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.123"
+        android:onClick="clickHandler"
         app:srcCompat="@drawable/cardcover" />
 
     <ImageView
@@ -218,6 +219,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="251dp"
+        android:onClick="clickHandler"
         android:layout_marginBottom="8dp" />
 
     <ImageView
@@ -227,7 +229,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="271dp"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="8dp"
+        android:onClick="clickHandler"
+        />
 
     <ImageView
         android:id="@+id/iv_mainPlayer_3"
@@ -236,7 +240,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="289dp"
-        android:layout_marginBottom="7dp" />
+        android:layout_marginBottom="7dp"
+        android:onClick="clickHandler"
+        />
 
     <ImageView
         android:id="@+id/iv_mainPlayer_4"
@@ -246,7 +252,9 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="309dp"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="8dp"
+        android:onClick="clickHandler"
+        />
 
     <ImageView
         android:id="@+id/iv_mainPlayer_5"
@@ -255,7 +263,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="328dp"
-        android:layout_marginBottom="7dp" />
+        android:layout_marginBottom="7dp"
+        android:onClick="clickHandler" />
 
     <ImageView
         android:id="@+id/iv_mainPlayer_6"
@@ -265,7 +274,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="348dp"
-        android:layout_marginBottom="7dp" />
+        android:layout_marginBottom="7dp"
+        android:onClick="clickHandler" />
 
     <ImageView
         android:id="@+id/iv_mainPlayer_7"
@@ -275,7 +285,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="367dp"
-        android:layout_marginBottom="7dp" />
+        android:layout_marginBottom="7dp"
+        android:onClick="clickHandler" />
 
     <ImageView
         android:id="@+id/iv_mainPlayer_8"
@@ -285,7 +296,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="384dp"
-        android:layout_marginBottom="7dp" />
+        android:layout_marginBottom="7dp"
+        android:onClick="clickHandler" />
 
     <ImageView
         android:id="@+id/iv_mainPlayer_9"
@@ -295,7 +307,9 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="403dp"
-        android:layout_marginBottom="7dp" />
+        android:layout_marginBottom="7dp"
+        android:onClick="clickHandler"
+        />
 
     <ImageView
         android:id="@+id/iv_mainPlayer_10"
@@ -305,7 +319,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="422dp"
-        android:layout_marginBottom="6dp" />
+        android:layout_marginBottom="6dp"
+        android:onClick="clickHandler" />
 
     <ImageView
         android:id="@+id/iv_mainIA_1"

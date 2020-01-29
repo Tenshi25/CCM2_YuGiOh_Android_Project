@@ -13,9 +13,11 @@ import master.ccm.entity.Phase;
 import master.ccm.entity.Player;
 import master.ccm.manager.DeckDBManager;
 
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
+import android.graphics.Path;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -189,6 +191,9 @@ public class Game_activity extends AppCompatActivity {
         tv_nbdeckCardIA = findViewById(R.id.tv_nbDeckCardsIA);
 
         iv_deckPlayer = (ImageView) findViewById(R.id.iv_deckPlayer);
+
+
+        /*
         iv_deckPlayer.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
@@ -206,12 +211,125 @@ public class Game_activity extends AppCompatActivity {
                 }
             }
 
-        });
+        });*/
 
 
 
     }
+    public void clickHandler(View v) {
+        Player lejoueur=listPlayer.get(0);
+        Path path = new Path();
+        ObjectAnimator animator ;
+        switch (v.getId()) {
+            case R.id.iv_deckPlayer:
+                if (currentPhase.containsActionByName("Pioche") && currentplayer.equals(listPlayer.get(0))) {
 
+                    currentPhase.findActionByName("Pioche").getEffect().execute(v.getContext(), listPlayer, 0, 1, null, null, null);
+                    //List<Card> lesCartes = listPlayer.get(0).getPlayerDeck().drawCard(1);
+
+                    this.majNBPlayerDeckCard();
+
+                    //ShowDrawCard((ArrayList<Card>) lesCartes);
+                    majMain();
+                    nextPhase();
+                }
+                break;
+            case R.id.iv_mainPlayer_1:
+                animator = new ObjectAnimator();
+                lejoueur.getPlayerMain().setSelectedCard(lejoueur.getPlayerMain().getListCards().get(0));
+                Toast.makeText(this,lejoueur.getPlayerMain().getSelectedCard().getName(),Toast.LENGTH_SHORT).show();
+                path.moveTo(iv_mainPlayerCard_1.getX(), iv_mainPlayerCard_1.getY()-50f);
+                animator = ObjectAnimator.ofFloat(iv_mainPlayerCard_1, View.X, View.Y, path);
+                animator.setDuration(100);
+                animator.start();
+                animator.end();
+                break;
+            case R.id.iv_mainPlayer_2:
+                animator = new ObjectAnimator();
+                lejoueur.getPlayerMain().setSelectedCard(lejoueur.getPlayerMain().getListCards().get(1));
+                Toast.makeText(this,lejoueur.getPlayerMain().getSelectedCard().getName(),Toast.LENGTH_SHORT).show();
+                path.moveTo(iv_mainPlayerCard_2.getX(), iv_mainPlayerCard_2.getY()-50f);
+                animator = ObjectAnimator.ofFloat(iv_mainPlayerCard_2, View.X, View.Y, path);
+                animator.setDuration(100);
+                animator.start();
+                animator.end();
+                break;
+            case R.id.iv_mainPlayer_3:
+                lejoueur.getPlayerMain().setSelectedCard(lejoueur.getPlayerMain().getListCards().get(2));
+                Toast.makeText(this,lejoueur.getPlayerMain().getSelectedCard().getName(),Toast.LENGTH_SHORT).show();
+                path.moveTo(iv_mainPlayerCard_3.getX(), iv_mainPlayerCard_3.getY()-50f);
+                animator = ObjectAnimator.ofFloat(iv_mainPlayerCard_3, View.X, View.Y, path);
+                animator.setDuration(100);
+                animator.start();
+                break;
+            case R.id.iv_mainPlayer_4:
+                lejoueur.getPlayerMain().setSelectedCard(lejoueur.getPlayerMain().getListCards().get(3));
+                Toast.makeText(this,lejoueur.getPlayerMain().getSelectedCard().getName(),Toast.LENGTH_SHORT).show();
+                path.moveTo(iv_mainPlayerCard_4.getX(), iv_mainPlayerCard_4.getY()-50f);
+                animator = ObjectAnimator.ofFloat(iv_mainPlayerCard_4, View.X, View.Y, path);
+                animator.setDuration(100);
+                animator.start();
+                break;
+            case R.id.iv_mainPlayer_5:
+                animator = new ObjectAnimator();
+                lejoueur.getPlayerMain().setSelectedCard(lejoueur.getPlayerMain().getListCards().get(4));
+                Toast.makeText(this,lejoueur.getPlayerMain().getSelectedCard().getName(),Toast.LENGTH_SHORT).show();
+                path.moveTo(iv_mainPlayerCard_5.getX(), iv_mainPlayerCard_5.getY()-50f);
+                animator = ObjectAnimator.ofFloat(iv_mainPlayerCard_5, View.X, View.Y, path);
+                animator.setDuration(100);
+                animator.start();
+                //launch activity
+                break;
+            case R.id.iv_mainPlayer_6:
+                lejoueur.getPlayerMain().setSelectedCard(lejoueur.getPlayerMain().getListCards().get(5));
+                Toast.makeText(this,lejoueur.getPlayerMain().getSelectedCard().getName(),Toast.LENGTH_SHORT).show();
+                path.moveTo(iv_mainPlayerCard_6.getX(), iv_mainPlayerCard_6.getY()-50f);
+                animator = ObjectAnimator.ofFloat(iv_mainPlayerCard_6, View.X, View.Y, path);
+                animator.setDuration(100);
+                animator.start();
+                //launch activity
+                break;
+            case R.id.iv_mainPlayer_7:
+                lejoueur.getPlayerMain().setSelectedCard(lejoueur.getPlayerMain().getListCards().get(6));
+                Toast.makeText(this,lejoueur.getPlayerMain().getSelectedCard().getName(),Toast.LENGTH_SHORT).show();
+                path.moveTo(iv_mainPlayerCard_7.getX(), iv_mainPlayerCard_7.getY()-50f);
+                animator = ObjectAnimator.ofFloat(iv_mainPlayerCard_7, View.X, View.Y, path);
+                animator.setDuration(100);
+                animator.start();
+                //launch activity
+                break;
+            case R.id.iv_mainPlayer_8:
+                lejoueur.getPlayerMain().setSelectedCard(lejoueur.getPlayerMain().getListCards().get(7));
+                Toast.makeText(this,lejoueur.getPlayerMain().getSelectedCard().getName(),Toast.LENGTH_SHORT).show();
+                path.moveTo(iv_mainPlayerCard_8.getX(), iv_mainPlayerCard_8.getY()-50f);
+                animator = ObjectAnimator.ofFloat(iv_mainPlayerCard_8, View.X, View.Y, path);
+                animator.setDuration(100);
+                animator.start();
+                //launch activity
+                break;
+            case R.id.iv_mainPlayer_9:
+                lejoueur.getPlayerMain().setSelectedCard(lejoueur.getPlayerMain().getListCards().get(8));
+                Toast.makeText(this,lejoueur.getPlayerMain().getSelectedCard().getName(),Toast.LENGTH_SHORT).show();
+                path.moveTo(iv_mainPlayerCard_9.getX(), iv_mainPlayerCard_9.getY()-50f);
+                animator = ObjectAnimator.ofFloat(iv_mainPlayerCard_9, View.X, View.Y, path);
+                animator.setDuration(100);
+                animator.start();
+                //launch activity
+                break;
+            case R.id.iv_mainPlayer_10:
+                lejoueur.getPlayerMain().setSelectedCard(lejoueur.getPlayerMain().getListCards().get(9));
+                Toast.makeText(this,lejoueur.getPlayerMain().getSelectedCard().getName(),Toast.LENGTH_SHORT).show();
+                path.moveTo(iv_mainPlayerCard_10.getX(), iv_mainPlayerCard_10.getY()-50f);
+                animator = ObjectAnimator.ofFloat(iv_mainPlayerCard_10, View.X, View.Y, path);
+                animator.setDuration(100);
+                animator.start();
+                //launch activity
+                break;
+
+            default:
+                break;
+        }
+    }
 
     public void gameStart() {
         nbplayer = listPlayer.size();
@@ -222,10 +340,16 @@ public class Game_activity extends AppCompatActivity {
         //for (int i=0; i==listPlayer.size() ;i++){
         listPlayer.get(0).getPlayerDeck().shuffleDeck();
         listPlayer.get(1).getPlayerDeck().shuffleDeck();
+
+        currentPhase.findActionByName("Pioche").getEffect().execute(this,listPlayer,0,5,null,null,null);
+        currentPhase.findActionByName("Pioche").getEffect().execute(this,listPlayer,1,5,null,null,null);
+
+
         majMain();
+        majNBPlayerDeckCard();
         //gameCore();
 
-    }
+    };
 /*
     private void gameCore() {
 
@@ -436,13 +560,13 @@ public class Game_activity extends AppCompatActivity {
         tv_nbdeckCardPlayer.setText(String.valueOf(nbcardDeckPlayer));
 
         // on fait disparaitre l'image si on a plus de carte dans  le deck du joueur
-        // fait bien disparaitre l'image mais ne la rend plus clicable
-        /*if(nbcardDeckPlayer <= 0){
+
+        if(nbcardDeckPlayer <= 0){
             //iv_deckPlayer.setVisibility(View.INVISIBLE);
-            iv_deckPlayer.setVisibility(View.INVISIBLE);
+            //iv_deckPlayer.setImageResource(R.drawable.caseterrain);
         }else{
-            iv_deckPlayer.setVisibility(View.VISIBLE);
-        }*/
+            iv_deckPlayer.setImageResource(R.drawable.cardcover);
+        }
 
         //nombre de carte de l'ia
         int nbcardDeckIA = listPlayer.get(1).getPlayerDeck().getListCard().size();
@@ -451,10 +575,10 @@ public class Game_activity extends AppCompatActivity {
 
         // on fait disparaitre l'image si on a plus de carte dans  le deck de l'ia
         if(nbcardDeckIA <= 0){
-            iv_deckIA.setVisibility(View.INVISIBLE);
+            //iv_deckIA.setImageResource(R.drawable.caseterrain);
 
         }else{
-            iv_deckIA.setVisibility(View.VISIBLE);
+            iv_deckIA.setImageResource(R.drawable.cardcover);
         }
 
         //Toast.makeText(this,"joueur ia :"+ listPlayer.get(1).getPlayerDeck().getListCard().size(),Toast.LENGTH_SHORT).show();
@@ -470,64 +594,64 @@ public class Game_activity extends AppCompatActivity {
                         .into(iv_mainPlayerCard_5);
                 break;
             case 2:
-                Picasso.with(this).load(mainJoueur.get(0).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_5);
-                Picasso.with(this).load(mainJoueur.get(1).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_6);
+                Picasso.with(this).load(mainJoueur.get(0).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_1);
+                Picasso.with(this).load(mainJoueur.get(1).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_2);
 
                 /*new LoadImageTask(mainJoueur.get(0).getUrl(), iv_mainPlayerCard_5).execute();
                 new LoadImageTask(mainJoueur.get(1).getUrl(), iv_mainPlayerCard_6).execute();*/
                 break;
             case 3:
-                Picasso.with(this).load(mainJoueur.get(0).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_4);
-                Picasso.with(this).load(mainJoueur.get(1).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_5);
-                Picasso.with(this).load(mainJoueur.get(2).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_6);
+                Picasso.with(this).load(mainJoueur.get(0).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_1);
+                Picasso.with(this).load(mainJoueur.get(1).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_2);
+                Picasso.with(this).load(mainJoueur.get(2).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_3);
                 break;
             case 4:
 
-                Picasso.with(this).load(mainJoueur.get(0).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_4);
-                Picasso.with(this).load(mainJoueur.get(1).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_5);
-                Picasso.with(this).load(mainJoueur.get(2).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_6);
-                Picasso.with(this).load(mainJoueur.get(3).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_7);
+                Picasso.with(this).load(mainJoueur.get(0).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_1);
+                Picasso.with(this).load(mainJoueur.get(1).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_2);
+                Picasso.with(this).load(mainJoueur.get(2).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_3);
+                Picasso.with(this).load(mainJoueur.get(3).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_4);
                 break;
             case 5:
-                Picasso.with(this).load(mainJoueur.get(0).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_3);
-                Picasso.with(this).load(mainJoueur.get(1).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_4);
-                Picasso.with(this).load(mainJoueur.get(2).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_5);
-                Picasso.with(this).load(mainJoueur.get(3).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_6);
-                Picasso.with(this).load(mainJoueur.get(4).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_7);
+                Picasso.with(this).load(mainJoueur.get(0).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_1);
+                Picasso.with(this).load(mainJoueur.get(1).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_2);
+                Picasso.with(this).load(mainJoueur.get(2).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_3);
+                Picasso.with(this).load(mainJoueur.get(3).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_4);
+                Picasso.with(this).load(mainJoueur.get(4).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_5);
 
                 break;
             case 6:
 
-                Picasso.with(this).load(mainJoueur.get(0).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_3);
-                Picasso.with(this).load(mainJoueur.get(1).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_4);
-                Picasso.with(this).load(mainJoueur.get(2).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_5);
-                Picasso.with(this).load(mainJoueur.get(3).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_6);
-                Picasso.with(this).load(mainJoueur.get(4).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_7);
-                Picasso.with(this).load(mainJoueur.get(5).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_8);
+                Picasso.with(this).load(mainJoueur.get(0).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_1);
+                Picasso.with(this).load(mainJoueur.get(1).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_2);
+                Picasso.with(this).load(mainJoueur.get(2).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_3);
+                Picasso.with(this).load(mainJoueur.get(3).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_4);
+                Picasso.with(this).load(mainJoueur.get(4).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_5);
+                Picasso.with(this).load(mainJoueur.get(5).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_6);
 
 
                 break;
             case 7:
 
-                Picasso.with(this).load(mainJoueur.get(0).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_2);
-                Picasso.with(this).load(mainJoueur.get(1).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_3);
-                Picasso.with(this).load(mainJoueur.get(2).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_4);
-                Picasso.with(this).load(mainJoueur.get(3).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_5);
-                Picasso.with(this).load(mainJoueur.get(4).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_6);
-                Picasso.with(this).load(mainJoueur.get(5).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_7);
-                Picasso.with(this).load(mainJoueur.get(6).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_8);
+                Picasso.with(this).load(mainJoueur.get(0).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_1);
+                Picasso.with(this).load(mainJoueur.get(1).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_2);
+                Picasso.with(this).load(mainJoueur.get(2).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_3);
+                Picasso.with(this).load(mainJoueur.get(3).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_4);
+                Picasso.with(this).load(mainJoueur.get(4).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_5);
+                Picasso.with(this).load(mainJoueur.get(5).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_6);
+                Picasso.with(this).load(mainJoueur.get(6).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_7);
 
                 break;
             case 8:
 
-                Picasso.with(this).load(mainJoueur.get(0).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_2);
-                Picasso.with(this).load(mainJoueur.get(1).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_3);
-                Picasso.with(this).load(mainJoueur.get(2).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_4);
-                Picasso.with(this).load(mainJoueur.get(3).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_5);
-                Picasso.with(this).load(mainJoueur.get(4).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_6);
-                Picasso.with(this).load(mainJoueur.get(5).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_7);
-                Picasso.with(this).load(mainJoueur.get(6).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_8);
-                Picasso.with(this).load(mainJoueur.get(7).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_9);
+                Picasso.with(this).load(mainJoueur.get(0).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_1);
+                Picasso.with(this).load(mainJoueur.get(1).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_2);
+                Picasso.with(this).load(mainJoueur.get(2).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_3);
+                Picasso.with(this).load(mainJoueur.get(3).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_4);
+                Picasso.with(this).load(mainJoueur.get(4).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_5);
+                Picasso.with(this).load(mainJoueur.get(5).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_6);
+                Picasso.with(this).load(mainJoueur.get(6).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_7);
+                Picasso.with(this).load(mainJoueur.get(7).getUrl()).error(R.drawable.cardunknow).into(iv_mainPlayerCard_8);
 
 
                 break;

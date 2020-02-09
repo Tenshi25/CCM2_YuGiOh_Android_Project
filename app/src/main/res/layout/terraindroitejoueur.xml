@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.33">
+
+        <ImageView
+            android:id="@+id/iv_bannisement_joueur"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/caseterrain" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.33">
+
+        <ImageView
+            android:id="@+id/iv_cimetiere_joueur"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/caseterrain" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.33">
+
+        <ImageView
+            android:id="@+id/iv_deckPlayer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:onClick="clickHandler"
+            app:srcCompat="@drawable/cardcover" />
+
+        <TextView
+            android:id="@+id/tv_nbDeckCardsPlayer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="40"
+            android:textColor="@color/common_google_signin_btn_text_dark_default" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

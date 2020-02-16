@@ -48,7 +48,7 @@ public class Main extends PileCarte {
             imageViewSelected = iv_card;
             setSelectedCard(p_selectedCard);
 
-            path.moveTo(imageViewSelected.getX(), imageViewSelected.getY() - 50f);
+            path.moveTo(imageViewSelected.getX(), imageViewSelected.getY() - 40f);
             animator = ObjectAnimator.ofFloat(imageViewSelected, View.X, View.Y, path);
             animator.setDuration(100);
             animator.start();
@@ -58,7 +58,7 @@ public class Main extends PileCarte {
             if (imageViewSelected.getId() != iv_card.getId()) {
                 //annimation pour descendre la carte déjà séléctionne
                 path = new Path();
-                path.moveTo(imageViewSelected.getX(), imageViewSelected.getY() + 50f);
+                path.moveTo(imageViewSelected.getX(), imageViewSelected.getY() + 40f);
                 animator = ObjectAnimator.ofFloat(imageViewSelected, View.X, View.Y, path);
                 animator.setDuration(100);
                 animator.start();
@@ -68,7 +68,7 @@ public class Main extends PileCarte {
 
                 setSelectedCard(p_selectedCard);
                 path = new Path();
-                path.moveTo(iv_card.getX(), iv_card.getY() - 50f);
+                path.moveTo(iv_card.getX(), iv_card.getY() - 40f);
                 animator = ObjectAnimator.ofFloat(iv_card, View.X, View.Y, path);
                 animator.setDuration(100);
                 animator.start();

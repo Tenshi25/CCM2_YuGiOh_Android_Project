@@ -1,44 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.33">
+        android:layout_weight="0.50" >
 
         <ImageView
-            android:id="@+id/iv_deckPlayerIA"
+            android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:srcCompat="@drawable/cardcover" />
-
-        <TextView
-            android:id="@+id/tv_nbDeckCardsIA"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal|center_vertical"
-            android:text="40"
-            android:textColor="@color/common_google_signin_btn_text_dark_default" />
-
+            android:visibility="invisible"
+            app:srcCompat="@android:drawable/screen_background_light_transparent" />
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.33">
+        android:layout_weight="0.50">
 
         <ImageView
-            android:id="@+id/iv_cimetiere_ia"
+            android:id="@+id/iv_bannisement_ia"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:srcCompat="@drawable/caseterrain" />
 
     </RelativeLayout>
-
-
 </LinearLayout>

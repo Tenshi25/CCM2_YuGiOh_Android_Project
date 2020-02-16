@@ -8,7 +8,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.50">
+        android:layout_weight="0.30">
 
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -51,8 +51,7 @@
                     android:id="@+id/iv_terrainMonstre3_joueur"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:srcCompat="@drawable/caseterrain"
-                    />
+                    app:srcCompat="@drawable/caseterrain" />
 
             </RelativeLayout>
 
@@ -65,8 +64,7 @@
                     android:id="@+id/iv_terrainMonstre4_joueur"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:srcCompat="@drawable/caseterrain"
-                    />
+                    app:srcCompat="@drawable/caseterrain" />
 
             </RelativeLayout>
 
@@ -91,7 +89,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.50">
+        android:layout_weight="0.30">
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"

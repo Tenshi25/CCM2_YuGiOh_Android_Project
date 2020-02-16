@@ -3,8 +3,10 @@ package master.ccm.entity.PileDeCarte;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Path;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
@@ -24,11 +26,29 @@ import master.ccm.entity.Player;
 public class Main extends PileCarte {
     private Card selectedCard;
     private ImageView imageViewSelected ;
+    private ImageView imageViewZoom;
+    private TextView descCardZoom;
     private ArrayList<ImageView> listIv_main;
 
-    public Main() {
+    public Main( ) {
         this.selectedCard = new Card();
         this.listIv_main = new ArrayList<ImageView>();
+    }
+
+    public ImageView getImageViewZoom() {
+        return imageViewZoom;
+    }
+
+    public void setImageViewZoom(ImageView imageViewZoom) {
+        this.imageViewZoom = imageViewZoom;
+    }
+
+    public TextView getDescCardZoom() {
+        return descCardZoom;
+    }
+
+    public void setDescCardZoom(TextView descCardZoom) {
+        this.descCardZoom = descCardZoom;
     }
 
     public Card getSelectedCard() {
@@ -38,7 +58,7 @@ public class Main extends PileCarte {
     public void setSelectedCard(Card selectedCard) {
         this.selectedCard = selectedCard;
     }
-    public void changeSelectedCard(Card p_selectedCard,ImageView iv_card) {
+    public void changeSelectedCard(Card p_selectedCard,ImageView iv_card, Context context) {
         Path path = new Path();
         ObjectAnimator animator;
 
@@ -73,8 +93,11 @@ public class Main extends PileCarte {
                 animator.setDuration(100);
                 animator.start();
                 imageViewSelected = iv_card;
+
             }
         }
+        Picasso.with(context).load(selectedCard.getUrl()).error(R.drawable.cardunknow).into(this.imageViewZoom);
+        descCardZoom.setText(selectedCard.getDescription());
     }
 
             public void majMain(Player player, Context context){
@@ -82,7 +105,11 @@ public class Main extends PileCarte {
 
                 for (int i=0; i < 9/*mainJoueur.size()*/; i++ )
                 {
+                    Log.i("i : ", "taille : " + i);
+                    Log.i("mainJoueur.size", "taille : " + mainJoueur.size());
+                    Log.i("listIv_main.size", "taille : " + listIv_main.size());
                     if(i< mainJoueur.size()){
+
                         listIv_main.get(i).setVisibility(View.VISIBLE);
                         Picasso.with(context).load(mainJoueur.get(i).getUrl()).error(R.drawable.cardunknow).into(listIv_main.get(i));
                     }else{

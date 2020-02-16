@@ -48,6 +48,9 @@ public class Game_activity extends AppCompatActivity {
     private TextView tv_iaName;
     private TextView tv_playerName;
 
+    private ImageView iv_imageCardZoom;
+    private TextView tv_descCardZoom;
+
     private TextView tv_nbdeckCardPlayer;
     private TextView tv_nbdeckCardIA;
 
@@ -60,6 +63,8 @@ public class Game_activity extends AppCompatActivity {
 
     private ImageView iv_deckPlayer;
     private ImageView iv_deckIA;
+
+
 
     private  ImageView iv_mainPlayerCard_1;
     private  ImageView iv_mainPlayerCard_2;
@@ -159,7 +164,14 @@ public class Game_activity extends AppCompatActivity {
         listIvMain.add(iv_mainPlayerCard_9);
         listIvMain.add(iv_mainPlayerCard_10);
 
+        tv_descCardZoom = findViewById(R.id.tv_descCardZoom);
+        iv_imageCardZoom = findViewById(R.id.iv_cardViewZoom);
+
+        player.getPlayerMain().setImageViewZoom(iv_imageCardZoom);
+        player.getPlayerMain().setDescCardZoom(tv_descCardZoom);
+
         player.getPlayerMain().setListIv_main(listIvMain);
+
         player.setName(nomPlayer);
         tv_playerName.setText(player.getName());
         player.setLifepoint(Integer.parseInt(extrasData.get("lifepoint").toString()));
@@ -268,59 +280,59 @@ public class Game_activity extends AppCompatActivity {
             case R.id.iv_mainPlayer_1:
 
                 if(lejoueur.getPlayerMain().getListCards().size() > 0) {
-                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(0), iv_mainPlayerCard_1);
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(0), iv_mainPlayerCard_1,this);
                 }
                 break;
             case R.id.iv_mainPlayer_2:
 
                 if(lejoueur.getPlayerMain().getListCards().size() > 1 ) {
-                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(1), iv_mainPlayerCard_2);
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(1), iv_mainPlayerCard_2,this);
                 }
                 break;
             case R.id.iv_mainPlayer_3:
 
                 if(lejoueur.getPlayerMain().getListCards().size() > 2) {
-                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(2), iv_mainPlayerCard_3);
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(2), iv_mainPlayerCard_3,this);
                 }
                 break;
             case R.id.iv_mainPlayer_4:
 
                 if(lejoueur.getPlayerMain().getListCards().size() > 3) {
-                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(3), iv_mainPlayerCard_4);
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(3), iv_mainPlayerCard_4,this);
                 }
                 break;
             case R.id.iv_mainPlayer_5:
 
                 if(lejoueur.getPlayerMain().getListCards().size() > 4) {
-                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(4), iv_mainPlayerCard_5);
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(4), iv_mainPlayerCard_5,this);
                 }
                 break;
             case R.id.iv_mainPlayer_6:
 
                 if(lejoueur.getPlayerMain().getListCards().size() > 5) {
-                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(5), iv_mainPlayerCard_6);
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(5), iv_mainPlayerCard_6,this);
                 }
                 break;
             case R.id.iv_mainPlayer_7:
 
                 if(lejoueur.getPlayerMain().getListCards().size() > 6) {
-                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(6), iv_mainPlayerCard_7);
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(6), iv_mainPlayerCard_7,this);
                 }
                 break;
             case R.id.iv_mainPlayer_8:
 
                 if(lejoueur.getPlayerMain().getListCards().size() > 7) {
-                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(7), iv_mainPlayerCard_8);
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(7), iv_mainPlayerCard_8,this);
                 }
                 break;
             case R.id.iv_mainPlayer_9:
                 if(lejoueur.getPlayerMain().getListCards().size() > 8){
-                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(8), iv_mainPlayerCard_9);
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(8), iv_mainPlayerCard_9,this);
                 }
                 break;
             case R.id.iv_mainPlayer_10:
                 if(lejoueur.getPlayerMain().getListCards().size() > 9){
-                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(9),iv_mainPlayerCard_10);
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(9),iv_mainPlayerCard_10,this);
                 }
                 break;
             default:

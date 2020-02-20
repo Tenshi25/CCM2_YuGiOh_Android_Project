@@ -1,6 +1,8 @@
 package master.ccm.entity;
 
+import android.content.Context;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,14 +12,18 @@ import master.ccm.entity.PileDeCarte.Cimetiere;
 import master.ccm.entity.PileDeCarte.Deck;
 import master.ccm.entity.PileDeCarte.ExtraDeck;
 import master.ccm.entity.PileDeCarte.Main;
+import master.ccm.entity.PileDeCarte.Terrain;
 
 public class Player {
     private String name;
     private Deck playerDeck;
     private Main playerMain;
+    private Terrain playerTerrain = new Terrain();
     private Cimetiere playerCimetiere = new Cimetiere();
     private ExtraDeck playerExtra =  new ExtraDeck();
     private Bannisement playerBannisement = new Bannisement();
+    private int countInvocationNormale =0;
+    private int MaxInvocationNormale =1;
 
     private Integer lifepoint;
 
@@ -57,6 +63,15 @@ public class Player {
 
         }
     }
+
+    public Terrain getPlayerTerrain() {
+        return playerTerrain;
+    }
+
+    public void setPlayerTerrain(Terrain playerTerrain) {
+        this.playerTerrain = playerTerrain;
+    }
+
     public void initDeckToPlay(List<Card> listCard){
         ArrayList<Card> deckToPlay = new ArrayList<Card>();
         for (Card aCard : listCard) {
@@ -105,5 +120,25 @@ public class Player {
     public void setListIvMain(ArrayList<ImageView> listIv){
 
         this.playerMain.setListIv_main(listIv);
+    }
+
+    public int getCountInvocationNormale() {
+        return countInvocationNormale;
+    }
+
+    public void setCountInvocationNormale(int countInvocationNormale) {
+        this.countInvocationNormale = countInvocationNormale;
+    }
+    public void addCountInvocationNormale() {
+            this.countInvocationNormale =this.countInvocationNormale+1;
+
+    }
+
+    public int getMaxInvocationNormale() {
+        return MaxInvocationNormale;
+    }
+
+    public void setMaxInvocationNormale(int maxInvocationNormale) {
+        MaxInvocationNormale = maxInvocationNormale;
     }
 }

@@ -1,0 +1,138 @@
+package master.ccm.entity.PileDeCarte;
+
+import android.content.Context;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.Map;
+
+import master.ccm.ccm2yugiohproject.R;
+import master.ccm.entity.Card;
+
+public class Terrain extends PileCarte {
+    //private Map<Card,> zone;
+    //private ArrayList<ImageView> listImage;
+
+    private ImageView[] tableauZoneMonstreImageView = new ImageView[5];
+    private ImageView[] tableauZoneMagiePiegeImageView = new ImageView[5];
+
+    private Card[] tableauZoneMonstre = new Card[5];
+    private Card[] tableauZoneMagiePiege = new Card[5];
+
+    //private ArrayList <Map> listMapTerrainMonstre;
+    //private ArrayList <Map> listMapTerrainMagiePiege;
+
+    public void  cardToZone(Context context, Card aCard, ImageView zoneImage) {
+
+        /*if(aCard.getCardType().equals("MONSTRE") )
+        {*/
+            for (int i = 0; i < 5; i++) {
+                if(tableauZoneMonstreImageView[i].getId() == zoneImage.getId()){
+                    tableauZoneMonstre[i] =aCard;
+                    Picasso.with(context).load(aCard.getUrl()).error(R.drawable.cardunknow).into(tableauZoneMonstreImageView[i]);
+
+                }
+            }
+        /*}else{
+            for (int i = 0; i < 5; i++) {
+                if(tableauZoneMagiePiegeImageView[i].getId() == zoneImage.getId()){
+                    tableauZoneMagiePiege[i] =aCard;
+                    Picasso.with(context).load(aCard.getUrl()).error(R.drawable.cardunknow).into(tableauZoneMagiePiegeImageView[i]);
+                }
+            }
+        }*/
+    }
+    public void  outofZone(Context context, ImageView zoneImage) {
+            for (int i = 0; i < 5; i++) {
+                if (tableauZoneMonstreImageView[i].getId() == zoneImage.getId()) {
+                    tableauZoneMonstre[i] = null;
+                    Picasso.with(context).load(R.drawable.caseterrain).error(R.drawable.cardunknow).into(tableauZoneMonstreImageView[i]);
+
+                }
+            }
+            for (int i = 0; i < 5; i++) {
+                if(tableauZoneMagiePiegeImageView[i].getId() == zoneImage.getId()){
+                    tableauZoneMagiePiege[i] = null;
+                    Picasso.with(context).load(R.drawable.caseterrain).error(R.drawable.cardunknow).into(tableauZoneMagiePiegeImageView[i]);
+                }
+            }
+    }
+    /*public Map getZonevide(String typeCard) {
+        switch (typeCard){
+            case "Monstre" :
+                for (Map aMap : listMapTerrainMonstre) {
+
+                }
+                break ;
+            case "MagiePiege" :
+                break ;
+            default:
+                break ;
+        }
+    }*/
+
+    public Card[] getTableauZoneMonstre() {
+        return tableauZoneMonstre;
+    }
+    public Card getCardZoneMonstre(int index) {
+        return tableauZoneMonstre[index];
+    }
+
+    public void setTableauZoneMonstre(Card[] tableauZoneMonstre) {
+        this.tableauZoneMonstre = tableauZoneMonstre;
+    }
+
+    public Card[] getTableauZoneMagiePiege() {
+        return tableauZoneMagiePiege;
+    }
+    public Card getCardZoneMagiePiege(int index) {
+        return tableauZoneMagiePiege[index];
+    }
+    public void setTableauZoneMagiePiege(Card[] tableauZoneMagiePiege) {
+        this.tableauZoneMagiePiege = tableauZoneMagiePiege;
+    }
+
+    @Override
+    public void setListCards(ArrayList<Card> listCards) {
+        super.setListCards(listCards);
+    }
+
+    public ImageView[] getTableauZoneMonstreImageView() {
+        return tableauZoneMonstreImageView;
+    }
+
+    public void setTableauZoneMonstreImageView(ImageView[] tableauZoneMonstreImageView) {
+        this.tableauZoneMonstreImageView = tableauZoneMonstreImageView;
+    }
+
+    public ImageView[] getTableauZoneMagiePiegeImageView() {
+        return tableauZoneMagiePiegeImageView;
+    }
+
+    public void setTableauZoneMagiePiegeImageView(ImageView[] tableauZoneMagiePiegeImageView) {
+        this.tableauZoneMagiePiegeImageView = tableauZoneMagiePiegeImageView;
+    }
+    public ImageView getZoneVide(String type){
+        if (type.equals("MONSTRE")){
+            for (int i = 0; i < 5; i++) {
+                //Log.w("invocation", "count : "+tableauZoneMonstre[i] + " count max : "+ tableauZoneMonstre[i].getName());
+                if(tableauZoneMonstre[i] ==null){
+                    return tableauZoneMonstreImageView[i];
+                }
+            }
+            return null;
+        }
+        else{
+            for (int i = 0; i < 5; i++) {
+                if(tableauZoneMagiePiege[i] == null){
+                    return tableauZoneMagiePiegeImageView[i];
+                }
+            }
+            return null;
+        }
+    }
+}

@@ -22,6 +22,12 @@ public class Card {
     private int def;
     private int limit;
     private int duplicate;
+    //recto ou verso
+    private String visible;
+
+    //attaque defense
+    private String position;
+
 
     public String getId() {
         return id;
@@ -133,6 +139,22 @@ public class Card {
 
     public void setDuplicate(int duplicate) {
         this.duplicate = duplicate;
+    }
+
+    public String getVisible() {
+        return visible;
+    }
+
+    public void setVisible(String visible) {
+        this.visible = visible;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
     }
 
     @Override

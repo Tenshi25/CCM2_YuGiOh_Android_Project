@@ -316,117 +316,155 @@ public class Game_activity extends AppCompatActivity {
             case R.id.iv_mainPlayer_1:
 
                 if(lejoueur.getPlayerMain().getListCards().size() > 0) {
-                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(0), iv_mainPlayerCard_1,this);
+
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(0), iv_mainPlayerCard_1,this,"Main");
+                    majbtInvocation();
                 }
                 break;
             case R.id.iv_mainPlayer_2:
-
                 if(lejoueur.getPlayerMain().getListCards().size() > 1 ) {
-                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(1), iv_mainPlayerCard_2,this);
+
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(1), iv_mainPlayerCard_2,this,"Main");
+                    majbtInvocation();
                 }
                 break;
             case R.id.iv_mainPlayer_3:
 
                 if(lejoueur.getPlayerMain().getListCards().size() > 2) {
-                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(2), iv_mainPlayerCard_3,this);
+
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(2), iv_mainPlayerCard_3,this,"Main");
+                    majbtInvocation();
                 }
                 break;
             case R.id.iv_mainPlayer_4:
 
                 if(lejoueur.getPlayerMain().getListCards().size() > 3) {
-                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(3), iv_mainPlayerCard_4,this);
+
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(3), iv_mainPlayerCard_4,this,"Main");
+                    majbtInvocation();
                 }
                 break;
             case R.id.iv_mainPlayer_5:
 
                 if(lejoueur.getPlayerMain().getListCards().size() > 4) {
-                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(4), iv_mainPlayerCard_5,this);
+
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(4), iv_mainPlayerCard_5,this,"Main");
+                    majbtInvocation();
                 }
                 break;
             case R.id.iv_mainPlayer_6:
 
                 if(lejoueur.getPlayerMain().getListCards().size() > 5) {
-                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(5), iv_mainPlayerCard_6,this);
+
+
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(5), iv_mainPlayerCard_6,this,"Main");
+                    majbtInvocation();
                 }
                 break;
             case R.id.iv_mainPlayer_7:
 
                 if(lejoueur.getPlayerMain().getListCards().size() > 6) {
-                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(6), iv_mainPlayerCard_7,this);
+
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(6), iv_mainPlayerCard_7,this,"Main");
+                    majbtInvocation();
                 }
                 break;
             case R.id.iv_mainPlayer_8:
 
                 if(lejoueur.getPlayerMain().getListCards().size() > 7) {
-                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(7), iv_mainPlayerCard_8,this);
+
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(7), iv_mainPlayerCard_8,this,"Main");
+                    majbtInvocation();
                 }
                 break;
             case R.id.iv_mainPlayer_9:
                 if(lejoueur.getPlayerMain().getListCards().size() > 8){
-                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(8), iv_mainPlayerCard_9,this);
+
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(8), iv_mainPlayerCard_9,this,"Main");
+                    majbtInvocation();
                 }
                 break;
             case R.id.iv_mainPlayer_10:
                 if(lejoueur.getPlayerMain().getListCards().size() > 9){
-                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(9),iv_mainPlayerCard_10,this);
+
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(9),iv_mainPlayerCard_10,this,"Main");
+                    majbtInvocation();
                 }
                 break;
             case R.id.iv_terrainMonstre1_joueur:
-                if(listPlayer.get(0).getPlayerTerrain().getCardZoneMonstre(0) != null) {
-                    Picasso.with(this).load(listPlayer.get(0).getPlayerTerrain().getCardZoneMonstre(0).getUrl()).error(R.drawable.cardunknow).into(this.iv_imageCardZoom);
-                    tv_descCardZoom.setText(listPlayer.get(0).getPlayerTerrain().getCardZoneMonstre(0).getDescription());
-                }
+                if(lejoueur.getPlayerTerrain().getCardZoneMonstre(0) != null) {
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerTerrain().getCardZoneMonstre(0),iv_terrainMonstreJoueur_1,this,"Terrain");
+                    majbtInvocation();
+                    }
                 break;
             case R.id.iv_terrainMonstre2_joueur:
+
                 if(listPlayer.get(0).getPlayerTerrain().getCardZoneMonstre(1) != null) {
-                    Picasso.with(this).load(listPlayer.get(0).getPlayerTerrain().getCardZoneMonstre(1).getUrl()).error(R.drawable.cardunknow).into(this.iv_imageCardZoom);
-                    tv_descCardZoom.setText(listPlayer.get(0).getPlayerTerrain().getCardZoneMonstre(1).getDescription());
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerTerrain().getCardZoneMonstre(1),iv_terrainMonstreJoueur_2,this,"Terrain");
+                    majbtInvocation();
                 }
                 break;
             case R.id.iv_terrainMonstre3_joueur:
+
                 if(listPlayer.get(0).getPlayerTerrain().getCardZoneMonstre(2) != null) {
-                    Picasso.with(this).load(listPlayer.get(0).getPlayerTerrain().getCardZoneMonstre(2).getUrl()).error(R.drawable.cardunknow).into(this.iv_imageCardZoom);
-                    tv_descCardZoom.setText(listPlayer.get(0).getPlayerTerrain().getCardZoneMonstre(2).getDescription());
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerTerrain().getCardZoneMonstre(2),iv_terrainMonstreJoueur_3,this,"Terrain");
+                    majbtInvocation();
                 }
                 break;
             case R.id.iv_terrainMonstre4_joueur:
                 if(listPlayer.get(0).getPlayerTerrain().getCardZoneMonstre(3) != null) {
-                    Picasso.with(this).load(listPlayer.get(0).getPlayerTerrain().getCardZoneMonstre(3).getUrl()).error(R.drawable.cardunknow).into(this.iv_imageCardZoom);
-                    tv_descCardZoom.setText(listPlayer.get(0).getPlayerTerrain().getCardZoneMonstre(3).getDescription());
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerTerrain().getCardZoneMonstre(3),iv_terrainMonstreJoueur_4,this,"Terrain");
+                    majbtInvocation();
                 }
                 break;
             case R.id.iv_terrainMonstre5_joueur:
+
                 if(listPlayer.get(0).getPlayerTerrain().getCardZoneMonstre(4) != null) {
-                    Picasso.with(this).load(listPlayer.get(0).getPlayerTerrain().getCardZoneMonstre(4).getUrl()).error(R.drawable.cardunknow).into(this.iv_imageCardZoom);
-                    tv_descCardZoom.setText(listPlayer.get(0).getPlayerTerrain().getCardZoneMonstre(4).getDescription());
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerTerrain().getCardZoneMonstre(4),iv_terrainMonstreJoueur_5,this,"Terrain");
+                    majbtInvocation();
                 }
                 break;
             case R.id.iv_terrainMonstre1_ia:
+
                 if(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(0) != null) {
+                    lejoueur.getPlayerMain().setFrom("Terrain");
+                    majbtInvocation();
                     Picasso.with(this).load(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(0).getUrl()).error(R.drawable.cardunknow).into(this.iv_imageCardZoom);
                     tv_descCardZoom.setText(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(0).getDescription());
                 }
                 break;
             case R.id.iv_terrainMonstre2_ia:
+
                 if(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(1) != null) {
+                    lejoueur.getPlayerMain().setFrom("Terrain");
+                    majbtInvocation();
                     Picasso.with(this).load(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(1).getUrl()).error(R.drawable.cardunknow).into(this.iv_imageCardZoom);
                     tv_descCardZoom.setText(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(1).getDescription());
                 }
                 break;
             case R.id.iv_terrainMonstre3_ia:
+                majbtInvocation();
                 if(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(2) != null) {
+                    lejoueur.getPlayerMain().setFrom("Terrain");
+                    majbtInvocation();
                     Picasso.with(this).load(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(2).getUrl()).error(R.drawable.cardunknow).into(this.iv_imageCardZoom);
                     tv_descCardZoom.setText(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(2).getDescription());
                 }
                 break;
             case R.id.iv_terrainMonstre4_ia:
+                majbtInvocation();
                 if(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(3) != null) {
+                    lejoueur.getPlayerMain().setFrom("Terrain");
+                    majbtInvocation();
                     Picasso.with(this).load(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(3).getUrl()).error(R.drawable.cardunknow).into(this.iv_imageCardZoom);
                     tv_descCardZoom.setText(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(3).getDescription());
                 }
                 break;
             case R.id.iv_terrainMonstre5_ia:
+                majbtInvocation();
                 if(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(4) != null) {
+                    lejoueur.getPlayerMain().setFrom("Terrain");
+                    majbtInvocation();
                     Picasso.with(this).load(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(4).getUrl()).error(R.drawable.cardunknow).into(this.iv_imageCardZoom);
                     tv_descCardZoom.setText(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(4).getDescription());
                 }
@@ -798,13 +836,20 @@ public class Game_activity extends AppCompatActivity {
     }
 
     public void majbtInvocation(){
-        if(listPlayer.get(0).getCountInvocationNormale()<listPlayer.get(0).getMaxInvocationNormale())
-        {
-            bt_invocation.setVisibility(View.VISIBLE);
-            bt_poser.setVisibility(View.VISIBLE);
-        }else{
+        if (listPlayer.get(0).getPlayerMain().getFrom().equals("Main")){
+            if(listPlayer.get(0).getCountInvocationNormale()<listPlayer.get(0).getMaxInvocationNormale())
+            {
+                bt_invocation.setVisibility(View.VISIBLE);
+                bt_poser.setVisibility(View.VISIBLE);
+            }else{
+                bt_invocation.setVisibility(View.INVISIBLE);
+                bt_poser.setVisibility(View.INVISIBLE);
+            }
+        }else if(listPlayer.get(0).getPlayerMain().getFrom().equals("Terrain")){
             bt_invocation.setVisibility(View.INVISIBLE);
             bt_poser.setVisibility(View.INVISIBLE);
+
+            //mettre ne changement de position
         }
     }
 

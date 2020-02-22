@@ -27,11 +27,14 @@ public class EffectPoseNormal extends EffectCard {
                 Terrain terrainInvocateur =invocateur.getPlayerTerrain();
                 ImageView zone_Iv_vide = terrainInvocateur.getZoneVide("MONSTRE");
                 if(zone_Iv_vide != null){
-                    terrainInvocateur.cardPoserToZone(context,aCard, zone_Iv_vide);
                     Main mainInvocateur =invocateur.getPlayerMain() ;
+                    mainInvocateur.deselectedCard(context);
+                    terrainInvocateur.cardPoserToZone(context,aCard, zone_Iv_vide);
+
                     mainInvocateur.getListCards().remove(aCard);
                     mainInvocateur.majMain(invocateur,context);
                     terrainInvocateur.monsterToDefAnnimation(context, zone_Iv_vide);
+
                     invocateur.addCountInvocationNormale();
                 }else{
                     Toast.makeText(context,"Vous n'avez plus de zone libre", Toast.LENGTH_SHORT).show();

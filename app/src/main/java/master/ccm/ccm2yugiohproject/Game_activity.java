@@ -9,6 +9,7 @@ import master.ccm.entity.Effects.EffectCard;
 import master.ccm.entity.Effects.EffectGainPertePV;
 import master.ccm.entity.Effects.EffectInvoquerNormale;
 import master.ccm.entity.Effects.EffectPioche;
+import master.ccm.entity.Effects.EffectPoseNormal;
 import master.ccm.entity.PileDeCarte.Deck;
 import master.ccm.entity.Phase;
 import master.ccm.entity.PileDeCarte.Main;
@@ -25,6 +26,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -62,6 +66,10 @@ public class Game_activity extends AppCompatActivity {
     private Button bt_battlePhase;
     private Button bt_mainPhase2;
     private Button bt_EndPhase;
+
+    //button
+    private Button bt_invocation;
+    private Button bt_poser;
 
     private ImageView iv_deckPlayer;
     private ImageView iv_deckIA;
@@ -116,6 +124,9 @@ public class Game_activity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        bt_invocation =findViewById(R.id.bt_invocation);
+        bt_poser =findViewById(R.id.bt_poser);
 
         tv_iaName = findViewById(R.id.id_tv_nameIA);
         tv_iaLifePoint = findViewById(R.id.id_tv_lifepoint_IA);
@@ -367,25 +378,25 @@ public class Game_activity extends AppCompatActivity {
                 }
                 break;
             case R.id.iv_terrainMonstre2_joueur:
-                if(listPlayer.get(0).getPlayerTerrain().getCardZoneMonstre(0) != null) {
+                if(listPlayer.get(0).getPlayerTerrain().getCardZoneMonstre(1) != null) {
                     Picasso.with(this).load(listPlayer.get(0).getPlayerTerrain().getCardZoneMonstre(1).getUrl()).error(R.drawable.cardunknow).into(this.iv_imageCardZoom);
                     tv_descCardZoom.setText(listPlayer.get(0).getPlayerTerrain().getCardZoneMonstre(1).getDescription());
                 }
                 break;
             case R.id.iv_terrainMonstre3_joueur:
-                if(listPlayer.get(0).getPlayerTerrain().getCardZoneMonstre(0) != null) {
+                if(listPlayer.get(0).getPlayerTerrain().getCardZoneMonstre(2) != null) {
                     Picasso.with(this).load(listPlayer.get(0).getPlayerTerrain().getCardZoneMonstre(2).getUrl()).error(R.drawable.cardunknow).into(this.iv_imageCardZoom);
                     tv_descCardZoom.setText(listPlayer.get(0).getPlayerTerrain().getCardZoneMonstre(2).getDescription());
                 }
                 break;
             case R.id.iv_terrainMonstre4_joueur:
-                if(listPlayer.get(0).getPlayerTerrain().getCardZoneMonstre(0) != null) {
+                if(listPlayer.get(0).getPlayerTerrain().getCardZoneMonstre(3) != null) {
                     Picasso.with(this).load(listPlayer.get(0).getPlayerTerrain().getCardZoneMonstre(3).getUrl()).error(R.drawable.cardunknow).into(this.iv_imageCardZoom);
                     tv_descCardZoom.setText(listPlayer.get(0).getPlayerTerrain().getCardZoneMonstre(3).getDescription());
                 }
                 break;
             case R.id.iv_terrainMonstre5_joueur:
-                if(listPlayer.get(0).getPlayerTerrain().getCardZoneMonstre(0) != null) {
+                if(listPlayer.get(0).getPlayerTerrain().getCardZoneMonstre(4) != null) {
                     Picasso.with(this).load(listPlayer.get(0).getPlayerTerrain().getCardZoneMonstre(4).getUrl()).error(R.drawable.cardunknow).into(this.iv_imageCardZoom);
                     tv_descCardZoom.setText(listPlayer.get(0).getPlayerTerrain().getCardZoneMonstre(4).getDescription());
                 }
@@ -397,30 +408,30 @@ public class Game_activity extends AppCompatActivity {
                 }
                 break;
             case R.id.iv_terrainMonstre2_ia:
-                if(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(0) != null) {
+                if(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(1) != null) {
                     Picasso.with(this).load(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(1).getUrl()).error(R.drawable.cardunknow).into(this.iv_imageCardZoom);
                     tv_descCardZoom.setText(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(1).getDescription());
                 }
                 break;
             case R.id.iv_terrainMonstre3_ia:
-                if(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(0) != null) {
+                if(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(2) != null) {
                     Picasso.with(this).load(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(2).getUrl()).error(R.drawable.cardunknow).into(this.iv_imageCardZoom);
                     tv_descCardZoom.setText(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(2).getDescription());
                 }
                 break;
             case R.id.iv_terrainMonstre4_ia:
-                if(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(0) != null) {
+                if(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(3) != null) {
                     Picasso.with(this).load(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(3).getUrl()).error(R.drawable.cardunknow).into(this.iv_imageCardZoom);
                     tv_descCardZoom.setText(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(3).getDescription());
                 }
                 break;
             case R.id.iv_terrainMonstre5_ia:
-                if(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(0) != null) {
+                if(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(4) != null) {
                     Picasso.with(this).load(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(4).getUrl()).error(R.drawable.cardunknow).into(this.iv_imageCardZoom);
                     tv_descCardZoom.setText(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(4).getDescription());
                 }
                 break;
-                default:
+            default:
                 break;
         }
     }
@@ -491,11 +502,17 @@ public class Game_activity extends AppCompatActivity {
         //main phase
         newphase = new Phase("MainPhase");
 
+        //Ajout de l'action Invocation Normale à la liste d'action
         EffectInvoquerNormale effectInvoquerNormale = new EffectInvoquerNormale();
         Action actionInvocationNormale = new Action("InvocationNormale",effectInvoquerNormale );
         listeAction =  new ArrayList<Action>();
         listeAction.add(actionInvocationNormale);
         newphase.setListAction(listeAction);
+
+        //Ajout de l'action poser à la liste d'action
+        EffectPoseNormal effectPoseNormale = new EffectPoseNormal();
+        Action actionPoseNormale = new Action("PoseNormale",effectPoseNormale );
+        listeAction.add(actionPoseNormale);
 
         listePhase.add(newphase);
 
@@ -506,12 +523,17 @@ public class Game_activity extends AppCompatActivity {
         // main phase 2
         newphase = new Phase("MainPhase2");
 
+        //Ajout de l'action Invocation Normale à la liste d'action
         effectInvoquerNormale = new EffectInvoquerNormale();
         actionInvocationNormale = new Action("InvocationNormale",effectInvoquerNormale );
         listeAction =  new ArrayList<Action>();
         listeAction.add(actionInvocationNormale);
         newphase.setListAction(listeAction);
 
+        //Ajout de l'action poser à la liste d'action
+        effectPoseNormale = new EffectPoseNormal();
+        actionPoseNormale = new Action("PoseNormale",effectPoseNormale );
+        listeAction.add(actionPoseNormale);
 
         listePhase.add(newphase);
 
@@ -546,6 +568,9 @@ public class Game_activity extends AppCompatActivity {
                 case 0:
                     //draw phase
                     currentplayer.setCountInvocationNormale(0);
+                    blinkdeck();
+                    //Picasso.with(this).load(R.drawable.cardcoverlight).error(R.drawable.cardunknow).into(this.iv_deckPlayer);
+
                     bt_drawPhase.setTextColor(Color.BLUE);
                     bt_stanby.setTextColor(Color.BLUE);
                     bt_mainPhase.setTextColor(Color.BLUE);
@@ -556,12 +581,14 @@ public class Game_activity extends AppCompatActivity {
 
                 case 1:
                     //stand by
-
+                    //Picasso.with(this).load(R.drawable.cardcover).error(R.drawable.cardunknow).into(this.iv_deckPlayer);
                     nextPhase();
                     break;
 
                 case 2:
                     //Main phase
+                    iv_deckPlayer.clearAnimation();
+                    majbtInvocation();
                     break;
                 case 3:
                     //Battle phase
@@ -681,7 +708,7 @@ public class Game_activity extends AppCompatActivity {
 
         if(nbcardDeckPlayer <= 0){
             //iv_deckPlayer.setVisibility(View.INVISIBLE);
-            //iv_deckPlayer.setImageResource(R.drawable.caseterrain);
+            iv_deckPlayer.setImageResource(R.drawable.caseterrain);
         }else{
             iv_deckPlayer.setImageResource(R.drawable.cardcover);
         }
@@ -693,7 +720,7 @@ public class Game_activity extends AppCompatActivity {
 
         // on fait disparaitre l'image si on a plus de carte dans  le deck de l'ia
         if(nbcardDeckIA <= 0){
-            //iv_deckIA.setImageResource(R.drawable.caseterrain);
+            iv_deckIA.setImageResource(R.drawable.caseterrain);
 
         }else{
             iv_deckIA.setImageResource(R.drawable.cardcover);
@@ -721,7 +748,8 @@ public class Game_activity extends AppCompatActivity {
                     ArrayList<Card>listfiltre =new  ArrayList<>();
                     listfiltre.add(currentplayerMain.getSelectedCard());
                     invocation.getEffect().execute(this,listPlayer,0,1,currentplayer.getPlayerMain(),currentplayer.getPlayerTerrain(),listfiltre);
-                /*
+                    majbtInvocation();
+                    /*
                     /*listPlayer.get(0).getPlayerTerrain().cardToZone(this, listPlayer.get(0).getPlayerMain().getSelectedCard(), iv_terrainMonstreJoueur_1);
                     currentplayerMain.getListCards().remove(listPlayer.get(0).getPlayerMain().getSelectedCard());
                     currentplayerMain.majMain(currentplayer, this);
@@ -732,6 +760,52 @@ public class Game_activity extends AppCompatActivity {
             }
         }
 
+
+    }
+    public void onClickPoser (View view){
+        Main currentplayerMain =currentplayer.getPlayerMain();
+        Log.w("invocation", "count : "+currentplayer.getCountInvocationNormale() + " count max : "+ currentplayer.getMaxInvocationNormale());
+        if (currentPhase.containsActionByName("PoseNormale") && currentplayer.equals(listPlayer.get(0))) {
+            if (currentplayer.getCountInvocationNormale() < currentplayer.getMaxInvocationNormale()) {
+                Action invocation = currentPhase.findActionByName("PoseNormale");
+
+                if (currentplayerMain.getSelectedCard() != null) {
+                    ArrayList<Card>listfiltre =new  ArrayList<>();
+                    listfiltre.add(currentplayerMain.getSelectedCard());
+                    invocation.getEffect().execute(this,listPlayer,0,1,currentplayer.getPlayerMain(),currentplayer.getPlayerTerrain(),listfiltre);
+                    majbtInvocation();
+                    /*
+                    /*listPlayer.get(0).getPlayerTerrain().cardToZone(this, listPlayer.get(0).getPlayerMain().getSelectedCard(), iv_terrainMonstreJoueur_1);
+                    currentplayerMain.getListCards().remove(listPlayer.get(0).getPlayerMain().getSelectedCard());
+                    currentplayerMain.majMain(currentplayer, this);
+                    currentplayer.addCountInvocationNormale();*/
+                }
+            } else {
+                Toast.makeText(this, "Vous avez déjà invoquer normalement ce tour", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+
+    }
+    public void blinkdeck() {
+        Animation animation = new AlphaAnimation(1, 0.40f); //to change visibility from visible to invisible
+        animation.setDuration(500); //1 second duration for each animation cycle
+        animation.setInterpolator(new LinearInterpolator());
+        animation.setRepeatCount(Animation.INFINITE); //repeating indefinitely
+        animation.setRepeatMode(Animation.REVERSE); //animation will start from end point once ended.
+        iv_deckPlayer.startAnimation(animation);
+
+    }
+
+    public void majbtInvocation(){
+        if(listPlayer.get(0).getCountInvocationNormale()<listPlayer.get(0).getMaxInvocationNormale())
+        {
+            bt_invocation.setVisibility(View.VISIBLE);
+            bt_poser.setVisibility(View.VISIBLE);
+        }else{
+            bt_invocation.setVisibility(View.INVISIBLE);
+            bt_poser.setVisibility(View.INVISIBLE);
+        }
     }
 
 }

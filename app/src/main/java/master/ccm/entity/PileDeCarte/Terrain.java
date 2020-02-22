@@ -46,6 +46,18 @@ public class Terrain extends PileCarte {
             }
         }*/
     }
+
+
+    public void  cardPoserToZone(Context context,Card aCard, ImageView zoneImage) {
+        for (int i = 0; i < 5; i++) {
+            if(tableauZoneMonstreImageView[i].getId() == zoneImage.getId()){
+                tableauZoneMonstre[i] =aCard;
+                Picasso.with(context).load(R.drawable.cardcover).error(R.drawable.cardunknow).into(tableauZoneMonstreImageView[i]);
+
+            }
+        }
+    }
+
     public void  outofZone(Context context, ImageView zoneImage) {
             for (int i = 0; i < 5; i++) {
                 if (tableauZoneMonstreImageView[i].getId() == zoneImage.getId()) {
@@ -134,5 +146,24 @@ public class Terrain extends PileCarte {
             }
             return null;
         }
+    }
+
+    public void monsterToDefAnnimation(Context context, ImageView imageView){
+        for (int i = 0; i < 5; i++) {
+            if(tableauZoneMonstreImageView[i].getId() == imageView.getId()){
+                tableauZoneMonstreImageView[i].setRotation(90);
+            }
+        }
+
+
+    }
+    public void monsterToAtkAnnimation(Context context, ImageView imageView){
+
+        for (int i = 0; i < 5; i++) {
+            if(tableauZoneMonstreImageView[i].getId() == imageView.getId()){
+                tableauZoneMonstreImageView[i].setRotation(-90);
+            }
+        }
+
     }
 }

@@ -28,16 +28,26 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0.8"
+                android:layout_weight="0.83"
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/bt_invocation"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.45"
                     android:onClick="onClickInvocation"
-                    android:text="@string/bt_invocation" />
+                    android:text="@string/bt_invocation"
+                    android:textSize="8sp" />
+
+                <Button
+                    android:id="@+id/bt_poser"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.65"
+                    android:onClick="onClickPoser"
+                    android:text="@string/bt_poser"
+                    android:textSize="8sp" />
             </LinearLayout>
 
             <ScrollView

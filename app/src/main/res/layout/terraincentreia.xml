@@ -26,7 +26,8 @@
                     android:id="@+id/iv_terrainMagie1_ia"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:srcCompat="@drawable/caseterrain" />
+                    app:srcCompat="@drawable/caseterrain"
+                    android:onClick="clickHandler" />
 
             </RelativeLayout>
 
@@ -39,7 +40,8 @@
                     android:id="@+id/iv_terrainMagie2_ia"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:srcCompat="@drawable/caseterrain" />
+                    app:srcCompat="@drawable/caseterrain"
+                    android:onClick="clickHandler" />
 
             </RelativeLayout>
 
@@ -52,7 +54,8 @@
                     android:id="@+id/iv_terrainMagie3_ia"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:srcCompat="@drawable/caseterrain" />
+                    app:srcCompat="@drawable/caseterrain"
+                    android:onClick="clickHandler" />
 
             </RelativeLayout>
 
@@ -65,7 +68,8 @@
                     android:id="@+id/iv_terrainMagie4_ia"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:srcCompat="@drawable/caseterrain" />
+                    app:srcCompat="@drawable/caseterrain"
+                    android:onClick="clickHandler" />
 
             </RelativeLayout>
 
@@ -78,7 +82,8 @@
                     android:id="@+id/iv_terrainMagie5_ia"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:srcCompat="@drawable/caseterrain" />
+                    app:srcCompat="@drawable/caseterrain"
+                    android:onClick="clickHandler" />
 
             </RelativeLayout>
 
@@ -107,7 +112,8 @@
                     android:id="@+id/iv_terrainMonstre1_ia"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:srcCompat="@drawable/caseterrain" />
+                    app:srcCompat="@drawable/caseterrain"
+                    android:onClick="clickHandler" />
 
             </RelativeLayout>
 
@@ -120,7 +126,8 @@
                     android:id="@+id/iv_terrainMonstre2_ia"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:srcCompat="@drawable/caseterrain" />
+                    app:srcCompat="@drawable/caseterrain"
+                    android:onClick="clickHandler" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -132,7 +139,8 @@
                     android:id="@+id/iv_terrainMonstre3_ia"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:srcCompat="@drawable/caseterrain" />
+                    app:srcCompat="@drawable/caseterrain"
+                    android:onClick="clickHandler" />
 
             </RelativeLayout>
 
@@ -145,7 +153,8 @@
                     android:id="@+id/iv_terrainMonstre4_ia"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:srcCompat="@drawable/caseterrain" />
+                    app:srcCompat="@drawable/caseterrain"
+                    android:onClick="clickHandler" />
 
             </RelativeLayout>
 
@@ -158,7 +167,8 @@
                     android:id="@+id/iv_terrainMonstre5_ia"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:srcCompat="@drawable/caseterrain" />
+                    app:srcCompat="@drawable/caseterrain"
+                    android:onClick="clickHandler" />
 
             </RelativeLayout>
 

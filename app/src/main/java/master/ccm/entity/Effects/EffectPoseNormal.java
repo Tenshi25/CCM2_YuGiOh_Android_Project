@@ -5,16 +5,14 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Map;
 
-import master.ccm.ccm2yugiohproject.Game_activity;
 import master.ccm.entity.Card;
 import master.ccm.entity.PileDeCarte.Main;
 import master.ccm.entity.PileDeCarte.PileCarte;
 import master.ccm.entity.PileDeCarte.Terrain;
 import master.ccm.entity.Player;
 
-public class EffectInvoquerNormale extends EffectCard {
+public class EffectPoseNormal extends EffectCard {
 
     @Override
     public void execute(Context context, ArrayList<Player> listJoueurs, int joueurCibler, int nb, PileCarte dePileA, PileCarte aPileB, ArrayList<Card> filtre) {
@@ -31,12 +29,13 @@ public class EffectInvoquerNormale extends EffectCard {
                 if(zone_Iv_vide != null){
                     Main mainInvocateur =invocateur.getPlayerMain() ;
                     mainInvocateur.deselectedCard(context);
+                    terrainInvocateur.cardPoserToZone(context,aCard, zone_Iv_vide);
 
-                    terrainInvocateur.cardToZone(context,aCard, zone_Iv_vide);
                     mainInvocateur.getListCards().remove(aCard);
                     mainInvocateur.majMain(invocateur,context);
-                    invocateur.addCountInvocationNormale();
+                    terrainInvocateur.monsterToDefAnnimation(context, zone_Iv_vide);
 
+                    invocateur.addCountInvocationNormale();
                 }else{
                     Toast.makeText(context,"Vous n'avez plus de zone libre", Toast.LENGTH_SHORT).show();
                 }

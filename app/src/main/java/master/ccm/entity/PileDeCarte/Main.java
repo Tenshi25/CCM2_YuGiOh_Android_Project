@@ -1,5 +1,6 @@
 package master.ccm.entity.PileDeCarte;
 
+import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Path;
@@ -29,6 +30,7 @@ public class Main extends PileCarte {
     private ImageView imageViewZoom;
     private TextView descCardZoom;
     private ArrayList<ImageView> listIv_main;
+    private String from = "Main"; // main, terrain
 
     public Main( ) {
         this.selectedCard = new Card();
@@ -58,46 +60,68 @@ public class Main extends PileCarte {
     public void setSelectedCard(Card selectedCard) {
         this.selectedCard = selectedCard;
     }
-    public void changeSelectedCard(Card p_selectedCard,ImageView iv_card, Context context) {
-        Path path = new Path();
-        ObjectAnimator animator;
+    public void changeSelectedCard(Card p_selectedCard,ImageView iv_card, Context context, String p_from) {
+        if (p_from.equals("Main")){
+            Path path = new Path();
+            ObjectAnimator animator;
 
-        if (imageViewSelected == null) {
-            path = new Path();
-            // annimation faire monter la carte
-            imageViewSelected = iv_card;
-            setSelectedCard(p_selectedCard);
-
-            path.moveTo(imageViewSelected.getX(), imageViewSelected.getY() - 40f);
-            animator = ObjectAnimator.ofFloat(imageViewSelected, View.X, View.Y, path);
-            animator.setDuration(100);
-            animator.start();
-
-
-        } else {
-            if (imageViewSelected.getId() != iv_card.getId()) {
-                //annimation pour descendre la carte déjà séléctionne
+            if (imageViewSelected == null) {
                 path = new Path();
-                path.moveTo(imageViewSelected.getX(), imageViewSelected.getY() + 40f);
+                // annimation faire monter la carte
+                imageViewSelected = iv_card;
+                setSelectedCard(p_selectedCard);
+                //this.setFrom(from);
+
+                this.setFrom("Main");
+                path.moveTo(imageViewSelected.getX(), imageViewSelected.getY() - 40f);
                 animator = ObjectAnimator.ofFloat(imageViewSelected, View.X, View.Y, path);
                 animator.setDuration(100);
                 animator.start();
 
 
-                // annimation faire monter la carte
+            } else {
+                if (imageViewSelected.getId() != iv_card.getId()) {
+                    if(getFrom().equals("Main")) {
+                        //annimation pour descendre la carte déjà séléctionne
+                        path = new Path();
+                        path.moveTo(imageViewSelected.getX(), imageViewSelected.getY() + 40f);
+                        animator = ObjectAnimator.ofFloat(imageViewSelected, View.X, View.Y, path);
+                        animator.setDuration(100);
+                        animator.start();
+                    }
 
-                setSelectedCard(p_selectedCard);
-                path = new Path();
-                path.moveTo(iv_card.getX(), iv_card.getY() - 40f);
-                animator = ObjectAnimator.ofFloat(iv_card, View.X, View.Y, path);
-                animator.setDuration(100);
-                animator.start();
-                imageViewSelected = iv_card;
+                    // annimation faire monter la carte
 
+                    setSelectedCard(p_selectedCard);
+                    path = new Path();
+                    path.moveTo(iv_card.getX(), iv_card.getY() - 40f);
+                    animator = ObjectAnimator.ofFloat(iv_card, View.X, View.Y, path);
+                    animator.setDuration(100);
+                    animator.start();
+                    this.setFrom("Main");
+                    imageViewSelected = iv_card;
+
+                }
             }
+            Picasso.with(context).load(selectedCard.getUrl()).error(R.drawable.cardunknow).into(this.imageViewZoom);
+            descCardZoom.setText(selectedCard.getDescription());
+        }else if (p_from.equals("Terrain")) {
+            if (imageViewSelected != null) {
+                if(getFrom().equals("Main")){
+                    //annimation pour descendre la carte déjà séléctionne
+                    Path path = new Path();
+                    path.moveTo(imageViewSelected.getX(), imageViewSelected.getY() + 40f);
+                    Animator animator = ObjectAnimator.ofFloat(imageViewSelected, View.X, View.Y, path);
+                    animator.setDuration(100);
+                    animator.start();
+                }
+            }
+            imageViewSelected = iv_card;
+            setSelectedCard(p_selectedCard);
+            this.setFrom("Terrain");
+            Picasso.with(context).load(selectedCard.getUrl()).error(R.drawable.cardunknow).into(this.imageViewZoom);
+            descCardZoom.setText(selectedCard.getDescription());
         }
-        Picasso.with(context).load(selectedCard.getUrl()).error(R.drawable.cardunknow).into(this.imageViewZoom);
-        descCardZoom.setText(selectedCard.getDescription());
     }
 
             public void majMain(Player player, Context context){
@@ -141,4 +165,32 @@ public class Main extends PileCarte {
             public void setListIv_main(ArrayList<ImageView> listIv_main) {
                 this.listIv_main = listIv_main;
             }
+            public void deselectedCard(Context context){
+
+                //annimation pour descendre la carte déjà séléctionne
+                Path path = new Path();
+                path.moveTo(imageViewSelected.getX(), imageViewSelected.getY() + 40f);
+                Animator animator = ObjectAnimator.ofFloat(imageViewSelected, View.X, View.Y, path);
+                animator.setDuration(100);
+                animator.start();
+
+                this.setFrom("Terrain");
+
+            }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }/*
+    public void changeSelectedCardTerrain(Card p_selectedCard,ImageView iv_card, Context context) {
+
+        imageViewSelected = iv_card;
+        setSelectedCard(p_selectedCard);
+        this.setFrom("Terrain");
+        Picasso.with(context).load(selectedCard.getUrl()).error(R.drawable.cardunknow).into(this.imageViewZoom);
+        descCardZoom.setText(selectedCard.getDescription());
+    }*/
 }

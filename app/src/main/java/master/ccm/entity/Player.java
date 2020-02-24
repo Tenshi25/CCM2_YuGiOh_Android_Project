@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import master.ccm.entity.PileDeCarte.Bannisement;
 import master.ccm.entity.PileDeCarte.Cimetiere;
@@ -13,6 +14,10 @@ import master.ccm.entity.PileDeCarte.Deck;
 import master.ccm.entity.PileDeCarte.ExtraDeck;
 import master.ccm.entity.PileDeCarte.Main;
 import master.ccm.entity.PileDeCarte.Terrain;
+import master.ccm.entity.subcard.CardInGame;
+import master.ccm.entity.subcard.Monstre;
+import master.ccm.types.CardType;
+import master.ccm.types.CardTypeSub;
 
 public class Player {
     private String name;
@@ -73,13 +78,14 @@ public class Player {
     }
 
     public void initDeckToPlay(List<Card> listCard){
-        ArrayList<Card> deckToPlay = new ArrayList<Card>();
+        ArrayList<Card> deckToPlay = new ArrayList<>();
         for (Card aCard : listCard) {
             for(int i = 0; i < aCard.getDuplicate(); i++){
                 deckToPlay.add(aCard);
             }
         }
-        this.playerDeck.setListCard(deckToPlay);
+        ArrayList<CardInGame> deckInGameToPlay = DeckCardtoDeckCardInGame(deckToPlay);
+        this.playerDeck.setListCard(deckInGameToPlay);
     }
 
     public Main getPlayerMain() {
@@ -140,5 +146,12 @@ public class Player {
 
     public void setMaxInvocationNormale(int maxInvocationNormale) {
         MaxInvocationNormale = maxInvocationNormale;
+    }
+
+    public ArrayList<CardInGame> DeckCardtoDeckCardInGame(ArrayList<Card> p_Deckcard)
+    {
+        return (ArrayList<CardInGame>)p_Deckcard.stream()
+                .map(element -> element.transformToCardInGame())
+                .collect(Collectors.toList());
     }
 }

@@ -8,6 +8,7 @@ import java.util.List;
 
 import master.ccm.entity.Card;
 import master.ccm.entity.PileDeCarte.PileCarte;
+import master.ccm.entity.subcard.CardInGame;
 
 public class Deck extends PileCarte {
     private String id;
@@ -15,20 +16,20 @@ public class Deck extends PileCarte {
     private String description;
     private String idUser;
 
-    private ArrayList<Card> listCard = new ArrayList<Card>();
+    private ArrayList<CardInGame> listCard = new ArrayList<CardInGame>();
 
-    public List<Card> getListCard() {
+    public List<CardInGame> getListCard() {
         return listCard;
     }
 
-    public void setListCard(ArrayList<Card> listCard) {
+    public void setListCard(ArrayList<CardInGame> listCard) {
         this.listCard = listCard;
     }
 
-    public void AddCard(Card aCard){
+    public void AddCard(CardInGame aCard){
         listCard.add(aCard);
     }
-    public void RemoveCard(Card aCard){
+    public void RemoveCard(CardInGame aCard){
         listCard.remove(aCard);
     }
     public void SelectCard(){
@@ -76,8 +77,8 @@ public class Deck extends PileCarte {
         Log.i("Remi_DECK", "Apres Shuffle : " + getListCard().get(0).getName() + " " + getListCard().get(1).getName() + " " + getListCard().get(2).getName());
     }
     // Piocher X carte
-    public List<Card> drawCard(int numberCard){
-        List<Card> listCardDraw = new ArrayList<Card>();
+    public List<CardInGame> drawCard(int numberCard){
+        List<CardInGame> listCardDraw = new ArrayList<CardInGame>();
         for(int i = 0; i < numberCard; i++){
             if(!noMoreDeckCard()) {
                 listCardDraw.add(this.getListCard().get(0));

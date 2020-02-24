@@ -27,6 +27,10 @@ import master.ccm.ccm2yugiohproject.MenuDeckList_Activity;
 import master.ccm.entity.Card;
 import master.ccm.entity.CurrentUser;
 import master.ccm.entity.PileDeCarte.Deck;
+import master.ccm.types.AttributeType;
+import master.ccm.types.CardType;
+import master.ccm.types.CardTypeSub;
+import master.ccm.types.CategorizedType;
 
 public class DeckDBManager {
     private FirebaseFirestore database = FirebaseFirestore.getInstance();
@@ -310,6 +314,18 @@ public class DeckDBManager {
                                 aCard.setLimit(Integer.parseInt(document.get("limit").toString()));
                                 aCard.setAtk(Integer.parseInt(document.get("atk").toString()));
                                 aCard.setDef(Integer.parseInt(document.get("def").toString()));
+                                if(document.get("cardType")!= null){
+                                    aCard.setCardType(CardType.valueOf(document.get("cardType").toString()));
+                                }
+                                if(document.get("cardSubType") != null){
+                                    aCard.setCardSubType((CardTypeSub.valueOf(document.get("cardSubType").toString())));
+                                }
+                                if(document.get("categorized") != null){
+                                    aCard.setCategorized((CategorizedType.valueOf(document.get("categorized").toString())));
+                                }
+                                if(document.get("attribute") != null){
+                                    aCard.setAttribut(((AttributeType.valueOf(document.get("attribute").toString()))));
+                                }
                                 aCard.setDuplicate(lalinkCard.getDuplicate());
                                 aCard.setDescription(document.get("description").toString());
                                 aCard.setUrl(document.get("imageUrl").toString());

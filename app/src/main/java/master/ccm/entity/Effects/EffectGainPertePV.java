@@ -11,10 +11,11 @@ import master.ccm.ccm2yugiohproject.R;
 import master.ccm.entity.Card;
 import master.ccm.entity.PileDeCarte.PileCarte;
 import master.ccm.entity.Player;
+import master.ccm.entity.subcard.CardInGame;
 
 public class EffectGainPertePV extends EffectCard {
     @Override
-    public void execute(Context context,ArrayList<Player> listJoueurs, int joueurCibler, int nb, PileCarte dePileA, PileCarte aPileB, ArrayList<Card> filtre) {
+    public void execute(Context context,ArrayList<Player> listJoueurs, int joueurCibler, int nb, PileCarte dePileA, PileCarte aPileB, ArrayList<CardInGame> filtre) {
         if(joueurCibler<2){
             if(nb<0){
                 listJoueurs.get(joueurCibler).perteLifepoint(-nb);

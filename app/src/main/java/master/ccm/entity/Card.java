@@ -1,6 +1,10 @@
 package master.ccm.entity;
 
 import androidx.annotation.Nullable;
+import master.ccm.entity.subcard.CardInGame;
+import master.ccm.entity.subcard.Magie;
+import master.ccm.entity.subcard.Monstre;
+import master.ccm.entity.subcard.Piege;
 import master.ccm.types.AttributeType;
 import master.ccm.types.CardType;
 import master.ccm.types.CardTypeSub;
@@ -25,8 +29,55 @@ public class Card {
     //recto ou verso
     private String visible;
 
-    //attaque defense
-    private String position;
+    public CardInGame transformToCardInGame(){
+        CardInGame aCardInGame = new CardInGame();
+        switch (this.getCardType().toString()){
+
+            case "MONSTRE":
+                Monstre CardInGameMonstre =new Monstre();
+                CardInGameMonstre.setId(this.getId());
+                CardInGameMonstre.setName(this.getName());
+                CardInGameMonstre.setReference(this.getReference());
+                CardInGameMonstre.setCardType(this.getCardType());
+                CardInGameMonstre.setCardSubType(this.getCardSubType());
+                CardInGameMonstre.setCategorized(this.getCategorized());
+                CardInGameMonstre.setAttribut(this.getAttribut());
+                CardInGameMonstre.setUrl(this.getUrl());
+                CardInGameMonstre.setLevel(this.getLevel());
+                CardInGameMonstre.setDescription(this.getDescription());
+                CardInGameMonstre.setAtk(this.getAtk());
+                CardInGameMonstre.setDef(this.getDef());
+                aCardInGame = CardInGameMonstre;
+
+                break;
+            case "MAGIE":
+                Magie CardInGameMagie =new Magie();
+                CardInGameMagie.setId(this.getId());
+                CardInGameMagie.setName(this.getName());
+                CardInGameMagie.setReference(this.getReference());
+                CardInGameMagie.setCardType(this.getCardType());
+                CardInGameMagie.setCardSubType(this.getCardSubType());
+                CardInGameMagie.setUrl(this.getUrl());
+                CardInGameMagie.setDescription(this.getDescription());
+                aCardInGame = CardInGameMagie;
+                break;
+            case "PIEGE":
+                Piege CardInGamePiege =new Piege();
+                CardInGamePiege.setId(this.getId());
+                CardInGamePiege.setName(this.getName());
+                CardInGamePiege.setReference(this.getReference());
+                CardInGamePiege.setCardType(this.getCardType());
+                CardInGamePiege.setCardSubType(this.getCardSubType());
+                CardInGamePiege.setUrl(this.getUrl());
+                CardInGamePiege.setDescription(this.getDescription());
+                aCardInGame = CardInGamePiege;
+                break;
+            default :
+                break;
+        }
+
+        return aCardInGame;
+    }
 
 
     public String getId() {
@@ -149,14 +200,6 @@ public class Card {
         this.visible = visible;
     }
 
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
-    }
-
     @Override
     public boolean equals(@Nullable Object obj) {
         if(obj == null){
@@ -170,4 +213,5 @@ public class Card {
         }
         return false;
     }
+
 }

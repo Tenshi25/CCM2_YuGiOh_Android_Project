@@ -12,6 +12,7 @@ import java.util.Map;
 
 import master.ccm.ccm2yugiohproject.R;
 import master.ccm.entity.Card;
+import master.ccm.entity.subcard.CardInGame;
 
 public class Terrain extends PileCarte {
     //private Map<Card,> zone;
@@ -20,13 +21,13 @@ public class Terrain extends PileCarte {
     private ImageView[] tableauZoneMonstreImageView = new ImageView[5];
     private ImageView[] tableauZoneMagiePiegeImageView = new ImageView[5];
 
-    private Card[] tableauZoneMonstre = new Card[5];
-    private Card[] tableauZoneMagiePiege = new Card[5];
+    private CardInGame[] tableauZoneMonstre = new CardInGame[5];
+    private CardInGame[] tableauZoneMagiePiege = new CardInGame[5];
 
     //private ArrayList <Map> listMapTerrainMonstre;
     //private ArrayList <Map> listMapTerrainMagiePiege;
 
-    public void  cardToZone(Context context, Card aCard, ImageView zoneImage) {
+    public void  cardToZone(Context context, CardInGame aCard, ImageView zoneImage) {
 
         /*if(aCard.getCardType().equals("MONSTRE") )
         {*/
@@ -48,7 +49,7 @@ public class Terrain extends PileCarte {
     }
 
 
-    public void  cardPoserToZone(Context context,Card aCard, ImageView zoneImage) {
+    public void  cardPoserToZone(Context context,CardInGame aCard, ImageView zoneImage) {
         for (int i = 0; i < 5; i++) {
             if(tableauZoneMonstreImageView[i].getId() == zoneImage.getId()){
                 tableauZoneMonstre[i] =aCard;
@@ -87,29 +88,29 @@ public class Terrain extends PileCarte {
         }
     }*/
 
-    public Card[] getTableauZoneMonstre() {
+    public CardInGame[] getTableauZoneMonstre() {
         return tableauZoneMonstre;
     }
-    public Card getCardZoneMonstre(int index) {
+    public CardInGame getCardZoneMonstre(int index) {
         return tableauZoneMonstre[index];
     }
 
-    public void setTableauZoneMonstre(Card[] tableauZoneMonstre) {
+    public void setTableauZoneMonstre(CardInGame[] tableauZoneMonstre) {
         this.tableauZoneMonstre = tableauZoneMonstre;
     }
 
-    public Card[] getTableauZoneMagiePiege() {
+    public CardInGame[] getTableauZoneMagiePiege() {
         return tableauZoneMagiePiege;
     }
-    public Card getCardZoneMagiePiege(int index) {
+    public CardInGame getCardZoneMagiePiege(int index) {
         return tableauZoneMagiePiege[index];
     }
-    public void setTableauZoneMagiePiege(Card[] tableauZoneMagiePiege) {
+    public void setTableauZoneMagiePiege(CardInGame[] tableauZoneMagiePiege) {
         this.tableauZoneMagiePiege = tableauZoneMagiePiege;
     }
 
     @Override
-    public void setListCards(ArrayList<Card> listCards) {
+    public void setListCards(ArrayList<CardInGame> listCards) {
         super.setListCards(listCards);
     }
 

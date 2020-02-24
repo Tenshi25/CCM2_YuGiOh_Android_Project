@@ -14,6 +14,7 @@ import master.ccm.entity.PileDeCarte.Deck;
 import master.ccm.entity.Phase;
 import master.ccm.entity.PileDeCarte.Main;
 import master.ccm.entity.Player;
+import master.ccm.entity.subcard.CardInGame;
 import master.ccm.manager.DeckDBManager;
 
 import android.animation.ObjectAnimator;
@@ -725,8 +726,8 @@ public class Game_activity extends AppCompatActivity {
             gameStart();
         }
     }
-    public void ShowDrawCard(ArrayList<Card> p_listCards){
-        for (Card aCard : p_listCards){
+    public void ShowDrawCard(ArrayList<CardInGame> p_listCards){
+        for (CardInGame aCard : p_listCards){
                     Toast.makeText(this,"pioche :"+ aCard.getName(),Toast.LENGTH_SHORT).show();
                     Log.d("pioche",aCard.getName());
                     listPlayer.get(0).getPlayerMain().getListCards().add(aCard);
@@ -783,7 +784,7 @@ public class Game_activity extends AppCompatActivity {
                 Action invocation = currentPhase.findActionByName("InvocationNormale");
 
                 if (currentplayerMain.getSelectedCard() != null) {
-                    ArrayList<Card>listfiltre =new  ArrayList<>();
+                    ArrayList<CardInGame>listfiltre =new  ArrayList<>();
                     listfiltre.add(currentplayerMain.getSelectedCard());
                     invocation.getEffect().execute(this,listPlayer,0,1,currentplayer.getPlayerMain(),currentplayer.getPlayerTerrain(),listfiltre);
                     majbtInvocation();
@@ -808,7 +809,7 @@ public class Game_activity extends AppCompatActivity {
                 Action invocation = currentPhase.findActionByName("PoseNormale");
 
                 if (currentplayerMain.getSelectedCard() != null) {
-                    ArrayList<Card>listfiltre =new  ArrayList<>();
+                    ArrayList<CardInGame>listfiltre =new  ArrayList<>();
                     listfiltre.add(currentplayerMain.getSelectedCard());
                     invocation.getEffect().execute(this,listPlayer,0,1,currentplayer.getPlayerMain(),currentplayer.getPlayerTerrain(),listfiltre);
                     majbtInvocation();

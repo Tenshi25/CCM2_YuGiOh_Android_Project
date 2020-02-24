@@ -2,7 +2,7 @@ package master.ccm.types;
 
 public enum AttributeType {
     DIVIN,
-    TENEBRES,
+    TENEBRE,
     LUMIERE,
     TERRE,
     VENT,

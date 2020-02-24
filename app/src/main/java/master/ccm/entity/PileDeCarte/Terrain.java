@@ -50,13 +50,24 @@ public class Terrain extends PileCarte {
 
 
     public void  cardPoserToZone(Context context,CardInGame aCard, ImageView zoneImage) {
-        for (int i = 0; i < 5; i++) {
-            if(tableauZoneMonstreImageView[i].getId() == zoneImage.getId()){
-                tableauZoneMonstre[i] =aCard;
-                Picasso.with(context).load(R.drawable.cardcover).error(R.drawable.cardunknow).into(tableauZoneMonstreImageView[i]);
+        if(aCard.getCardType().toString().equals("MONSTRE")){
+            for (int i = 0; i < 5; i++) {
+                if(tableauZoneMonstreImageView[i].getId() == zoneImage.getId()){
+                    tableauZoneMonstre[i] =aCard;
+                    Picasso.with(context).load(R.drawable.cardcover).error(R.drawable.cardunknow).into(tableauZoneMonstreImageView[i]);
 
+                }
+            }
+        }else{
+            for (int i = 0; i < 5; i++) {
+                if(tableauZoneMagiePiegeImageView[i].getId() == zoneImage.getId()){
+                    tableauZoneMagiePiege[i] =aCard;
+                    Picasso.with(context).load(R.drawable.cardcover).error(R.drawable.cardunknow).into(tableauZoneMagiePiegeImageView[i]);
+
+                }
             }
         }
+
     }
 
     public void  outofZone(Context context, ImageView zoneImage) {
@@ -167,5 +178,6 @@ public class Terrain extends PileCarte {
         }
 
     }
+
 
 }

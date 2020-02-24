@@ -23,9 +23,10 @@ import androidx.annotation.Nullable;
 import master.ccm.ccm2yugiohproject.R;
 import master.ccm.entity.Card;
 import master.ccm.entity.Player;
+import master.ccm.entity.subcard.CardInGame;
 
 public class Main extends PileCarte {
-    private Card selectedCard;
+    private CardInGame selectedCard;
     private ImageView imageViewSelected ;
     private ImageView imageViewZoom;
     private TextView descCardZoom;
@@ -33,7 +34,7 @@ public class Main extends PileCarte {
     private String from = "Main"; // main, terrain
 
     public Main( ) {
-        this.selectedCard = new Card();
+        this.selectedCard = new CardInGame();
         this.listIv_main = new ArrayList<ImageView>();
     }
 
@@ -53,14 +54,14 @@ public class Main extends PileCarte {
         this.descCardZoom = descCardZoom;
     }
 
-    public Card getSelectedCard() {
+    public CardInGame getSelectedCard() {
         return selectedCard;
     }
 
-    public void setSelectedCard(Card selectedCard) {
+    public void setSelectedCard(CardInGame selectedCard) {
         this.selectedCard = selectedCard;
     }
-    public void changeSelectedCard(Card p_selectedCard,ImageView iv_card, Context context, String p_from) {
+    public void changeSelectedCard(CardInGame p_selectedCard, ImageView iv_card, Context context, String p_from) {
         if (p_from.equals("Main")){
             Path path = new Path();
             ObjectAnimator animator;
@@ -125,13 +126,14 @@ public class Main extends PileCarte {
     }
 
             public void majMain(Player player, Context context){
-                ArrayList<Card> mainJoueur = player.getPlayerMain().getListCards();
+                ArrayList<CardInGame> mainJoueur = player.getPlayerMain().getListCards();
 
                 for (int i=0; i < 9/*mainJoueur.size()*/; i++ )
                 {
                     Log.i("i : ", "taille : " + i);
                     Log.i("mainJoueur.size", "taille : " + mainJoueur.size());
                     Log.i("listIv_main.size", "taille : " + listIv_main.size());
+                    //Log.i("listIv_main.getUrl", "getUrl : " + mainJoueur.get(i).getUrl());
                     if(i< mainJoueur.size()){
 
                         listIv_main.get(i).setVisibility(View.VISIBLE);
@@ -146,7 +148,7 @@ public class Main extends PileCarte {
             }
             public void majMainNotVisible(Player player, Context context){
 
-                ArrayList<Card> mainIA =player.getPlayerMain().getListCards();
+                ArrayList<CardInGame> mainIA =player.getPlayerMain().getListCards();
                 for (int i=0; i < 10/*mainIA.size()*/; i++ )
                 {
                     if(i< mainIA.size()){

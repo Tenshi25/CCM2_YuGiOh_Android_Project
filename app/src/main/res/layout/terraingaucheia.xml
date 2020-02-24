@@ -22,7 +22,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_horizontal|center_vertical"
-            android:text="40"
             android:textColor="@color/common_google_signin_btn_text_dark_default" />
 
     </RelativeLayout>

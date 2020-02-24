@@ -44,9 +44,24 @@ public class EffectPoseNormal extends EffectCard {
                     }
 
                 } else {
-
+                    //monstre + 4 etoile à sacrifice
                 }
 
+            }else if(aCard.getCardType().toString().equals("MAGIE") || aCard.getCardType().toString().equals("PIEGE")){
+                Player invocateur = listJoueurs.get(joueurCibler);
+                Terrain terrainInvocateur = invocateur.getPlayerTerrain();
+                ImageView zone_Iv_vide = terrainInvocateur.getZoneVide("MAGIEPIEGE");
+                if (zone_Iv_vide != null) {
+                    Main mainInvocateur = invocateur.getPlayerMain();
+                    mainInvocateur.deselectedCard(context);
+                    terrainInvocateur.cardPoserToZone(context, aCard, zone_Iv_vide);
+
+                    mainInvocateur.getListCards().remove(aCard);
+                    mainInvocateur.majMain(invocateur, context);
+                    terrainInvocateur.monsterToDefAnnimation(context, zone_Iv_vide);
+                }else {
+                    Toast.makeText(context, "Vous n'avez plus de zone libre", Toast.LENGTH_SHORT).show();
+                }
             }
         }
     }

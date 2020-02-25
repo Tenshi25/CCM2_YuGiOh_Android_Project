@@ -57,4 +57,7 @@
     <string name="labelDefeat">Defeat</string>
     <string name="bt_invocation">invocation</string>
     <string name="bt_poser">poser</string>
+    <string name="bt_activer">Activer</string>
+    <string name="bt_changer_position">changer position</string>
+    <string name="bt_attaquer">Attaquer</string>
 </resources>

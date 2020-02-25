@@ -21,6 +21,7 @@ public class EffectPoseNormal extends EffectCard {
         if (filtre.size() == 1) {
             CardInGame aCard = filtre.get(0);
             if (aCard.getCardType().toString().equals("MONSTRE")) {
+                ((Monstre) aCard).setPosition("DEF");
                 if (((Monstre) aCard).getLevel() < 5) {
                     Player invocateur = listJoueurs.get(joueurCibler);
 

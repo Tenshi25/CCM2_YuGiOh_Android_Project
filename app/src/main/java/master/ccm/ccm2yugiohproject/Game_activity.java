@@ -3,6 +3,7 @@ package master.ccm.ccm2yugiohproject;
 import androidx.appcompat.app.AppCompatActivity;
 import master.ccm.ccm2yugiohproject.utils.LoadImageTask;
 import master.ccm.entity.Action;
+import master.ccm.entity.BattleSystem;
 import master.ccm.entity.Card;
 import master.ccm.entity.CurrentUser;
 import master.ccm.entity.Effects.EffectCard;
@@ -15,6 +16,8 @@ import master.ccm.entity.Phase;
 import master.ccm.entity.PileDeCarte.Main;
 import master.ccm.entity.Player;
 import master.ccm.entity.subcard.CardInGame;
+import master.ccm.entity.subcard.Monstre;
+import master.ccm.entity.subcard.Piege;
 import master.ccm.manager.DeckDBManager;
 
 import android.animation.ObjectAnimator;
@@ -69,8 +72,11 @@ public class Game_activity extends AppCompatActivity {
     private Button bt_EndPhase;
 
     //button
+    private Button bt_activer;
     private Button bt_invocation;
     private Button bt_poser;
+    private Button bt_attaquer;
+    private Button bt_changerPosition;
 
     private ImageView iv_deckPlayer;
     private ImageView iv_deckIA;
@@ -123,6 +129,8 @@ public class Game_activity extends AppCompatActivity {
     private  ImageView iv_terrainMagieIA_4;
     private  ImageView iv_terrainMagieIA_5;
 
+
+
     private ArrayList<ImageView> listIvMain= new ArrayList<>();
     //private Evenement Chaine;
     private ArrayList<Player> listPlayer = new ArrayList<>();
@@ -146,6 +154,9 @@ public class Game_activity extends AppCompatActivity {
 
         bt_invocation =findViewById(R.id.bt_invocation);
         bt_poser =findViewById(R.id.bt_poser);
+        bt_activer =findViewById(R.id.bt_activer);
+        bt_changerPosition =findViewById(R.id.bt_changer_position);
+        bt_attaquer = findViewById(R.id.bt_attaquer);
 
         tv_iaName = findViewById(R.id.id_tv_nameIA);
         tv_iaLifePoint = findViewById(R.id.id_tv_lifepoint_IA);
@@ -303,27 +314,11 @@ public class Game_activity extends AppCompatActivity {
         iv_deckPlayer = (ImageView) findViewById(R.id.iv_deckPlayer);
 
 
-        /*
-        iv_deckPlayer.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
-            {
-
-                if(currentPhase.containsActionByName("Pioche") && currentplayer.equals(listPlayer.get(0))) {
-
-                    currentPhase.findActionByName("Pioche").getEffect().execute(v.getContext(),listPlayer,0,1,null,null,null);
-                    //List<Card> lesCartes = listPlayer.get(0).getPlayerDeck().drawCard(1);
-
-                    majNBPlayerDeckCard();
-
-                    //ShowDrawCard((ArrayList<Card>) lesCartes);
-                    majMain();
-                    nextPhase();
-                }
-            }
-
-        });*/
-
-
+        bt_activer.setVisibility(View.GONE);
+        bt_invocation.setVisibility(View.GONE);
+        bt_poser.setVisibility(View.GONE);
+        bt_attaquer.setVisibility(View.GONE);
+        bt_changerPosition.setVisibility(View.GONE);
 
     }
     public void clickHandler(View v) {
@@ -726,12 +721,15 @@ public class Game_activity extends AppCompatActivity {
                     break;
                 case 3:
                     //Battle phase
+                    majbtInvocation(currentplayer.getPlayerMain().getSelectedCard());
                     break;
                 case 4:
                     //main phase 2
                     break;
                 case 5:
                     //end phase
+                    currentplayer.getPlayerTerrain().desetCountAtk();
+                    currentplayer.getPlayerTerrain().desetMalActivation();
                     nextPhase();
                     break;
             }
@@ -776,6 +774,8 @@ public class Game_activity extends AppCompatActivity {
                 case 5:
                     //end phase
                     //nextTurn();
+                    currentplayer.getPlayerTerrain().desetCountAtk();
+                    currentplayer.getPlayerTerrain().desetMalActivation();
                     nextPhase();
                     break;
             }
@@ -802,7 +802,7 @@ public class Game_activity extends AppCompatActivity {
     public void OnFinishSelectPlayerCard(ArrayList<Card> listCards){
         if(!deckPlayerCharger) {
             deckPlayerCharger =true;
-            listPlayer.get(0).initDeckToPlay(listCards);
+            listPlayer.get(0).initDeckToPlay(listCards,listPlayer.get(0));
             Toast.makeText(this,"premiere carte "+listCards.get(0).getName(),Toast.LENGTH_SHORT).show();
             Log.w("premiere carte", "premiere carte "+listPlayer.get(0).getPlayerDeck().getListCard().get(0).getName());
             Log.w("premiere carte", "premiere carte 2"+listCards.get(0).getName());
@@ -816,7 +816,7 @@ public class Game_activity extends AppCompatActivity {
 
         }else{
             //listPlayer.get(1).getPlayerDeck().setListCard(listCards);
-            listPlayer.get(1).initDeckToPlay(listCards);
+            listPlayer.get(1).initDeckToPlay(listCards,listPlayer.get(1));
             majNBPlayerDeckCard();
             gameStart();
         }
@@ -951,29 +951,111 @@ public class Game_activity extends AppCompatActivity {
             if(aCard.getCardType().toString().equals("MONSTRE")){
                 if(listPlayer.get(0).getCountInvocationNormale()<listPlayer.get(0).getMaxInvocationNormale())
                 {
+                    bt_activer.setVisibility(View.GONE);
                     bt_invocation.setVisibility(View.VISIBLE);
                     bt_poser.setVisibility(View.VISIBLE);
+                    bt_attaquer.setVisibility(View.GONE);
+                    bt_changerPosition.setVisibility(View.GONE);
                 }else{
-                    bt_invocation.setVisibility(View.INVISIBLE);
-                    bt_poser.setVisibility(View.INVISIBLE);
+                    bt_activer.setVisibility(View.GONE);
+                    bt_invocation.setVisibility(View.GONE);
+                    bt_poser.setVisibility(View.GONE);
+                    bt_attaquer.setVisibility(View.GONE);
+                    bt_changerPosition.setVisibility(View.GONE);
                 }
+
             }else if(aCard.getCardType().toString().equals("MAGIE")){
-                bt_invocation.setVisibility(View.INVISIBLE);
+                bt_activer.setVisibility(View.GONE);
+                bt_invocation.setVisibility(View.GONE);
                 bt_poser.setVisibility(View.VISIBLE);
+                bt_attaquer.setVisibility(View.GONE);
+                bt_changerPosition.setVisibility(View.GONE);
             }
             else if(aCard.getCardType().toString().equals("PIEGE")){
-                bt_invocation.setVisibility(View.INVISIBLE);
+                bt_activer.setVisibility(View.GONE);
+                bt_invocation.setVisibility(View.GONE);
                 bt_poser.setVisibility(View.VISIBLE);
+                bt_attaquer.setVisibility(View.GONE);
+                bt_changerPosition.setVisibility(View.GONE);
             }
 
         }else if(listPlayer.get(0).getPlayerMain().getFrom().equals("Terrain")){
-            bt_invocation.setVisibility(View.INVISIBLE);
-            bt_poser.setVisibility(View.INVISIBLE);
+            if(aCard.getCardType().toString().equals("MONSTRE")) {
+                bt_activer.setVisibility(View.GONE);
+                if(((Monstre)aCard).isHaveChangePosition()){
+                    bt_changerPosition.setVisibility(View.GONE);
+                }else{
+                    bt_changerPosition.setVisibility(View.VISIBLE);
+                }
+                bt_invocation.setVisibility(View.GONE);
+                bt_poser.setVisibility(View.GONE);
+                if(currentPhase.getName().equals("BattlePhase")){
+                    if(((Monstre) aCard).getCountAtk()<((Monstre) aCard).getMaxcountAtk())
+                    {
+                        bt_attaquer.setVisibility(View.VISIBLE);
+                    }else{
+                        bt_attaquer.setVisibility(View.GONE);
+                    }
 
+                }else{
+                    bt_attaquer.setVisibility(View.GONE);
+                }
+            }else if(aCard.getCardType().toString().equals("PIEGE")){
+                    if (((Piege)aCard).isMalActivation()){
+                        bt_activer.setVisibility(View.GONE);
+                        bt_invocation.setVisibility(View.GONE);
+                        bt_poser.setVisibility(View.GONE);
+                        bt_attaquer.setVisibility(View.GONE);
+                        bt_changerPosition.setVisibility(View.GONE);
+                    }else {
+                        bt_activer.setVisibility(View.VISIBLE);
+                        bt_invocation.setVisibility(View.GONE);
+                        bt_poser.setVisibility(View.GONE);
+                        bt_attaquer.setVisibility(View.GONE);
+                        bt_changerPosition.setVisibility(View.GONE);
+                    }
+            }else  if(aCard.getCardType().toString().equals("MAGIE")){
+                bt_activer.setVisibility(View.VISIBLE);
+                bt_invocation.setVisibility(View.GONE);
+                bt_poser.setVisibility(View.GONE);
+                bt_attaquer.setVisibility(View.GONE);
+                bt_changerPosition.setVisibility(View.GONE);
+
+            }
             //mettre ne changement de position
         }
     }
+    public void onClickChangerPosition (View view){
+        Main currentplayerMain =currentplayer.getPlayerMain();
+        if (currentplayerMain.getSelectedCard() != null) {
+            CardInGame aCard =currentplayerMain.getSelectedCard();
+            if(aCard.getCardType().toString().equals("MONSTRE")) {
+                //currentplayer.getPlayerTerrain().monsterToAtkAnnimation(this,view.getParent().);
+            }
+        }
+    }
 
+    public void onClickAttaque (View view){
+        Main currentplayerMain =currentplayer.getPlayerMain();
+        if (currentplayerMain.getSelectedCard() != null) {
+            CardInGame aCard =currentplayerMain.getSelectedCard();
+                if(aCard.getCardType().toString().equals("MONSTRE")) {
+                    BattleSystem battleSystem = new BattleSystem();
+                    if(listPlayer.get(1).getPlayerTerrain().getCountMonstre() > 0){
+                        //select le monstre à attaquer
+                        Toast.makeText(this, "Attaque !", Toast.LENGTH_SHORT).show();
+                        majPv();
+                    }else{
+                        //attaque direct
+                        battleSystem.Battle(listPlayer,(Monstre) currentplayerMain.getSelectedCard(),null,this);
+                        majPv();
+                        Toast.makeText(this, "Attaque direct !", Toast.LENGTH_SHORT).show();
+                    }
+                    ((Monstre)aCard).setCountAtk(((Monstre)aCard).getCountAtk()+1);
+                    majbtInvocation(aCard);
+                }
+            }
+    }
 }
 
 

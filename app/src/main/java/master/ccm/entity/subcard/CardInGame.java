@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import androidx.annotation.Nullable;
 import master.ccm.entity.Effects.EffectCard;
+import master.ccm.entity.Player;
 import master.ccm.types.AttributeType;
 import master.ccm.types.CardType;
 import master.ccm.types.CardTypeSub;
@@ -17,6 +18,7 @@ public class CardInGame {
     private CardTypeSub cardSubType; // normal,effet, fusion syncrhro, continue etc...
     private String url;
     private ArrayList<EffectCard >effects = new ArrayList<>();
+    private Player player;
 
 
     private String description;
@@ -125,5 +127,13 @@ public class CardInGame {
 
     public void setEffects(ArrayList<EffectCard> effects) {
         this.effects = effects;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 }

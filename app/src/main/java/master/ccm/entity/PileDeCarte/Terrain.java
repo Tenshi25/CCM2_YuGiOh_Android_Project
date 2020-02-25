@@ -13,6 +13,8 @@ import java.util.Map;
 import master.ccm.ccm2yugiohproject.R;
 import master.ccm.entity.Card;
 import master.ccm.entity.subcard.CardInGame;
+import master.ccm.entity.subcard.Monstre;
+import master.ccm.entity.subcard.Piege;
 
 public class Terrain extends PileCarte {
     //private Map<Card,> zone;
@@ -177,6 +179,74 @@ public class Terrain extends PileCarte {
             }
         }
 
+    }
+    public void removeListCard(ArrayList<CardInGame> listCardaRemove, Context context){
+        for (CardInGame aCard :listCardaRemove){
+            if(aCard.getCardType().toString().equals("MONSTRE")){
+                for (int i = 0; i < 5; i++) {
+                    if(aCard.getId().equals(tableauZoneMonstre[i].getId()) ){
+                        tableauZoneMonstre[i] = null;
+                        viderimageView(tableauZoneMonstreImageView[i],context);
+                    }
+                }
+            }else {
+                for (int i = 0; i < 5; i++) {
+                    if(aCard.getId().equals(tableauZoneMagiePiege[i].getId()) ){
+                        tableauZoneMagiePiege[i] = null;
+                        viderimageView(tableauZoneMagiePiegeImageView[i],context);
+                    }
+                }
+            }
+        }
+
+
+    }
+    public void removeaCard(CardInGame aCard, Context context){
+            if(aCard.getCardType().toString().equals("MONSTRE")){
+                for (int i = 0; i < 5; i++) {
+                    if(aCard.getId().equals(tableauZoneMonstre[i].getId()) ){
+                        tableauZoneMonstre[i] = null;
+                        viderimageView(tableauZoneMonstreImageView[i],context);
+                    }
+                }
+            }else {
+                for (int i = 0; i < 5; i++) {
+                    if(aCard.getId().equals(tableauZoneMagiePiege[i].getId()) ){
+                        tableauZoneMagiePiege[i] = null;
+                        viderimageView(tableauZoneMagiePiegeImageView[i],context);
+                    }
+                }
+            }
+
+
+    }
+    public void viderimageView(ImageView imageView, Context context){
+        Picasso.with(context).load(R.drawable.caseterrain).error(R.drawable.cardunknow).into(imageView);
+
+    }
+    public int getCountMonstre(){
+        int sommeMonstre =0 ;
+        for (int i = 0; i < 5; i++) {
+            if(tableauZoneMonstre[i] != null ){
+                sommeMonstre ++;
+            }
+        }
+        return sommeMonstre;
+    }
+    public void desetCountAtk (){
+        for (int i = 0; i < 5; i++) {
+            if(tableauZoneMonstre[i] != null ){
+                ((Monstre) tableauZoneMonstre[i]).setCountAtk(0);
+            }
+        }
+
+    }
+    public void desetMalActivation (){
+        for (int i = 0; i < 5; i++) {
+            if(tableauZoneMagiePiege[i] != null ){
+                ((Piege)tableauZoneMagiePiege[i]).setMalActivation(false);
+            }
+        }
     }
 
 

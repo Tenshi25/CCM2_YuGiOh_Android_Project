@@ -24,6 +24,7 @@ public class EffectInvoquerNormale extends EffectCard {
             CardInGame aCard =filtre.get(0);
             if(aCard.getCardType().toString().equals("MONSTRE"))
             {
+                ((Monstre) aCard).setPosition("ATK");
                 if( ((Monstre) aCard).getLevel()<5){
                     Player invocateur =listJoueurs.get(joueurCibler);
 

@@ -29,7 +29,7 @@ public class Card {
     //recto ou verso
     private String visible;
 
-    public CardInGame transformToCardInGame(){
+    public CardInGame transformToCardInGame(Player aPlayer){
         CardInGame aCardInGame = new CardInGame();
         switch (this.getCardType().toString()){
 
@@ -44,9 +44,16 @@ public class Card {
                 CardInGameMonstre.setAttribut(this.getAttribut());
                 CardInGameMonstre.setUrl(this.getUrl());
                 CardInGameMonstre.setLevel(this.getLevel());
+                CardInGameMonstre.setLevelOrigin(this.getLevel());
                 CardInGameMonstre.setDescription(this.getDescription());
                 CardInGameMonstre.setAtk(this.getAtk());
+                CardInGameMonstre.setAtkOrigin(this.getAtk());
                 CardInGameMonstre.setDef(this.getDef());
+                CardInGameMonstre.setDefOrigin(this.getDef());
+                CardInGameMonstre.setCountAtk(0);
+                CardInGameMonstre.setMaxcountAtk(1);
+                CardInGameMonstre.setHaveChangePosition(true);
+                CardInGameMonstre.setPlayer(aPlayer);
                 aCardInGame = CardInGameMonstre;
 
                 break;
@@ -59,6 +66,7 @@ public class Card {
                 CardInGameMagie.setCardSubType(this.getCardSubType());
                 CardInGameMagie.setUrl(this.getUrl());
                 CardInGameMagie.setDescription(this.getDescription());
+                CardInGameMagie.setPlayer(aPlayer);
                 aCardInGame = CardInGameMagie;
                 break;
             case "PIEGE":
@@ -70,6 +78,7 @@ public class Card {
                 CardInGamePiege.setCardSubType(this.getCardSubType());
                 CardInGamePiege.setUrl(this.getUrl());
                 CardInGamePiege.setDescription(this.getDescription());
+                CardInGamePiege.setPlayer(aPlayer);
                 aCardInGame = CardInGamePiege;
                 break;
             default :

@@ -77,14 +77,14 @@ public class Player {
         this.playerTerrain = playerTerrain;
     }
 
-    public void initDeckToPlay(List<Card> listCard){
+    public void initDeckToPlay(List<Card> listCard,Player aplayer){
         ArrayList<Card> deckToPlay = new ArrayList<>();
         for (Card aCard : listCard) {
             for(int i = 0; i < aCard.getDuplicate(); i++){
                 deckToPlay.add(aCard);
             }
         }
-        ArrayList<CardInGame> deckInGameToPlay = DeckCardtoDeckCardInGame(deckToPlay);
+        ArrayList<CardInGame> deckInGameToPlay = DeckCardtoDeckCardInGame(deckToPlay,aplayer);
         this.playerDeck.setListCard(deckInGameToPlay);
     }
 
@@ -148,10 +148,10 @@ public class Player {
         MaxInvocationNormale = maxInvocationNormale;
     }
 
-    public ArrayList<CardInGame> DeckCardtoDeckCardInGame(ArrayList<Card> p_Deckcard)
+    public ArrayList<CardInGame> DeckCardtoDeckCardInGame(ArrayList<Card> p_Deckcard, Player aplayer)
     {
         return (ArrayList<CardInGame>)p_Deckcard.stream()
-                .map(element -> element.transformToCardInGame())
+                .map(element -> element.transformToCardInGame(aplayer))
                 .collect(Collectors.toList());
     }
 }

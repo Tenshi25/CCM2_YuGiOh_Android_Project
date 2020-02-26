@@ -57,4 +57,5 @@
     <string name="labelDefeat">Defeat</string>
     <string name="bt_invocation">invocation</string>
     <string name="bt_poser">poser</string>
+    <string name="sort">sort</string>
 </resources>

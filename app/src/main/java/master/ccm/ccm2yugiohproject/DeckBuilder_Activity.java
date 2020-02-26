@@ -9,14 +9,17 @@ import master.ccm.manager.CardDBManager;
 import master.ccm.manager.DeckDBManager;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,8 +37,11 @@ public class DeckBuilder_Activity extends AppCompatActivity {
     private Card[] tabDeckCard;
 
     private ArrayList<Card> cardsList ;
+    private ArrayList<Card> copyCardsList ;
     private ListView listViewCards;
     private Card[] tabCards;
+
+    private Spinner sortListSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +67,19 @@ public class DeckBuilder_Activity extends AppCompatActivity {
 
         CardDBManager cardDBManager =new CardDBManager();
         cardDBManager.selectAllCards(this);
+
+        sortListSpinner = findViewById(R.id.id_choice_sort_list_card);
+        sortListSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                sortListCard(sortListSpinner.getSelectedItem().toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                return;
+            }
+        });
     }
 
     public void RemplirListViewCards(ArrayList<Card> p_cardsList) {
@@ -68,6 +87,9 @@ public class DeckBuilder_Activity extends AppCompatActivity {
         Log.i("logNomTailleListeDeck", "taille : " + p_cardsList.size());
 
         cardsList = p_cardsList;
+        if (copyCardsList == null) {
+            copyCardsList =  (ArrayList<Card>) cardsList.clone();
+        }
         int cpt = 0;
         tabCards = new Card[p_cardsList.size()];
         Log.i("logNomTailleTabDeck", "taille : " + tabCards.length);
@@ -279,5 +301,21 @@ public class DeckBuilder_Activity extends AppCompatActivity {
     public void onUpdateLinkCardSuccess() {
 
         Toast.makeText(this, "un exemplaire a été retirée", Toast.LENGTH_SHORT).show();
+    }
+
+    public void sortListCard(String choice){
+        ArrayList<Card> newListFiltered = new ArrayList<>();
+        switch (choice){
+            case "Monster":
+              //  newListFiltered = copyCardsList.stream()
+                        //.filter(element -> element.getCardType() == CardType.MONSTRE)
+                break;
+            case "Trap":
+                break;
+            case "Magic":
+                break;
+            default:
+                break;
+        }
     }
 }

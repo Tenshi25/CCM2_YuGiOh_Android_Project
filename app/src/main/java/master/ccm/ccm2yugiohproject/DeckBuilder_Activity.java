@@ -2,11 +2,11 @@ package master.ccm.ccm2yugiohproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import master.ccm.ccm2yugiohproject.utils.LoadImageTask;
 import master.ccm.entity.Card;
 import master.ccm.entity.PileDeCarte.Deck;
 import master.ccm.manager.CardDBManager;
 import master.ccm.manager.DeckDBManager;
+import master.ccm.types.CardType;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,15 +14,21 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 public class DeckBuilder_Activity extends AppCompatActivity {
     private static DeckBuilder_Activity staticActivity;
@@ -34,8 +40,12 @@ public class DeckBuilder_Activity extends AppCompatActivity {
     private Card[] tabDeckCard;
 
     private ArrayList<Card> cardsList ;
+    private ArrayList<Card> copyCardsList;
     private ListView listViewCards;
     private Card[] tabCards;
+
+    private Spinner sortListSpinner;
+    private Spinner sortTwoListSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +53,7 @@ public class DeckBuilder_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_deck_builder);
 
         staticActivity = this;
+        copyCardsList = new ArrayList<>();
 
         Intent intent= getIntent();
         Bundle extrasData = intent.getExtras();
@@ -61,6 +72,33 @@ public class DeckBuilder_Activity extends AppCompatActivity {
 
         CardDBManager cardDBManager =new CardDBManager();
         cardDBManager.selectAllCards(this);
+
+        sortListSpinner = findViewById(R.id.id_choice_sort_list_card);
+        sortTwoListSpinner = findViewById(R.id.id_choice_sort_two_list_card);
+
+        sortListSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                sortListCard();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                return;
+            }
+        });
+
+        sortTwoListSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                sortListCard();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                return;
+            }
+        });
     }
 
     public void RemplirListViewCards(ArrayList<Card> p_cardsList) {
@@ -68,6 +106,9 @@ public class DeckBuilder_Activity extends AppCompatActivity {
         Log.i("logNomTailleListeDeck", "taille : " + p_cardsList.size());
 
         cardsList = p_cardsList;
+        if (copyCardsList.size() == 0 ) {
+            copyCardsList =  (ArrayList<Card>) cardsList.clone();
+        }
         int cpt = 0;
         tabCards = new Card[p_cardsList.size()];
         Log.i("logNomTailleTabDeck", "taille : " + tabCards.length);
@@ -279,5 +320,142 @@ public class DeckBuilder_Activity extends AppCompatActivity {
     public void onUpdateLinkCardSuccess() {
 
         Toast.makeText(this, "un exemplaire a été retirée", Toast.LENGTH_SHORT).show();
+    }
+
+    public void sortListCard(){
+        ArrayList<Card> newListFiltered = new ArrayList<>();
+        String choice = sortListSpinner.getSelectedItem().toString();
+        String choiceTwo = sortTwoListSpinner.getSelectedItem().toString();
+
+        newListFiltered = sortFirstFilter(choice);
+        newListFiltered = sortTwoFilter(choiceTwo, newListFiltered);
+
+        RemplirListViewCards(newListFiltered);
+
+    }
+
+    private ArrayList<Card> sortFirstFilter(String choice) {
+        ArrayList<Card> newListFiltered = new ArrayList<>();
+
+        switch (choice){
+            case "Monster":
+                newListFiltered = (ArrayList<Card>) copyCardsList.stream()
+                        .filter(element -> element.getCardType().equals(CardType.MONSTRE))
+                        .collect(Collectors.toList());
+                break;
+            case "Trap":
+                newListFiltered = (ArrayList<Card>) copyCardsList.stream()
+                        .filter(element -> element.getCardType().equals(CardType.PIEGE))
+                        .collect(Collectors.toList());
+                break;
+            case "Spell":
+                newListFiltered = (ArrayList<Card>) copyCardsList.stream()
+                        .filter(element -> element.getCardType().equals(CardType.MAGIE))
+                        .collect(Collectors.toList());
+                break;
+            default:
+                newListFiltered = copyCardsList;
+                break;
+        }
+        return newListFiltered;
+    }
+
+    private ArrayList<Card> sortTwoFilter(String choice, ArrayList<Card> listCard) {
+        ArrayList<Card> newListFiltered = new ArrayList<>();
+
+        switch (choice){
+            case "Name(A -> Z)":
+                newListFiltered = (ArrayList<Card>)listCard.stream()
+                        .sorted(new Comparator<Card>() {
+                            @Override
+                            public int compare(Card o1, Card o2) {
+                                return o1.getName().compareTo(o2.getName());
+                            }
+                        })
+                        .collect(Collectors.toList());
+                break;
+            case "Name(Z -> A)":
+                newListFiltered = (ArrayList<Card>)listCard.stream()
+                        .sorted(new Comparator<Card>() {
+                            @Override
+                            public int compare(Card o1, Card o2) {
+                                return o1.getName().compareTo(o2.getName());
+                            }
+                        })
+                        .collect(Collectors.toList());
+
+                Collections.reverse(newListFiltered);
+                break;
+            case "ATK(DESC)":
+                newListFiltered = (ArrayList<Card>)listCard.stream()
+                        .sorted(new Comparator<Card>() {
+                            @Override
+                            public int compare(Card o1, Card o2) {
+                                return Integer.compare(o1.getAtk(), o2.getAtk());
+                            }
+                        })
+                        .collect(Collectors.toList());
+
+                Collections.reverse(newListFiltered);
+                break;
+            case "ATK(ASC)":
+                newListFiltered = (ArrayList<Card>)listCard.stream()
+                        .sorted(new Comparator<Card>() {
+                            @Override
+                            public int compare(Card o1, Card o2) {
+                                return Integer.compare(o1.getAtk(), o2.getAtk());
+                            }
+                        })
+                        .collect(Collectors.toList());
+                break;
+            case "DEF(DESC)":
+                newListFiltered = (ArrayList<Card>)listCard.stream()
+                        .sorted(new Comparator<Card>() {
+                            @Override
+                            public int compare(Card o1, Card o2) {
+                                return Integer.compare(o1.getDef(), o2.getDef());
+                            }
+                        })
+                        .collect(Collectors.toList());
+
+                Collections.reverse(newListFiltered);
+                break;
+            case "DEF(ASC)":
+                newListFiltered = (ArrayList<Card>)listCard.stream()
+                        .sorted(new Comparator<Card>() {
+                            @Override
+                            public int compare(Card o1, Card o2) {
+                                return Integer.compare(o1.getDef(), o2.getDef());
+                            }
+                        })
+                        .collect(Collectors.toList());
+                break;
+            case "LEVEL(DESC)":
+                newListFiltered = (ArrayList<Card>)listCard.stream()
+                        .sorted(new Comparator<Card>() {
+                            @Override
+                            public int compare(Card o1, Card o2) {
+                                return Integer.compare(o1.getLevel(), o2.getLevel());
+                            }
+                        })
+                        .collect(Collectors.toList());
+
+                Collections.reverse(newListFiltered);
+                break;
+            case "LEVEL(ASC)":
+                newListFiltered = (ArrayList<Card>)listCard.stream()
+                        .sorted(new Comparator<Card>() {
+                            @Override
+                            public int compare(Card o1, Card o2) {
+                                return Integer.compare(o1.getLevel(), o2.getLevel());
+                            }
+                        })
+                        .collect(Collectors.toList());
+                break;
+            default:
+                newListFiltered = listCard;
+                break;
+        }
+        return newListFiltered;
     }
 }

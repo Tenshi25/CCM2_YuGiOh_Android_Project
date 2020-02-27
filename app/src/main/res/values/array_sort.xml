@@ -3,7 +3,7 @@
     <string-array name="array_sort">
         <item>All</item>
         <item>Monster</item>
-        <item>Magic</item>
+        <item>Spell</item>
         <item>Trap</item>
     </string-array>
 </resources>

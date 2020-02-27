@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="array_sort_two">
+        <item>Unsorted</item>
+        <item>Name(A -> Z)</item>
+        <item>Name(Z -> A)</item>
+        <item>ATK(ASC)</item>
+        <item>ATK(DESC)</item>
+        <item>DEF(ASC)</item>
+        <item>DEF(DESC)</item>
+        <item>LEVEL(ASC)</item>
+        <item>LEVEL(DESC)</item>
+    </string-array>
+</resources>

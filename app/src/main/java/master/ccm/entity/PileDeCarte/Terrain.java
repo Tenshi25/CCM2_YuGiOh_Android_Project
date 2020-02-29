@@ -176,6 +176,11 @@ public class Terrain extends PileCarte {
         for (int i = 0; i < 5; i++) {
             if(tableauZoneMonstreImageView[i].getId() == imageView.getId()){
                 tableauZoneMonstreImageView[i].setRotation(0);
+                CardInGame aCard =getCardFromImageView(tableauZoneMonstreImageView[i]);
+                Log.d("visible",""+aCard.isVisible());
+                if(aCard.isVisible()){
+                    Picasso.with(context).load(aCard.getUrl()).error(R.drawable.cardunknow).into(tableauZoneMonstreImageView[i]);
+                }
             }
         }
 
@@ -244,7 +249,7 @@ public class Terrain extends PileCarte {
     public void desetMalActivation (){
         for (int i = 0; i < 5; i++) {
             if(tableauZoneMagiePiege[i] != null ){
-                if (tableauZoneMagiePiege[i].getCardType().toString().equals("Piege")) {
+                if (tableauZoneMagiePiege[i].getCardType().toString().equals("PIEGE")) {
                     ((Piege) tableauZoneMagiePiege[i]).setMalActivation(false);
                 }
             }

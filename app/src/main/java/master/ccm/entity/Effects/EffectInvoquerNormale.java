@@ -26,6 +26,7 @@ public class EffectInvoquerNormale extends EffectCard {
             if(aCard.getCardType().toString().equals("MONSTRE"))
             {
                 ((Monstre) aCard).setPosition("ATK");
+                aCard.setVisible(true);
                 if( ((Monstre) aCard).getLevel()<5){
                     Player invocateur =listJoueurs.get(joueurCibler);
 
@@ -42,7 +43,12 @@ public class EffectInvoquerNormale extends EffectCard {
                         terrainInvocateur.cardToZone(context,aCard, zone_Iv_vide);
                         Game_activity.selectedImageView = zone_Iv_vide;
                         mainInvocateur.getListCards().remove(aCard);
-                        mainInvocateur.majMain(invocateur,context);
+                        if(joueurCibler == 0) {
+                            mainInvocateur.majMain(invocateur, context);
+                        }else
+                        {
+                            mainInvocateur.majMainNotVisible(invocateur, context);
+                        }
                         invocateur.addCountInvocationNormale();
 
                     }else{

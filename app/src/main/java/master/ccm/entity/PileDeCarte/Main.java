@@ -105,8 +105,15 @@ public class Main extends PileCarte {
 
                 }
             }
-            Picasso.with(context).load(selectedCard.getUrl()).error(R.drawable.cardunknow).into(this.imageViewZoom);
-            descCardZoom.setText(selectedCard.getDescription());
+
+            if(!selectedCard.isVisible() && selectedCard.getPlayer().getNumJoueur() ==1){
+                Picasso.with(context).load(R.drawable.cardcover).error(R.drawable.cardunknow).into(this.imageViewZoom);
+                descCardZoom.setText("");
+            }else{
+                Picasso.with(context).load(selectedCard.getUrl()).error(R.drawable.cardunknow).into(this.imageViewZoom);
+                descCardZoom.setText(selectedCard.getDescription());
+            }
+
         }else if (p_from.equals("Terrain")) {
             if (imageViewSelected != null) {
                 if(getFrom().equals("Main")){
@@ -121,8 +128,13 @@ public class Main extends PileCarte {
             imageViewSelected = iv_card;
             setSelectedCard(p_selectedCard);
             this.setFrom("Terrain");
-            Picasso.with(context).load(selectedCard.getUrl()).error(R.drawable.cardunknow).into(this.imageViewZoom);
-            descCardZoom.setText(selectedCard.getDescription());
+            if(!selectedCard.isVisible() && selectedCard.getPlayer().getNumJoueur() ==1){
+                Picasso.with(context).load(R.drawable.cardcover).error(R.drawable.cardunknow).into(this.imageViewZoom);
+                descCardZoom.setText("");
+            }else{
+                Picasso.with(context).load(selectedCard.getUrl()).error(R.drawable.cardunknow).into(this.imageViewZoom);
+                descCardZoom.setText(selectedCard.getDescription());
+            }
         }
     }
 

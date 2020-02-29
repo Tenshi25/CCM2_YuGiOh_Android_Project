@@ -23,6 +23,7 @@ public class Player {
     private String name;
     private Deck playerDeck;
     private Main playerMain;
+    private int numJoueur =0;
     private Terrain playerTerrain = new Terrain();
     private Cimetiere playerCimetiere = new Cimetiere();
     private ExtraDeck playerExtra =  new ExtraDeck();
@@ -153,5 +154,13 @@ public class Player {
         return (ArrayList<CardInGame>)p_Deckcard.stream()
                 .map(element -> element.transformToCardInGame(aplayer))
                 .collect(Collectors.toList());
+    }
+
+    public int getNumJoueur() {
+        return numJoueur;
+    }
+
+    public void setNumJoueur(int numJoueur) {
+        this.numJoueur = numJoueur;
     }
 }

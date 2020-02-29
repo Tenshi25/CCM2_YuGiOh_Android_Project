@@ -5,11 +5,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 import master.ccm.ccm2yugiohproject.Game_activity;
-import master.ccm.ccm2yugiohproject.R;
-import master.ccm.entity.Card;
 import master.ccm.entity.PileDeCarte.Main;
 import master.ccm.entity.PileDeCarte.PileCarte;
 import master.ccm.entity.PileDeCarte.Terrain;
@@ -17,7 +14,7 @@ import master.ccm.entity.Player;
 import master.ccm.entity.subcard.CardInGame;
 import master.ccm.entity.subcard.Monstre;
 
-public class EffectInvoquerNormale extends EffectCard {
+public class EffectInvocationFlip extends EffectCard {
 
     @Override
     public void execute(Context context, ArrayList<Player> listJoueurs, int joueurCibler, int nb, PileCarte dePileA, PileCarte aPileB, ArrayList<CardInGame> filtre) {

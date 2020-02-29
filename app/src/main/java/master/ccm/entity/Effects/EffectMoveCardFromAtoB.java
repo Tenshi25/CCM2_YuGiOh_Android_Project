@@ -1,6 +1,7 @@
 package master.ccm.entity.Effects;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -15,13 +16,14 @@ public class EffectMoveCardFromAtoB extends EffectCard   {
     public void execute(Context context, ArrayList<Player> listJoueurs, int joueurCibler, int nb, PileCarte dePileA, PileCarte aPileB, ArrayList<CardInGame> filtre) {
         if(filtre.size() > 0){
             for (CardInGame aCard :filtre){
+                Log.d("Effect",""+dePileA.getClass().toString());
                 if(dePileA.getClass().toString().equals("Terrain")){
                     ((Terrain)dePileA).removeaCard(aCard,context);
                 }else{
                     dePileA.getListCards().remove(aCard);
                 }
-
-                if(aPileB.getClass().toString().equals("Terrain")) {
+                Log.d("Effect",""+aPileB.getClass().toString());
+                if(aPileB.getClass().toString().equals("Cimetiere")) {
                     ((Terrain)dePileA).removeaCard(aCard,context);
                 }else {
                     aPileB.getListCards().add(aCard);

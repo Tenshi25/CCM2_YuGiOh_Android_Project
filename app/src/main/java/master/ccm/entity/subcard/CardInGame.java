@@ -26,7 +26,7 @@ public class CardInGame {
     private int limit;
     private int duplicate;
     //recto ou verso
-    private String visible;
+    private boolean visible = false;
 
     public String getId() {
         return id;
@@ -100,11 +100,11 @@ public class CardInGame {
         this.duplicate = duplicate;
     }
 
-    public String getVisible() {
+    public boolean isVisible() {
         return visible;
     }
 
-    public void setVisible(String visible) {
+    public void setVisible(boolean visible) {
         this.visible = visible;
     }
 

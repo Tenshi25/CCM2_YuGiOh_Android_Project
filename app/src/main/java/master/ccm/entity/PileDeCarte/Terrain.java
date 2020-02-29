@@ -165,7 +165,7 @@ public class Terrain extends PileCarte {
     public void monsterToDefAnnimation(Context context, ImageView imageView){
         for (int i = 0; i < 5; i++) {
             if(tableauZoneMonstreImageView[i].getId() == imageView.getId()){
-                tableauZoneMonstreImageView[i].setRotation(90);
+                tableauZoneMonstreImageView[i].setRotation(-90);
             }
         }
 
@@ -175,7 +175,7 @@ public class Terrain extends PileCarte {
 
         for (int i = 0; i < 5; i++) {
             if(tableauZoneMonstreImageView[i].getId() == imageView.getId()){
-                tableauZoneMonstreImageView[i].setRotation(-90);
+                tableauZoneMonstreImageView[i].setRotation(0);
             }
         }
 
@@ -244,10 +244,34 @@ public class Terrain extends PileCarte {
     public void desetMalActivation (){
         for (int i = 0; i < 5; i++) {
             if(tableauZoneMagiePiege[i] != null ){
-                ((Piege)tableauZoneMagiePiege[i]).setMalActivation(false);
+                if (tableauZoneMagiePiege[i].getCardType().toString().equals("Piege")) {
+                    ((Piege) tableauZoneMagiePiege[i]).setMalActivation(false);
+                }
             }
         }
     }
+    public void desetChangePosition (){
+        for (int i = 0; i < 5; i++) {
+            if(tableauZoneMonstre[i] != null ){
+                ((Monstre) tableauZoneMonstre[i]).setHaveChangePosition(false);
+            }
+        }
+
+    }
+    public CardInGame getCardFromImageView(ImageView imageView){
+            for (int i = 0; i < 5; i++) {
+                if(imageView.getId() == tableauZoneMonstreImageView[i].getId() ){
+                    return tableauZoneMonstre[i];
+                }
+            }
+            for (int i = 0; i < 5; i++) {
+                if(imageView.getId() == tableauZoneMagiePiegeImageView[i].getId() ){
+                    return tableauZoneMagiePiege[i];
+                }
+            }
+            return null;
+    }
+
 
 
 }

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import master.ccm.ccm2yugiohproject.Game_activity;
+import master.ccm.ccm2yugiohproject.R;
 import master.ccm.entity.Card;
 import master.ccm.entity.PileDeCarte.Main;
 import master.ccm.entity.PileDeCarte.PileCarte;
@@ -35,9 +36,11 @@ public class EffectInvoquerNormale extends EffectCard {
                     ImageView zone_Iv_vide = terrainInvocateur.getZoneVide("MONSTRE");
                     if(zone_Iv_vide != null){
                         Main mainInvocateur =invocateur.getPlayerMain() ;
-                        mainInvocateur.deselectedCard(context);
-
+                        if(joueurCibler == 0) {
+                            mainInvocateur.deselectedCard(context);
+                        }
                         terrainInvocateur.cardToZone(context,aCard, zone_Iv_vide);
+                        Game_activity.selectedImageView = zone_Iv_vide;
                         mainInvocateur.getListCards().remove(aCard);
                         mainInvocateur.majMain(invocateur,context);
                         invocateur.addCountInvocationNormale();

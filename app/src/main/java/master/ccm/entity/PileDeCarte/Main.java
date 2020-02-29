@@ -24,6 +24,7 @@ import master.ccm.ccm2yugiohproject.R;
 import master.ccm.entity.Card;
 import master.ccm.entity.Player;
 import master.ccm.entity.subcard.CardInGame;
+import master.ccm.entity.subcard.Monstre;
 
 public class Main extends PileCarte {
     private CardInGame selectedCard;
@@ -195,4 +196,19 @@ public class Main extends PileCarte {
         Picasso.with(context).load(selectedCard.getUrl()).error(R.drawable.cardunknow).into(this.imageViewZoom);
         descCardZoom.setText(selectedCard.getDescription());
     }*/
+    public ArrayList<CardInGame> getMonsterInvocable(){
+        ArrayList<CardInGame> listInvocable = new ArrayList<CardInGame>();
+        for (CardInGame aCard : listCards)
+        {
+            if(aCard.getCardType().toString().equals("MONSTRE"))
+            {
+                if(((Monstre)aCard).getLevel()<5) {
+                    listInvocable.add(aCard);
+                }
+
+            }
+
+        }
+        return listInvocable;
+    }
 }

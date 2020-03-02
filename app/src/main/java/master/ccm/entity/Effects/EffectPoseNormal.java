@@ -21,26 +21,31 @@ public class EffectPoseNormal extends EffectCard {
         if (filtre.size() == 1) {
             CardInGame aCard = filtre.get(0);
             if (aCard.getCardType().toString().equals("MONSTRE")) {
+                ((Monstre) aCard).setPosition("DEF");
+                aCard.setVisible(false);
                 if (((Monstre) aCard).getLevel() < 5) {
                     Player invocateur = listJoueurs.get(joueurCibler);
 
                     //mise à jour de la main du joueur
 
-
                     Terrain terrainInvocateur = invocateur.getPlayerTerrain();
                     ImageView zone_Iv_vide = terrainInvocateur.getZoneVide("MONSTRE");
                     if (zone_Iv_vide != null) {
                         Main mainInvocateur = invocateur.getPlayerMain();
-                        mainInvocateur.deselectedCard(context);
+                        if(joueurCibler == 0) {
+                            mainInvocateur.deselectedCard(context);
+                        }
                         terrainInvocateur.cardPoserToZone(context, aCard, zone_Iv_vide);
 
                         mainInvocateur.getListCards().remove(aCard);
-                        mainInvocateur.majMain(invocateur, context);
+                        if(joueurCibler == 0) {
+                            mainInvocateur.majMain(invocateur, context);
+                        }else{
+                            mainInvocateur.majMainNotVisible(invocateur,context);
+                        }
                         terrainInvocateur.monsterToDefAnnimation(context, zone_Iv_vide);
 
                         invocateur.addCountInvocationNormale();
-                    } else {
-                        Toast.makeText(context, "Vous n'avez plus de zone libre", Toast.LENGTH_SHORT).show();
                     }
 
                 } else {
@@ -53,12 +58,17 @@ public class EffectPoseNormal extends EffectCard {
                 ImageView zone_Iv_vide = terrainInvocateur.getZoneVide("MAGIEPIEGE");
                 if (zone_Iv_vide != null) {
                     Main mainInvocateur = invocateur.getPlayerMain();
-                    mainInvocateur.deselectedCard(context);
+                    if(joueurCibler == 0) {
+                        mainInvocateur.deselectedCard(context);
+                    }
                     terrainInvocateur.cardPoserToZone(context, aCard, zone_Iv_vide);
 
                     mainInvocateur.getListCards().remove(aCard);
-                    mainInvocateur.majMain(invocateur, context);
-                    terrainInvocateur.monsterToDefAnnimation(context, zone_Iv_vide);
+                    if(joueurCibler == 0) {
+                        mainInvocateur.majMain(invocateur, context);
+                    }else{
+                        mainInvocateur.majMainNotVisible(invocateur, context);
+                    }
                 }else {
                     Toast.makeText(context, "Vous n'avez plus de zone libre", Toast.LENGTH_SHORT).show();
                 }

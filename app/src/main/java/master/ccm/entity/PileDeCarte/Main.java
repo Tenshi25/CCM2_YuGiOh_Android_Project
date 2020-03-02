@@ -24,6 +24,7 @@ import master.ccm.ccm2yugiohproject.R;
 import master.ccm.entity.Card;
 import master.ccm.entity.Player;
 import master.ccm.entity.subcard.CardInGame;
+import master.ccm.entity.subcard.Monstre;
 
 public class Main extends PileCarte {
     private CardInGame selectedCard;
@@ -104,8 +105,15 @@ public class Main extends PileCarte {
 
                 }
             }
-            Picasso.with(context).load(selectedCard.getUrl()).error(R.drawable.cardunknow).into(this.imageViewZoom);
-            descCardZoom.setText(selectedCard.getDescription());
+
+            if(!selectedCard.isVisible() && selectedCard.getPlayer().getNumJoueur() ==1){
+                Picasso.with(context).load(R.drawable.cardcover).error(R.drawable.cardunknow).into(this.imageViewZoom);
+                descCardZoom.setText("");
+            }else{
+                Picasso.with(context).load(selectedCard.getUrl()).error(R.drawable.cardunknow).into(this.imageViewZoom);
+                descCardZoom.setText(selectedCard.getDescription());
+            }
+
         }else if (p_from.equals("Terrain")) {
             if (imageViewSelected != null) {
                 if(getFrom().equals("Main")){
@@ -120,8 +128,13 @@ public class Main extends PileCarte {
             imageViewSelected = iv_card;
             setSelectedCard(p_selectedCard);
             this.setFrom("Terrain");
-            Picasso.with(context).load(selectedCard.getUrl()).error(R.drawable.cardunknow).into(this.imageViewZoom);
-            descCardZoom.setText(selectedCard.getDescription());
+            if(!selectedCard.isVisible() && selectedCard.getPlayer().getNumJoueur() ==1){
+                Picasso.with(context).load(R.drawable.cardcover).error(R.drawable.cardunknow).into(this.imageViewZoom);
+                descCardZoom.setText("");
+            }else{
+                Picasso.with(context).load(selectedCard.getUrl()).error(R.drawable.cardunknow).into(this.imageViewZoom);
+                descCardZoom.setText(selectedCard.getDescription());
+            }
         }
     }
 
@@ -195,4 +208,19 @@ public class Main extends PileCarte {
         Picasso.with(context).load(selectedCard.getUrl()).error(R.drawable.cardunknow).into(this.imageViewZoom);
         descCardZoom.setText(selectedCard.getDescription());
     }*/
+    public ArrayList<CardInGame> getMonsterInvocable(){
+        ArrayList<CardInGame> listInvocable = new ArrayList<CardInGame>();
+        for (CardInGame aCard : listCards)
+        {
+            if(aCard.getCardType().toString().equals("MONSTRE"))
+            {
+                if(((Monstre)aCard).getLevel()<5) {
+                    listInvocable.add(aCard);
+                }
+
+            }
+
+        }
+        return listInvocable;
+    }
 }

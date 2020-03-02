@@ -13,6 +13,8 @@ import java.util.Map;
 import master.ccm.ccm2yugiohproject.R;
 import master.ccm.entity.Card;
 import master.ccm.entity.subcard.CardInGame;
+import master.ccm.entity.subcard.Monstre;
+import master.ccm.entity.subcard.Piege;
 
 public class Terrain extends PileCarte {
     //private Map<Card,> zone;
@@ -163,7 +165,13 @@ public class Terrain extends PileCarte {
     public void monsterToDefAnnimation(Context context, ImageView imageView){
         for (int i = 0; i < 5; i++) {
             if(tableauZoneMonstreImageView[i].getId() == imageView.getId()){
-                tableauZoneMonstreImageView[i].setRotation(90);
+                tableauZoneMonstreImageView[i].setRotation(-90);
+            }CardInGame aCard =getCardFromImageView(tableauZoneMonstreImageView[i]);
+            if(aCard != null){
+                Log.d("visible",""+aCard.isVisible());
+                if(aCard.isVisible()){
+                    Picasso.with(context).load(aCard.getUrl()).error(R.drawable.cardunknow).into(tableauZoneMonstreImageView[i]);
+                }
             }
         }
 
@@ -173,11 +181,134 @@ public class Terrain extends PileCarte {
 
         for (int i = 0; i < 5; i++) {
             if(tableauZoneMonstreImageView[i].getId() == imageView.getId()){
-                tableauZoneMonstreImageView[i].setRotation(-90);
+                tableauZoneMonstreImageView[i].setRotation(0);
+                CardInGame aCard =getCardFromImageView(tableauZoneMonstreImageView[i]);
+                if(aCard != null){
+                    Log.d("visible",""+aCard.isVisible());
+                    if(aCard.isVisible()){
+                        Picasso.with(context).load(aCard.getUrl()).error(R.drawable.cardunknow).into(tableauZoneMonstreImageView[i]);
+                    }
+                }
+
             }
         }
 
     }
+    public void removeListCard(ArrayList<CardInGame> listCardaRemove, Context context){
+        for (CardInGame aCard :listCardaRemove){
+            if(aCard.getCardType().toString().equals("MONSTRE")){
+                for (int i = 0; i < 5; i++) {
+                    if(aCard == tableauZoneMonstre[i] ){
+                        tableauZoneMonstre[i] = null;
+                        monsterToAtkAnnimation(context,tableauZoneMonstreImageView[i]);
+                        viderimageView(tableauZoneMonstreImageView[i],context);
+
+                    }
+                }
+            }else {
+                for (int i = 0; i < 5; i++) {
+                    if(aCard == tableauZoneMagiePiege[i] ){
+                        tableauZoneMagiePiege[i] = null;
+                        viderimageView(tableauZoneMagiePiegeImageView[i],context);
+                    }
+                }
+            }
+        }
+
+
+    }
+    public void removeaCard(CardInGame aCard, Context context){
+            if(aCard.getCardType().toString().equals("MONSTRE")){
+                for (int i = 0; i < 5; i++) {
+                    if(tableauZoneMonstre[i] != null) {
+                        if (aCard.equals(tableauZoneMonstre[i])) {
+                            tableauZoneMonstre[i] = null;
+                            viderimageView(tableauZoneMonstreImageView[i], context);
+                            if(((Monstre)aCard).getPosition().equals("DEF")){
+                                monsterToAtkAnnimation(context,tableauZoneMonstreImageView[i]);
+                            }
+                        }
+                    }
+                }
+            }else {
+                for (int i = 0; i < 5; i++) {
+                    if(tableauZoneMonstre[i] != null) {
+                        if (aCard.equals(tableauZoneMagiePiege[i])) {
+                            tableauZoneMagiePiege[i] = null;
+                            viderimageView(tableauZoneMagiePiegeImageView[i], context);
+                        }
+                    }
+                }
+            }
+
+
+    }
+    public void viderimageView(ImageView imageView, Context context){
+        Picasso.with(context).load(R.drawable.caseterrain).error(R.drawable.cardunknow).into(imageView);
+
+    }
+    public int getCountMonstre(){
+        int sommeMonstre =0 ;
+        for (int i = 0; i < 5; i++) {
+            if(tableauZoneMonstre[i] != null ){
+                sommeMonstre ++;
+            }
+        }
+        return sommeMonstre;
+    }
+    public void desetCountAtk (){
+        for (int i = 0; i < 5; i++) {
+            if(tableauZoneMonstre[i] != null ){
+                ((Monstre) tableauZoneMonstre[i]).setCountAtk(0);
+            }
+        }
+
+    }
+    public void desetMalActivation (){
+        for (int i = 0; i < 5; i++) {
+            if(tableauZoneMagiePiege[i] != null ){
+                if (tableauZoneMagiePiege[i].getCardType().toString().equals("PIEGE")) {
+                    ((Piege) tableauZoneMagiePiege[i]).setMalActivation(false);
+                }
+            }
+        }
+    }
+    public void desetChangePosition (){
+        for (int i = 0; i < 5; i++) {
+            if(tableauZoneMonstre[i] != null ){
+                ((Monstre) tableauZoneMonstre[i]).setHaveChangePosition(false);
+            }
+        }
+
+    }
+    public CardInGame getCardFromImageView(ImageView imageView){
+            for (int i = 0; i < 5; i++) {
+                if(imageView.getId() ==tableauZoneMonstreImageView[i].getId()){
+                    return tableauZoneMonstre[i];
+                }
+            }
+            for (int i = 0; i < 5; i++) {
+                if(imageView.getId() == tableauZoneMagiePiegeImageView[i].getId()){
+                    return tableauZoneMagiePiege[i];
+                }
+            }
+            return null;
+    }
+    public ImageView getImageViewFromCard(CardInGame aCard){
+        for (int i = 0; i < 5; i++) {
+            if(aCard.equals(tableauZoneMonstre[i])){
+
+                return tableauZoneMonstreImageView[i];
+            }
+        }
+        for (int i = 0; i < 5; i++) {
+            if(aCard.equals(tableauZoneMonstre[i]) ){
+                return tableauZoneMonstreImageView[i];
+            }
+        }
+        return null;
+    }
+
 
 
 }

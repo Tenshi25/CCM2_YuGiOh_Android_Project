@@ -5,11 +5,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 import master.ccm.ccm2yugiohproject.Game_activity;
-import master.ccm.ccm2yugiohproject.R;
-import master.ccm.entity.Card;
 import master.ccm.entity.PileDeCarte.Main;
 import master.ccm.entity.PileDeCarte.PileCarte;
 import master.ccm.entity.PileDeCarte.Terrain;
@@ -17,7 +14,7 @@ import master.ccm.entity.Player;
 import master.ccm.entity.subcard.CardInGame;
 import master.ccm.entity.subcard.Monstre;
 
-public class EffectInvoquerNormale extends EffectCard {
+public class EffectInvocationFlip extends EffectCard {
 
     @Override
     public void execute(Context context, ArrayList<Player> listJoueurs, int joueurCibler, int nb, PileCarte dePileA, PileCarte aPileB, ArrayList<CardInGame> filtre) {
@@ -26,7 +23,6 @@ public class EffectInvoquerNormale extends EffectCard {
             if(aCard.getCardType().toString().equals("MONSTRE"))
             {
                 ((Monstre) aCard).setPosition("ATK");
-                aCard.setVisible(true);
                 if( ((Monstre) aCard).getLevel()<5){
                     Player invocateur =listJoueurs.get(joueurCibler);
 
@@ -43,12 +39,7 @@ public class EffectInvoquerNormale extends EffectCard {
                         terrainInvocateur.cardToZone(context,aCard, zone_Iv_vide);
                         Game_activity.selectedImageView = zone_Iv_vide;
                         mainInvocateur.getListCards().remove(aCard);
-                        if(joueurCibler == 0) {
-                            mainInvocateur.majMain(invocateur, context);
-                        }else
-                        {
-                            mainInvocateur.majMainNotVisible(invocateur, context);
-                        }
+                        mainInvocateur.majMain(invocateur,context);
                         invocateur.addCountInvocationNormale();
 
                     }else{

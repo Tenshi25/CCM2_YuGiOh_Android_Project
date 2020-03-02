@@ -32,6 +32,32 @@
                 android:orientation="horizontal">
 
                 <Button
+                    android:id="@+id/bt_attaquer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.45"
+                    android:onClick="onClickAttaque"
+                    android:text="@string/bt_attaquer"
+                    android:textSize="8sp" />
+
+                <Button
+                    android:id="@+id/bt_changer_position"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.45"
+                    android:onClick="onClickChangerPosition"
+                    android:text="@string/bt_changer_position"
+                    android:textSize="8sp" />
+
+                <Button
+                    android:id="@+id/bt_activer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.45"
+                    android:text="@string/bt_activer"
+                    android:textSize="8sp" />
+
+                <Button
                     android:id="@+id/bt_invocation"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -173,7 +199,11 @@
                     android:id="@+id/includeterrainjoueur"
                     layout="@layout/terrainia"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginBottom="0dp" />
 
             </RelativeLayout>
 

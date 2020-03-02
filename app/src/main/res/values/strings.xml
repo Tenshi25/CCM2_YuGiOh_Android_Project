@@ -60,4 +60,5 @@
     <string name="bt_activer">Activer</string>
     <string name="bt_changer_position">changer position</string>
     <string name="bt_attaquer">Attaquer</string>
+    <string name="sort">sort</string>
 </resources>

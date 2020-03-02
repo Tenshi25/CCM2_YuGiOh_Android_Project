@@ -6,9 +6,9 @@
     <string name="tv_niv_carte">niveau</string>
     <string name="tv_name_deck">aucun</string>
     <string name="tv_image_carte">image</string>
-    <string name="tv_duplicat_carte">exemplaire</string>
+    <string name="tv_duplicat_carte">copie</string>
     <string name="tv_desc_deck">aucune description</string>
-    <string name="tv_del">Supprimer</string>
+    <string name="tv_del">Effacer</string>
     <string name="tv_def_carte">def</string>
     <string name="tv_atk_carte">atk</string>
     <string name="tv_choix_ia">Choix IA</string>

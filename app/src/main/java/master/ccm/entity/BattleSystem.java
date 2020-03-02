@@ -2,6 +2,7 @@ package master.ccm.entity;
 
 import android.content.Context;
 import android.media.effect.Effect;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -15,15 +16,15 @@ import master.ccm.entity.subcard.CardInGame;
 import master.ccm.entity.subcard.Monstre;
 
 public class BattleSystem {
-    private Monstre monstreA;
-    private Monstre monstreB;
 
     private ArrayList<EffectCard>listEffets = new ArrayList<>();
     public void Battle(ArrayList<Player> listPlayer, Monstre monstreA, Monstre monstreB, Context context){
             if(monstreB == null){
                 BattleAtkDirect(listPlayer,monstreA,context);
             }else{
-                BattleMonster(listPlayer,monstreA,monstreB,context);
+                if(monstreA != null){
+                    BattleMonster(listPlayer,monstreA,monstreB,context);
+                }
             }
     }
     public void BattleMonster(ArrayList<Player> listPlayer, Monstre monstreA, Monstre monstreB, Context context){
@@ -35,10 +36,11 @@ public class BattleSystem {
         if(monstreB.getPosition().equals("DEF")){
             if(monstreA.getAtk() > monstreB.getDef()){
                 filtre.add(monstreB);
-                effectMoveCardFromAtoB.execute(context,null,0,0,monstreA.getPlayer().getPlayerTerrain(),monstreA.getPlayer().getPlayerCimetiere(),filtre);
+                effectMoveCardFromAtoB.execute(context,null,0,0,monstreB.getPlayer().getPlayerTerrain(),monstreB.getPlayer().getPlayerCimetiere(),filtre);
                 //le monstre b est detruit
             }else if (monstreA.getAtk() < monstreB.getDef()){
-
+                monstreB.setVisible(true);
+                monstreB.getPlayer().getPlayerTerrain().monsterToDefAnnimation(context, monstreB.getPlayer().getPlayerTerrain().getImageViewFromCard(monstreB));
                 sommeDegat =monstreA.getAtk() - monstreB.getDef();
                 effectGainPertePV.execute(context,listPlayer,getIntPlayer(monstreA.getPlayer()),sommeDegat,null,null,null);
 
@@ -47,6 +49,7 @@ public class BattleSystem {
 
                 // aucun des monstres est detruit
             }
+
         }else if (monstreB.getPosition().equals("ATK")){
             if(monstreA.getAtk() > monstreB.getAtk()){
                 filtre.add(monstreB);

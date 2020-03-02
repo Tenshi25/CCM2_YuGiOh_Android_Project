@@ -1,13 +1,10 @@
 package master.ccm.ccm2yugiohproject;
 
 import androidx.appcompat.app.AppCompatActivity;
-import master.ccm.ccm2yugiohproject.utils.LoadImageTask;
 import master.ccm.entity.Action;
 import master.ccm.entity.BattleSystem;
 import master.ccm.entity.Card;
 import master.ccm.entity.CurrentUser;
-import master.ccm.entity.Effects.EffectCard;
-import master.ccm.entity.Effects.EffectGainPertePV;
 import master.ccm.entity.Effects.EffectInvoquerNormale;
 import master.ccm.entity.Effects.EffectPioche;
 import master.ccm.entity.Effects.EffectPoseNormal;
@@ -20,7 +17,6 @@ import master.ccm.entity.subcard.CardInGame;
 import master.ccm.entity.subcard.Monstre;
 import master.ccm.entity.subcard.Piege;
 import master.ccm.manager.DeckDBManager;
-import master.ccm.types.CardType;
 
 import android.animation.ObjectAnimator;
 import android.content.Intent;
@@ -40,10 +36,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class Game_activity extends AppCompatActivity {
@@ -66,6 +59,13 @@ public class Game_activity extends AppCompatActivity {
 
     private TextView tv_nbdeckCardPlayer;
     private TextView tv_nbdeckCardIA;
+
+    private TextView tv_nbCimetiereJoueur;
+    private TextView tv_nbCimetiereIA;
+
+    private ImageView iv_lastCardCimetiereJoueur;
+    private ImageView iv_lastCardCimetiereIA;
+
 
     private Button bt_drawPhase;
     private Button bt_stanby;
@@ -230,6 +230,7 @@ public class Game_activity extends AppCompatActivity {
         }
 
 
+
         //set player
         Player player = new Player();
         listIvMain.add(iv_mainPlayerCard_1);
@@ -251,6 +252,12 @@ public class Game_activity extends AppCompatActivity {
 
         player.getPlayerMain().setListIv_main(listIvMain);
 
+        //set cimetière joueur
+        tv_nbCimetiereJoueur = findViewById(R.id.tv_nbCimetiereCardsPlayer);
+        iv_lastCardCimetiereJoueur = findViewById(R.id.iv_cimetiere_joueur);
+        Log.d("tv_cime",""+iv_lastCardCimetiereJoueur.getId());
+        player.getPlayerCimetiere().setIv_lastCard(iv_lastCardCimetiereJoueur);
+        player.getPlayerCimetiere().setTv_countCards(tv_nbCimetiereJoueur);
 
 
         player.setName(nomPlayer);
@@ -312,6 +319,13 @@ public class Game_activity extends AppCompatActivity {
         tabIv_terrainIAMagiePiege[4] = iv_terrainMagieIA_5;
 
         Player IAplayer = new Player();
+
+        //set cimetière IA
+        tv_nbCimetiereIA = findViewById(R.id.tv_nbCimetiere_ia);
+        iv_lastCardCimetiereIA = findViewById(R.id.iv_cimetiere_ia);
+
+        IAplayer.getPlayerCimetiere().setIv_lastCard(iv_lastCardCimetiereIA);
+        IAplayer.getPlayerCimetiere().setTv_countCards(tv_nbCimetiereIA);
 
         IAplayer.getPlayerMain().setListIv_main(listIvMainIA);
         String nomIA = extrasData.get("typeIA").toString();

@@ -34,7 +34,9 @@ public class EffectInvocationFlip extends EffectCard {
                     if(zone_Iv_vide != null){
                         Main mainInvocateur =invocateur.getPlayerMain() ;
                         if(joueurCibler == 0) {
-                            mainInvocateur.deselectedCard(context);
+                            invocateur.getPlayerMain().changeSelectedCard(aCard,zone_Iv_vide,context,"Terrain");
+                            // if()
+                            //mainInvocateur.deselectedCard(context);
                         }
                         terrainInvocateur.cardToZone(context,aCard, zone_Iv_vide);
                         Game_activity.selectedImageView = zone_Iv_vide;

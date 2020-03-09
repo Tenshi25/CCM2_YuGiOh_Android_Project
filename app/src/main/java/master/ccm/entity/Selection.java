@@ -7,6 +7,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import master.ccm.ccm2yugiohproject.Game_activity;
+import master.ccm.entity.Effects.EffectMoveCardFromAtoB;
 import master.ccm.entity.PileDeCarte.PileCarte;
 import master.ccm.entity.subcard.CardInGame;
 import master.ccm.entity.subcard.Monstre;
@@ -23,9 +24,11 @@ public class Selection {
     private String target = "";
     private int count = 0;
     private ImageView firstSelected;
+    private CardInGame firstSelectedCard;
+    private int targetPlayer;
 
     public void addTolistImageView(Context context, ImageView imageView, String from, ArrayList<Player> listPlayer, Player player){
-        Toast.makeText(context,pileCarte,Toast.LENGTH_SHORT).show();
+
         CardInGame aCard;
         if(from.equals(pileCarte)) {
             for (Player aPlayer:listPlayer) {
@@ -34,9 +37,11 @@ public class Selection {
                     if(aCard != null){
                         if(aCard.getCardType().toString().equals(this.cardType)){
                             listImageViewSelected.add(imageView);
+
                             //listCardInGameSelected.add(aCard);
                             this.count--;
-                            Toast.makeText(context,"count --",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context,"il vous reste à selectionner "+ count +" "+cardType,Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(context,"count --",Toast.LENGTH_SHORT).show();
                             if (this.count < 1) {
                                 finSelection(context,player);
                             }
@@ -58,7 +63,7 @@ public class Selection {
         this.count++;
     }
 
-    public void InitSelection(int cpt, String p_cardType, String p_pileCarte,String p_target,ImageView selectedImageView,  ArrayList<Player> p_listJoueurs){
+    public void InitSelection(Context context, int cpt, String p_cardType, String p_pileCarte,String p_target,ImageView selectedImageView,  ArrayList<Player> p_listJoueurs, int p_targetPlayer){
         this.count = cpt ;
         this.cardType = p_cardType;
         this.pileCarte = p_pileCarte;
@@ -66,7 +71,10 @@ public class Selection {
         this.firstSelected =selectedImageView;
         this.setSeclectionPhase(true);
         this.listPlayers = p_listJoueurs;
+        this.targetPlayer =p_targetPlayer;
+        this.firstSelectedCard = p_listJoueurs.get(targetPlayer).getPlayerMain().getSelectedCard();
 
+        Toast.makeText(context,"Debut phase de selection",Toast.LENGTH_SHORT).show();
     }
     public void finSelection(Context context,Player player){
 
@@ -84,8 +92,42 @@ public class Selection {
             ((Game_activity) context).majPv();
             //Game_activity game_activity = new Game_activity();
             //game_activity.majPv();
-        }
+        }else
+        if(target.equals("Sacrifice")){
 
+            if (this.listImageViewSelected.size() > 0){
+                ArrayList<CardInGame> filtre = new ArrayList<>();
+                for (ImageView imageView :listImageViewSelected){
+                    CardInGame aCard =player.getPlayerTerrain().getCardFromImageView(imageView) ;
+                    filtre.add(aCard);
+                }
+                EffectMoveCardFromAtoB effectMoveCardFromAtoB = new EffectMoveCardFromAtoB();
+
+                effectMoveCardFromAtoB.execute(context,this.listPlayers,player.getNumJoueur(),listCardInGameSelected.size(),player.getPlayerTerrain(),player.getPlayerCimetiere(),filtre);
+            }
+            ((Game_activity) context).invocationApresSacrifice(this.firstSelectedCard);
+            this.setSeclectionPhase(false);
+            listImageViewSelected.clear();
+
+        }else
+        if(target.equals("SacrificePose")){
+
+            if (this.listImageViewSelected.size() > 0){
+                ArrayList<CardInGame> filtre = new ArrayList<>();
+                for (ImageView imageView :listImageViewSelected){
+                    CardInGame aCard =player.getPlayerTerrain().getCardFromImageView(imageView) ;
+                    filtre.add(aCard);
+                }
+                EffectMoveCardFromAtoB effectMoveCardFromAtoB = new EffectMoveCardFromAtoB();
+
+                effectMoveCardFromAtoB.execute(context,this.listPlayers,player.getNumJoueur(),listCardInGameSelected.size(),player.getPlayerTerrain(),player.getPlayerCimetiere(),filtre);
+            }
+            ((Game_activity) context).PoseApresSacrifice(this.firstSelectedCard);
+            this.setSeclectionPhase(false);
+            listImageViewSelected.clear();
+
+        }
+        Toast.makeText(context,"Fin de la phase de selection",Toast.LENGTH_SHORT).show();
     }
 
     public ImageView getFirstSelected() {
@@ -102,5 +144,13 @@ public class Selection {
 
     public void setSeclectionPhase(boolean seclectionPhase) {
         isSeclectionPhase = seclectionPhase;
+    }
+
+    public int getTargetPlayer() {
+        return targetPlayer;
+    }
+
+    public void setTargetPlayer(int targetPlayer) {
+        this.targetPlayer = targetPlayer;
     }
 }

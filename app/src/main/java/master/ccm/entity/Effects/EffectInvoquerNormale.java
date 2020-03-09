@@ -27,7 +27,7 @@ public class EffectInvoquerNormale extends EffectCard {
             {
                 ((Monstre) aCard).setPosition("ATK");
                 aCard.setVisible(true);
-                if( ((Monstre) aCard).getLevel()<5){
+                //if( ((Monstre) aCard).getLevel()<5){
                     Player invocateur =listJoueurs.get(joueurCibler);
 
                     //mise à jour de la main du joueur
@@ -38,7 +38,8 @@ public class EffectInvoquerNormale extends EffectCard {
                     if(zone_Iv_vide != null){
                         Main mainInvocateur =invocateur.getPlayerMain() ;
                         if(joueurCibler == 0) {
-                            mainInvocateur.deselectedCard(context);
+                            invocateur.getPlayerMain().changeSelectedCard(aCard,zone_Iv_vide,context,"Terrain");
+                            //mainInvocateur.deselectedCard(context);
                         }
                         terrainInvocateur.cardToZone(context,aCard, zone_Iv_vide);
                         Game_activity.selectedImageView = zone_Iv_vide;
@@ -55,9 +56,15 @@ public class EffectInvoquerNormale extends EffectCard {
                         Toast.makeText(context,"Vous n'avez plus de zone libre", Toast.LENGTH_SHORT).show();
                     }
 
-                }else{
+                /*}else{
+                    //si le monstre est de niveau 4 ou plus il faut des sacrifices
+                    // niveau 5 et 6 un sacrifice et 7 et plus deux sacrifice
+                    if( ((Monstre) aCard).getLevel()>4 && ((Monstre) aCard).getLevel()<7){
 
-                }
+                    }else if(((Monstre) aCard).getLevel()>6){
+
+                    }
+                }*/
             }
 
 

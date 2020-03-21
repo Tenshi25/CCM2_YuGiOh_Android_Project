@@ -8,6 +8,7 @@ import master.ccm.entity.CurrentUser;
 import master.ccm.entity.Effects.EffectInvoquerNormale;
 import master.ccm.entity.Effects.EffectPioche;
 import master.ccm.entity.Effects.EffectPoseNormal;
+import master.ccm.entity.IABot;
 import master.ccm.entity.PileDeCarte.Deck;
 import master.ccm.entity.Phase;
 import master.ccm.entity.PileDeCarte.Main;
@@ -135,6 +136,7 @@ public class Game_activity extends AppCompatActivity {
     public static ImageView selectedImageView ;
     public Selection selection = new Selection() ;
 
+    private IABot iaBotclass= new IABot();
 
     private ArrayList<ImageView> listIvMain= new ArrayList<>();
     //private Evenement Chaine;
@@ -362,6 +364,7 @@ public class Game_activity extends AppCompatActivity {
 
         iv_deckPlayer = (ImageView) findViewById(R.id.iv_deckPlayer);
 
+        iaBotclass.init(this,listPlayer,IAplayer);
 
         bt_activer.setVisibility(View.GONE);
         bt_invocation.setVisibility(View.GONE);
@@ -867,6 +870,12 @@ public class Game_activity extends AppCompatActivity {
                 case 5:
                     //end phase
                     //nextTurn();
+                    if(currentplayer.getPlayerMain().getListCards().size() >6 )
+                    {
+                        iaBotclass.DeffauseIA();
+                        majMain();
+                    }
+
                     currentplayer.getPlayerTerrain().desetCountAtk();
                     currentplayer.getPlayerTerrain().desetMalActivation();
                     currentplayer.getPlayerTerrain().desetChangePosition();
@@ -1302,6 +1311,7 @@ public class Game_activity extends AppCompatActivity {
         invocation.getEffect().execute(this, listPlayer, 0, 1, currentplayer.getPlayerMain(), currentplayer.getPlayerTerrain(), listfiltre);
         //majbtAction(currentplayerMain.getSelectedCard());
     }
+
 }
 
 

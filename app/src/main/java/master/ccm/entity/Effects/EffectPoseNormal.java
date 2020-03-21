@@ -23,7 +23,7 @@ public class EffectPoseNormal extends EffectCard {
             if (aCard.getCardType().toString().equals("MONSTRE")) {
                 ((Monstre) aCard).setPosition("DEF");
                 aCard.setVisible(false);
-                if (((Monstre) aCard).getLevel() < 5) {
+                //if (((Monstre) aCard).getLevel() < 5) {
                     Player invocateur = listJoueurs.get(joueurCibler);
 
                     //mise à jour de la main du joueur
@@ -33,7 +33,8 @@ public class EffectPoseNormal extends EffectCard {
                     if (zone_Iv_vide != null) {
                         Main mainInvocateur = invocateur.getPlayerMain();
                         if(joueurCibler == 0) {
-                            mainInvocateur.deselectedCard(context);
+                            invocateur.getPlayerMain().changeSelectedCard(aCard,zone_Iv_vide,context,"Terrain");
+                            //mainInvocateur.deselectedCard(context);
                         }
                         terrainInvocateur.cardPoserToZone(context, aCard, zone_Iv_vide);
 
@@ -48,9 +49,9 @@ public class EffectPoseNormal extends EffectCard {
                         invocateur.addCountInvocationNormale();
                     }
 
-                } else {
+               /* } else {
                     //monstre + 4 etoile à sacrifice
-                }
+                }*/
 
             }else if(aCard.getCardType().toString().equals("MAGIE") || aCard.getCardType().toString().equals("PIEGE")){
                 Player invocateur = listJoueurs.get(joueurCibler);

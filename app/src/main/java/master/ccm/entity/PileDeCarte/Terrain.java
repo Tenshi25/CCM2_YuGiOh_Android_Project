@@ -202,8 +202,9 @@ public class Terrain extends PileCarte {
                         tableauZoneMonstre[i] = null;
                         monsterToAtkAnnimation(context,tableauZoneMonstreImageView[i]);
                         viderimageView(tableauZoneMonstreImageView[i],context);
-
+                        break;
                     }
+
                 }
             }else {
                 for (int i = 0; i < 5; i++) {

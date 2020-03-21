@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -63,77 +64,87 @@ public class Main extends PileCarte {
         this.selectedCard = selectedCard;
     }
     public void changeSelectedCard(CardInGame p_selectedCard, ImageView iv_card, Context context, String p_from) {
-        if (p_from.equals("Main")){
-            Path path = new Path();
-            ObjectAnimator animator;
+        if (p_selectedCard != null) {
+            Toast.makeText(context,""+p_from,Toast.LENGTH_SHORT).show();
+            if (p_from.equals("Main")){
+                Path path = new Path();
+                ObjectAnimator animator;
 
-            if (imageViewSelected == null) {
-                path = new Path();
-                // annimation faire monter la carte
-                imageViewSelected = iv_card;
-                setSelectedCard(p_selectedCard);
-                //this.setFrom(from);
+                if (imageViewSelected == null) {
+                    path = new Path();
+                    // annimation faire monter la carte
+                    imageViewSelected = iv_card;
+                    setSelectedCard(p_selectedCard);
+                    //this.setFrom(from);
 
-                this.setFrom("Main");
-                path.moveTo(imageViewSelected.getX(), imageViewSelected.getY() - 40f);
-                animator = ObjectAnimator.ofFloat(imageViewSelected, View.X, View.Y, path);
-                animator.setDuration(100);
-                animator.start();
+                    this.setFrom("Main");
+                    path.moveTo(imageViewSelected.getX(), imageViewSelected.getY() - 40f);
+                    animator = ObjectAnimator.ofFloat(imageViewSelected, View.X, View.Y, path);
+                    animator.setDuration(100);
+                    animator.start();
 
 
-            } else {
-                if (imageViewSelected.getId() != iv_card.getId()) {
-                    if(getFrom().equals("Main")) {
-                        //annimation pour descendre la carte déjà séléctionne
+                } else {
+                    if (imageViewSelected.getId() != iv_card.getId()) {
+                        if(getFrom().equals("Main")) {
+                            //annimation pour descendre la carte déjà séléctionne
+                            path = new Path();
+                            path.moveTo(imageViewSelected.getX(), imageViewSelected.getY() + 40f);
+                            animator = ObjectAnimator.ofFloat(imageViewSelected, View.X, View.Y, path);
+                            animator.setDuration(100);
+                            animator.start();
+                        }
+
+                        // annimation faire monter la carte
+
+                        setSelectedCard(p_selectedCard);
                         path = new Path();
+                        path.moveTo(iv_card.getX(), iv_card.getY() - 40f);
+                        animator = ObjectAnimator.ofFloat(iv_card, View.X, View.Y, path);
+                        animator.setDuration(100);
+                        animator.start();
+                        this.setFrom("Main");
+                        imageViewSelected = iv_card;
+
+                    }
+                }
+                if(selectedCard != null) {
+                    if (!selectedCard.isVisible() && selectedCard.getPlayer().getNumJoueur() == 1) {
+                        Picasso.with(context).load(R.drawable.cardcover).error(R.drawable.cardunknow).into(this.imageViewZoom);
+                        descCardZoom.setText("");
+                    } else {
+                        Picasso.with(context).load(selectedCard.getUrl()).error(R.drawable.cardunknow).into(this.imageViewZoom);
+                        descCardZoom.setText(selectedCard.getDescription());
+                    }
+                }
+
+        }else if (p_from.equals("Terrain")) {
+
+                if (imageViewSelected != null) {
+                    if (this.getFrom().equals("Main")) {
+                        //annimation pour descendre la carte déjà séléctionne
+                        Path path = new Path();
                         path.moveTo(imageViewSelected.getX(), imageViewSelected.getY() + 40f);
-                        animator = ObjectAnimator.ofFloat(imageViewSelected, View.X, View.Y, path);
+                        Animator animator = ObjectAnimator.ofFloat(imageViewSelected, View.X, View.Y, path);
                         animator.setDuration(100);
                         animator.start();
                     }
-
-                    // annimation faire monter la carte
-
-                    setSelectedCard(p_selectedCard);
-                    path = new Path();
-                    path.moveTo(iv_card.getX(), iv_card.getY() - 40f);
-                    animator = ObjectAnimator.ofFloat(iv_card, View.X, View.Y, path);
-                    animator.setDuration(100);
-                    animator.start();
-                    this.setFrom("Main");
-                    imageViewSelected = iv_card;
-
                 }
-            }
-
-            if(!selectedCard.isVisible() && selectedCard.getPlayer().getNumJoueur() ==1){
-                Picasso.with(context).load(R.drawable.cardcover).error(R.drawable.cardunknow).into(this.imageViewZoom);
-                descCardZoom.setText("");
-            }else{
-                Picasso.with(context).load(selectedCard.getUrl()).error(R.drawable.cardunknow).into(this.imageViewZoom);
-                descCardZoom.setText(selectedCard.getDescription());
-            }
-
-        }else if (p_from.equals("Terrain")) {
-            if (imageViewSelected != null) {
-                if(getFrom().equals("Main")){
-                    //annimation pour descendre la carte déjà séléctionne
-                    Path path = new Path();
-                    path.moveTo(imageViewSelected.getX(), imageViewSelected.getY() + 40f);
-                    Animator animator = ObjectAnimator.ofFloat(imageViewSelected, View.X, View.Y, path);
-                    animator.setDuration(100);
-                    animator.start();
+                imageViewSelected = iv_card;
+                setSelectedCard(p_selectedCard);
+                this.setFrom("Terrain");
+                if (selectedCard != null) {
+                    if (!selectedCard.isVisible() && selectedCard.getPlayer().getNumJoueur() == 1) {
+                        Picasso.with(context).load(R.drawable.cardcover).error(R.drawable.cardunknow).into(this.imageViewZoom);
+                        descCardZoom.setText("");
+                    } else {
+                        Picasso.with(context).load(selectedCard.getUrl()).error(R.drawable.cardunknow).into(this.imageViewZoom);
+                        descCardZoom.setText(selectedCard.getDescription());
+                    }
+                } else {
+                    Picasso.with(context).load(R.drawable.cardcover).error(R.drawable.cardunknow).into(this.imageViewZoom);
+                    descCardZoom.setText("");
                 }
-            }
-            imageViewSelected = iv_card;
-            setSelectedCard(p_selectedCard);
-            this.setFrom("Terrain");
-            if(!selectedCard.isVisible() && selectedCard.getPlayer().getNumJoueur() ==1){
-                Picasso.with(context).load(R.drawable.cardcover).error(R.drawable.cardunknow).into(this.imageViewZoom);
-                descCardZoom.setText("");
-            }else{
-                Picasso.with(context).load(selectedCard.getUrl()).error(R.drawable.cardunknow).into(this.imageViewZoom);
-                descCardZoom.setText(selectedCard.getDescription());
             }
         }
     }

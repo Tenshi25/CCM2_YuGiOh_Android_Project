@@ -2,17 +2,21 @@ package master.ccm.manager;
 
 import android.util.Log;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import master.ccm.ccm2yugiohproject.DeckBuilder_Activity;
 import master.ccm.entity.Card;
+import master.ccm.entity.subcard.effect.Effect;
 import master.ccm.types.AttributeType;
 import master.ccm.types.CardType;
 import master.ccm.types.CardTypeSub;
@@ -51,6 +55,18 @@ public class CardDBManager {
                                 if(document.get("attribute") != null){
                                     aCard.setAttribut(((AttributeType.valueOf(document.get("attribute").toString()))));
                                 }
+
+                                if (document.get("effects") != null) {
+                                    ObjectMapper mapper = new ObjectMapper();
+                                    List<Effect> myObjects = null;
+                                    try {
+                                        myObjects = mapper.readValue(mapper.writeValueAsString(document.get("effects")), mapper.getTypeFactory().constructCollectionType(List.class, Effect.class));
+                                        aCard.setEffects(myObjects);
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
                                 aCard.setUrl(document.get("imageUrl").toString());
 
                                 listCard.add(aCard);

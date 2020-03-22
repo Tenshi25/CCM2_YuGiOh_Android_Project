@@ -37,8 +37,32 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 import java.util.Random;
+
+import master.ccm.ccm2yugiohproject.utils.BuilderEffectUtils;
+import master.ccm.entity.Action;
+import master.ccm.entity.BattleSystem;
+import master.ccm.entity.Card;
+import master.ccm.entity.CurrentUser;
+import master.ccm.entity.Effects.EffectInvoquerNormale;
+import master.ccm.entity.Effects.EffectMoveCardFromAtoB;
+import master.ccm.entity.Effects.EffectPioche;
+import master.ccm.entity.Effects.EffectPoseNormal;
+import master.ccm.entity.Phase;
+import master.ccm.entity.PileDeCarte.Deck;
+import master.ccm.entity.PileDeCarte.Main;
+import master.ccm.entity.Player;
+import master.ccm.entity.Selection;
+import master.ccm.entity.subcard.CardInGame;
+import master.ccm.entity.subcard.Monstre;
+import master.ccm.entity.subcard.Piege;
+import master.ccm.manager.DeckDBManager;
 
 public class Game_activity extends AppCompatActivity {
     private int nbTurn;
@@ -142,7 +166,7 @@ public class Game_activity extends AppCompatActivity {
     //private Evenement Chaine;
     private ArrayList<Player> listPlayer = new ArrayList<>();
     private ArrayList<Phase> listePhase = new ArrayList<>();
-    Bundle extrasData ;
+    Bundle extrasData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -230,7 +254,6 @@ public class Game_activity extends AppCompatActivity {
         }else {
             nomPlayer = CurrentUser.getInstance().getPseudo();
         }
-
 
 
         //set player
@@ -348,7 +371,6 @@ public class Game_activity extends AppCompatActivity {
         listPlayer.add(IAplayer);
 
 
-
         // find text view phase and deck
         bt_drawPhase = findViewById(R.id.bt_drawPhase);
         bt_stanby = findViewById(R.id.bt_stanbyPhase);
@@ -373,6 +395,7 @@ public class Game_activity extends AppCompatActivity {
         bt_changerPosition.setVisibility(View.GONE);
 
     }
+
     public void clickHandler(View v) {
         Player lejoueur=listPlayer.get(0);
         Path path = new Path();
@@ -396,277 +419,277 @@ public class Game_activity extends AppCompatActivity {
                 if(selection.isSeclectionPhase()&& selection.getTargetPlayer() ==0){
                     selection.addTolistImageView(this,iv_mainPlayerCard_1,"Main",listPlayer,currentplayer);
                 }
-                if(lejoueur.getPlayerMain().getListCards().size() > 0) {
+                if (lejoueur.getPlayerMain().getListCards().size() > 0) {
 
-                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(0), iv_mainPlayerCard_1,this,"Main");
-                    majbtAction(lejoueur.getPlayerMain().getListCards().get(0) );
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(0), iv_mainPlayerCard_1, this, "Main");
+                    majbtAction(lejoueur.getPlayerMain().getListCards().get(0));
                 }
                 break;
             case R.id.iv_mainPlayer_2:
                 if(selection.isSeclectionPhase()&& selection.getTargetPlayer() ==0){
                     selection.addTolistImageView(this,iv_mainPlayerCard_2,"Main",listPlayer,currentplayer);
                 }
-                if(lejoueur.getPlayerMain().getListCards().size() > 1 ) {
+                if (lejoueur.getPlayerMain().getListCards().size() > 1) {
 
-                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(1), iv_mainPlayerCard_2,this,"Main");
-                    majbtAction(lejoueur.getPlayerMain().getListCards().get(1) );
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(1), iv_mainPlayerCard_2, this, "Main");
+                    majbtAction(lejoueur.getPlayerMain().getListCards().get(1));
                 }
                 break;
             case R.id.iv_mainPlayer_3:
                 if(selection.isSeclectionPhase()&& selection.getTargetPlayer() ==0){
                     selection.addTolistImageView(this,iv_mainPlayerCard_3,"Main",listPlayer,currentplayer);
                 }
-                if(lejoueur.getPlayerMain().getListCards().size() > 2) {
+                if (lejoueur.getPlayerMain().getListCards().size() > 2) {
 
-                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(2), iv_mainPlayerCard_3,this,"Main");
-                    majbtAction(lejoueur.getPlayerMain().getListCards().get(2) );
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(2), iv_mainPlayerCard_3, this, "Main");
+                    majbtAction(lejoueur.getPlayerMain().getListCards().get(2));
                 }
                 break;
             case R.id.iv_mainPlayer_4:
                 if(selection.isSeclectionPhase()&& selection.getTargetPlayer() ==0){
                     selection.addTolistImageView(this,iv_mainPlayerCard_4,"Main",listPlayer,currentplayer);
                 }
-                if(lejoueur.getPlayerMain().getListCards().size() > 3) {
+                if (lejoueur.getPlayerMain().getListCards().size() > 3) {
 
-                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(3), iv_mainPlayerCard_4,this,"Main");
-                    majbtAction(lejoueur.getPlayerMain().getListCards().get(3) );
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(3), iv_mainPlayerCard_4, this, "Main");
+                    majbtAction(lejoueur.getPlayerMain().getListCards().get(3));
                 }
                 break;
             case R.id.iv_mainPlayer_5:
                 if(selection.isSeclectionPhase()&& selection.getTargetPlayer() ==0){
                     selection.addTolistImageView(this,iv_mainPlayerCard_5,"Main",listPlayer,currentplayer);
                 }
-                if(lejoueur.getPlayerMain().getListCards().size() > 4) {
+                if (lejoueur.getPlayerMain().getListCards().size() > 4) {
 
-                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(4), iv_mainPlayerCard_5,this,"Main");
-                    majbtAction(lejoueur.getPlayerMain().getListCards().get(4) );
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(4), iv_mainPlayerCard_5, this, "Main");
+                    majbtAction(lejoueur.getPlayerMain().getListCards().get(4));
                 }
                 break;
             case R.id.iv_mainPlayer_6:
                 if(selection.isSeclectionPhase()&& selection.getTargetPlayer() ==0){
                     selection.addTolistImageView(this,iv_mainPlayerCard_6,"Main",listPlayer,currentplayer);
                 }
-                if(lejoueur.getPlayerMain().getListCards().size() > 5) {
+                if (lejoueur.getPlayerMain().getListCards().size() > 5) {
 
 
-                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(5), iv_mainPlayerCard_6,this,"Main");
-                    majbtAction(lejoueur.getPlayerMain().getListCards().get(5) );
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(5), iv_mainPlayerCard_6, this, "Main");
+                    majbtAction(lejoueur.getPlayerMain().getListCards().get(5));
                 }
                 break;
             case R.id.iv_mainPlayer_7:
                 if(selection.isSeclectionPhase()&& selection.getTargetPlayer() ==0){
                     selection.addTolistImageView(this,iv_mainPlayerCard_7,"Main",listPlayer,currentplayer);
                 }
-                if(lejoueur.getPlayerMain().getListCards().size() > 6) {
+                if (lejoueur.getPlayerMain().getListCards().size() > 6) {
 
-                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(6), iv_mainPlayerCard_7,this,"Main");
-                    majbtAction(lejoueur.getPlayerMain().getListCards().get(6) );
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(6), iv_mainPlayerCard_7, this, "Main");
+                    majbtAction(lejoueur.getPlayerMain().getListCards().get(6));
                 }
                 break;
             case R.id.iv_mainPlayer_8:
                 if(selection.isSeclectionPhase()&& selection.getTargetPlayer() ==0){
                     selection.addTolistImageView(this,iv_mainPlayerCard_8,"Main",listPlayer,currentplayer);
                 }
-                if(lejoueur.getPlayerMain().getListCards().size() > 7) {
+                if (lejoueur.getPlayerMain().getListCards().size() > 7) {
 
-                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(7), iv_mainPlayerCard_8,this,"Main");
-                    majbtAction(lejoueur.getPlayerMain().getListCards().get(7) );
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(7), iv_mainPlayerCard_8, this, "Main");
+                    majbtAction(lejoueur.getPlayerMain().getListCards().get(7));
                 }
                 break;
             case R.id.iv_mainPlayer_9:
                 if(selection.isSeclectionPhase()&& selection.getTargetPlayer() ==0){
                     selection.addTolistImageView(this,iv_mainPlayerCard_9,"Main",listPlayer,currentplayer);
                 }
-                if(lejoueur.getPlayerMain().getListCards().size() > 8){
+                if (lejoueur.getPlayerMain().getListCards().size() > 8) {
 
-                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(8), iv_mainPlayerCard_9,this,"Main");
-                    majbtAction(lejoueur.getPlayerMain().getListCards().get(8) );
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(8), iv_mainPlayerCard_9, this, "Main");
+                    majbtAction(lejoueur.getPlayerMain().getListCards().get(8));
                 }
                 break;
             case R.id.iv_mainPlayer_10:
                 if(selection.isSeclectionPhase()&& selection.getTargetPlayer() ==0){
                     selection.addTolistImageView(this,iv_mainPlayerCard_10,"Main",listPlayer,currentplayer);
                 }
-                if(lejoueur.getPlayerMain().getListCards().size() > 9){
+                if (lejoueur.getPlayerMain().getListCards().size() > 9) {
 
-                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(9),iv_mainPlayerCard_10,this,"Main");
-                    majbtAction(lejoueur.getPlayerMain().getListCards().get(9) );
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(9), iv_mainPlayerCard_10, this, "Main");
+                    majbtAction(lejoueur.getPlayerMain().getListCards().get(9));
                 }
                 break;
             case R.id.iv_terrainMonstre1_joueur:
-                if(lejoueur.getPlayerTerrain().getCardZoneMonstre(0) != null) {
-                    if(selection.isSeclectionPhase()&& selection.getTargetPlayer() ==0){
-                        selection.addTolistImageView(this,iv_terrainMonstreJoueur_1,"Terrain",listPlayer,currentplayer);
+                if (lejoueur.getPlayerTerrain().getCardZoneMonstre(0) != null) {
+                    if (selection.isSeclectionPhase() && selection.getTargetPlayer() == 0) {
+                        selection.addTolistImageView(this, iv_terrainMonstreJoueur_1, "Terrain", listPlayer, currentplayer);
                     }
-                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerTerrain().getCardZoneMonstre(0),iv_terrainMonstreJoueur_1,this,"Terrain");
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerTerrain().getCardZoneMonstre(0), iv_terrainMonstreJoueur_1, this, "Terrain");
                     selectedImageView = findViewById(R.id.iv_terrainMonstre1_joueur);
-                    majbtAction(lejoueur.getPlayerTerrain().getCardZoneMonstre(0) );
-                    }
+                    majbtAction(lejoueur.getPlayerTerrain().getCardZoneMonstre(0));
+                }
                 break;
             case R.id.iv_terrainMonstre2_joueur:
 
-                if(listPlayer.get(0).getPlayerTerrain().getCardZoneMonstre(1) != null) {
-                    if(selection.isSeclectionPhase()&& selection.getTargetPlayer() ==0){
-                        selection.addTolistImageView(this,iv_terrainMonstreJoueur_2,"Terrain",listPlayer,currentplayer);
+                if (listPlayer.get(0).getPlayerTerrain().getCardZoneMonstre(1) != null) {
+                    if (selection.isSeclectionPhase() && selection.getTargetPlayer() == 0) {
+                        selection.addTolistImageView(this, iv_terrainMonstreJoueur_2, "Terrain", listPlayer, currentplayer);
                     }
-                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerTerrain().getCardZoneMonstre(1),iv_terrainMonstreJoueur_2,this,"Terrain");
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerTerrain().getCardZoneMonstre(1), iv_terrainMonstreJoueur_2, this, "Terrain");
                     selectedImageView = findViewById(R.id.iv_terrainMonstre2_joueur);
-                    majbtAction(lejoueur.getPlayerTerrain().getCardZoneMonstre(1) );
+                    majbtAction(lejoueur.getPlayerTerrain().getCardZoneMonstre(1));
 
                 }
                 break;
             case R.id.iv_terrainMonstre3_joueur:
 
-                if(listPlayer.get(0).getPlayerTerrain().getCardZoneMonstre(2) != null) {
-                    if(selection.isSeclectionPhase()&& selection.getTargetPlayer() ==0){
-                        selection.addTolistImageView(this,iv_terrainMonstreJoueur_3,"Terrain",listPlayer,currentplayer);
+                if (listPlayer.get(0).getPlayerTerrain().getCardZoneMonstre(2) != null) {
+                    if (selection.isSeclectionPhase() && selection.getTargetPlayer() == 0) {
+                        selection.addTolistImageView(this, iv_terrainMonstreJoueur_3, "Terrain", listPlayer, currentplayer);
                     }
-                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerTerrain().getCardZoneMonstre(2),iv_terrainMonstreJoueur_3,this,"Terrain");
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerTerrain().getCardZoneMonstre(2), iv_terrainMonstreJoueur_3, this, "Terrain");
                     selectedImageView = findViewById(R.id.iv_terrainMonstre3_joueur);
-                    majbtAction(lejoueur.getPlayerTerrain().getCardZoneMonstre(2) );
+                    majbtAction(lejoueur.getPlayerTerrain().getCardZoneMonstre(2));
                 }
                 break;
             case R.id.iv_terrainMonstre4_joueur:
 
-                if(listPlayer.get(0).getPlayerTerrain().getCardZoneMonstre(3) != null) {
-                    if(selection.isSeclectionPhase()&& selection.getTargetPlayer() ==0){
-                        selection.addTolistImageView(this,iv_terrainMonstreJoueur_4,"Terrain",listPlayer,currentplayer);
+                if (listPlayer.get(0).getPlayerTerrain().getCardZoneMonstre(3) != null) {
+                    if (selection.isSeclectionPhase() && selection.getTargetPlayer() == 0) {
+                        selection.addTolistImageView(this, iv_terrainMonstreJoueur_4, "Terrain", listPlayer, currentplayer);
                     }
-                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerTerrain().getCardZoneMonstre(3),iv_terrainMonstreJoueur_4,this,"Terrain");
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerTerrain().getCardZoneMonstre(3), iv_terrainMonstreJoueur_4, this, "Terrain");
                     selectedImageView = findViewById(R.id.iv_terrainMonstre4_joueur);
-                    majbtAction(lejoueur.getPlayerTerrain().getCardZoneMonstre(3) );
+                    majbtAction(lejoueur.getPlayerTerrain().getCardZoneMonstre(3));
                 }
                 break;
             case R.id.iv_terrainMonstre5_joueur:
 
-                if(listPlayer.get(0).getPlayerTerrain().getCardZoneMonstre(4) != null) {
-                    if(selection.isSeclectionPhase()&& selection.getTargetPlayer() ==0){
-                        selection.addTolistImageView(this,iv_terrainMonstreJoueur_5,"Terrain",listPlayer,currentplayer);
+                if (listPlayer.get(0).getPlayerTerrain().getCardZoneMonstre(4) != null) {
+                    if (selection.isSeclectionPhase() && selection.getTargetPlayer() == 0) {
+                        selection.addTolistImageView(this, iv_terrainMonstreJoueur_5, "Terrain", listPlayer, currentplayer);
                     }
-                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerTerrain().getCardZoneMonstre(4),iv_terrainMonstreJoueur_5,this,"Terrain");
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerTerrain().getCardZoneMonstre(4), iv_terrainMonstreJoueur_5, this, "Terrain");
                     selectedImageView = findViewById(R.id.iv_terrainMonstre5_joueur);
-                    majbtAction(lejoueur.getPlayerTerrain().getCardZoneMonstre(4) );
+                    majbtAction(lejoueur.getPlayerTerrain().getCardZoneMonstre(4));
                 }
                 break;
             case R.id.iv_terrainMonstre1_ia:
 
-                if(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(0) != null) {
-                    if(selection.isSeclectionPhase()&& selection.getTargetPlayer() ==1){
-                        Toast.makeText(this,"selectionner : monstre 1",Toast.LENGTH_SHORT).show();
-                        selection.addTolistImageView(this,iv_terrainMonstreIA_1,"Terrain",listPlayer,currentplayer);
+                if (listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(0) != null) {
+                    if (selection.isSeclectionPhase() && selection.getTargetPlayer() == 1) {
+                        Toast.makeText(this, "selectionner : monstre 1", Toast.LENGTH_SHORT).show();
+                        selection.addTolistImageView(this, iv_terrainMonstreIA_1, "Terrain", listPlayer, currentplayer);
                     }
                     /*lejoueur.getPlayerMain().setFrom("Terrain");
                     majbtAction(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(0) );
                     Picasso.with(this).load(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(0).getUrl()).error(R.drawable.cardunknow).into(this.iv_imageCardZoom);
                     tv_descCardZoom.setText(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(0).getDescription());
                     */
-                    lejoueur.getPlayerMain().changeSelectedCard(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(0),iv_terrainMonstreIA_1,this,"Terrain");
+                    lejoueur.getPlayerMain().changeSelectedCard(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(0), iv_terrainMonstreIA_1, this, "Terrain");
                     selectedImageView = findViewById(R.id.iv_terrainMonstre1_ia);
-                    majbtAction(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(0) );
+                    majbtAction(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(0));
                 }
                 break;
             case R.id.iv_terrainMonstre2_ia:
 
-                if(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(1) != null) {
-                    if(selection.isSeclectionPhase()&& selection.getTargetPlayer() ==1){
-                        selection.addTolistImageView(this,iv_terrainMonstreIA_2,"Terrain",listPlayer,currentplayer);
+                if (listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(1) != null) {
+                    if (selection.isSeclectionPhase() && selection.getTargetPlayer() == 1) {
+                        selection.addTolistImageView(this, iv_terrainMonstreIA_2, "Terrain", listPlayer, currentplayer);
                     }
-                    lejoueur.getPlayerMain().changeSelectedCard(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(1),iv_terrainMonstreIA_2,this,"Terrain");
+                    lejoueur.getPlayerMain().changeSelectedCard(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(1), iv_terrainMonstreIA_2, this, "Terrain");
                     selectedImageView = findViewById(R.id.iv_terrainMonstre1_ia);
-                    majbtAction(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(1) );
+                    majbtAction(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(1));
                 }
                 break;
             case R.id.iv_terrainMonstre3_ia:
 
-                if(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(2) != null) {
-                    if(selection.isSeclectionPhase()&& selection.getTargetPlayer() ==1){
-                        selection.addTolistImageView(this,iv_terrainMonstreIA_3,"Terrain",listPlayer,currentplayer);
+                if (listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(2) != null) {
+                    if (selection.isSeclectionPhase() && selection.getTargetPlayer() == 1) {
+                        selection.addTolistImageView(this, iv_terrainMonstreIA_3, "Terrain", listPlayer, currentplayer);
                     }
-                    lejoueur.getPlayerMain().changeSelectedCard(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(2),iv_terrainMonstreIA_2,this,"Terrain");
+                    lejoueur.getPlayerMain().changeSelectedCard(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(2), iv_terrainMonstreIA_2, this, "Terrain");
                     selectedImageView = findViewById(R.id.iv_terrainMonstre1_ia);
-                    majbtAction(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(2) );
+                    majbtAction(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(2));
                 }
                 break;
             case R.id.iv_terrainMonstre4_ia:
 
-                if(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(3) != null) {
-                    if(selection.isSeclectionPhase() && selection.getTargetPlayer() ==1){
-                        selection.addTolistImageView(this,iv_terrainMonstreIA_4,"Terrain",listPlayer,currentplayer);
+                if (listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(3) != null) {
+                    if (selection.isSeclectionPhase() && selection.getTargetPlayer() == 1) {
+                        selection.addTolistImageView(this, iv_terrainMonstreIA_4, "Terrain", listPlayer, currentplayer);
                     }
-                    lejoueur.getPlayerMain().changeSelectedCard(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(3),iv_terrainMonstreIA_3,this,"Terrain");
+                    lejoueur.getPlayerMain().changeSelectedCard(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(3), iv_terrainMonstreIA_3, this, "Terrain");
                     selectedImageView = findViewById(R.id.iv_terrainMonstre1_ia);
-                    majbtAction(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(3) );
+                    majbtAction(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(3));
                 }
                 break;
             case R.id.iv_terrainMonstre5_ia:
 
-                if(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(4) != null) {
-                    if(selection.isSeclectionPhase() && selection.getTargetPlayer() ==1){
-                        selection.addTolistImageView(this,iv_terrainMonstreIA_5,"Terrain",listPlayer,currentplayer);
+                if (listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(4) != null) {
+                    if (selection.isSeclectionPhase() && selection.getTargetPlayer() == 1) {
+                        selection.addTolistImageView(this, iv_terrainMonstreIA_5, "Terrain", listPlayer, currentplayer);
                     }
-                    lejoueur.getPlayerMain().changeSelectedCard(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(4),iv_terrainMonstreIA_4,this,"Terrain");
+                    lejoueur.getPlayerMain().changeSelectedCard(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(4), iv_terrainMonstreIA_4, this, "Terrain");
                     selectedImageView = findViewById(R.id.iv_terrainMonstre1_ia);
-                    majbtAction(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(4) );
+                    majbtAction(listPlayer.get(1).getPlayerTerrain().getCardZoneMonstre(4));
                 }
                 break;
             case R.id.iv_terrainMagie1_joueur:
-                if(lejoueur.getPlayerTerrain().getCardZoneMagiePiege(0) != null) {
-                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerTerrain().getCardZoneMagiePiege(0),iv_terrainMagieJoueur_1,this,"Terrain");
-                    majbtAction(lejoueur.getPlayerTerrain().getCardZoneMagiePiege(0) );
+                if (lejoueur.getPlayerTerrain().getCardZoneMagiePiege(0) != null) {
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerTerrain().getCardZoneMagiePiege(0), iv_terrainMagieJoueur_1, this, "Terrain");
+                    majbtAction(lejoueur.getPlayerTerrain().getCardZoneMagiePiege(0));
                 }
                 break;
             case R.id.iv_terrainMagie2_joueur:
-                if(lejoueur.getPlayerTerrain().getCardZoneMagiePiege(1) != null) {
-                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerTerrain().getCardZoneMagiePiege(1),iv_terrainMagieJoueur_1,this,"Terrain");
-                    majbtAction(lejoueur.getPlayerTerrain().getCardZoneMagiePiege(1) );
+                if (lejoueur.getPlayerTerrain().getCardZoneMagiePiege(1) != null) {
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerTerrain().getCardZoneMagiePiege(1), iv_terrainMagieJoueur_1, this, "Terrain");
+                    majbtAction(lejoueur.getPlayerTerrain().getCardZoneMagiePiege(1));
                 }
                 break;
             case R.id.iv_terrainMagie3_joueur:
-                if(lejoueur.getPlayerTerrain().getCardZoneMagiePiege(2) != null) {
-                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerTerrain().getCardZoneMagiePiege(2),iv_terrainMagieJoueur_1,this,"Terrain");
-                    majbtAction(lejoueur.getPlayerTerrain().getCardZoneMagiePiege(2) );
+                if (lejoueur.getPlayerTerrain().getCardZoneMagiePiege(2) != null) {
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerTerrain().getCardZoneMagiePiege(2), iv_terrainMagieJoueur_1, this, "Terrain");
+                    majbtAction(lejoueur.getPlayerTerrain().getCardZoneMagiePiege(2));
                 }
                 break;
             case R.id.iv_terrainMagie4_joueur:
-                if(lejoueur.getPlayerTerrain().getCardZoneMagiePiege(3) != null) {
-                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerTerrain().getCardZoneMagiePiege(3),iv_terrainMagieJoueur_1,this,"Terrain");
-                    majbtAction(lejoueur.getPlayerTerrain().getCardZoneMagiePiege(3) );
+                if (lejoueur.getPlayerTerrain().getCardZoneMagiePiege(3) != null) {
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerTerrain().getCardZoneMagiePiege(3), iv_terrainMagieJoueur_1, this, "Terrain");
+                    majbtAction(lejoueur.getPlayerTerrain().getCardZoneMagiePiege(3));
                 }
                 break;
             case R.id.iv_terrainMagie5_joueur:
-                if(lejoueur.getPlayerTerrain().getCardZoneMagiePiege(4) != null) {
-                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerTerrain().getCardZoneMagiePiege(4),iv_terrainMagieJoueur_1,this,"Terrain");
-                    majbtAction(lejoueur.getPlayerTerrain().getCardZoneMagiePiege(4) );
+                if (lejoueur.getPlayerTerrain().getCardZoneMagiePiege(4) != null) {
+                    lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerTerrain().getCardZoneMagiePiege(4), iv_terrainMagieJoueur_1, this, "Terrain");
+                    majbtAction(lejoueur.getPlayerTerrain().getCardZoneMagiePiege(4));
                 }
                 break;
             case R.id.iv_terrainMagie1_ia:
-                if(listPlayer.get(1).getPlayerTerrain().getCardZoneMagiePiege(0) != null) {
-                    listPlayer.get(1).getPlayerMain().changeSelectedCard(listPlayer.get(1).getPlayerTerrain().getCardZoneMagiePiege(0),iv_terrainMagieIA_1,this,"Terrain");
-                    majbtAction(listPlayer.get(1).getPlayerTerrain().getCardZoneMagiePiege(0) );
+                if (listPlayer.get(1).getPlayerTerrain().getCardZoneMagiePiege(0) != null) {
+                    listPlayer.get(1).getPlayerMain().changeSelectedCard(listPlayer.get(1).getPlayerTerrain().getCardZoneMagiePiege(0), iv_terrainMagieIA_1, this, "Terrain");
+                    majbtAction(listPlayer.get(1).getPlayerTerrain().getCardZoneMagiePiege(0));
                 }
                 break;
             case R.id.iv_terrainMagie2_ia:
-                if(listPlayer.get(1).getPlayerTerrain().getCardZoneMagiePiege(1) != null) {
-                    listPlayer.get(1).getPlayerMain().changeSelectedCard(listPlayer.get(1).getPlayerTerrain().getCardZoneMagiePiege(1),iv_terrainMagieIA_2,this,"Terrain");
-                    majbtAction(listPlayer.get(1).getPlayerTerrain().getCardZoneMagiePiege(0) );
+                if (listPlayer.get(1).getPlayerTerrain().getCardZoneMagiePiege(1) != null) {
+                    listPlayer.get(1).getPlayerMain().changeSelectedCard(listPlayer.get(1).getPlayerTerrain().getCardZoneMagiePiege(1), iv_terrainMagieIA_2, this, "Terrain");
+                    majbtAction(listPlayer.get(1).getPlayerTerrain().getCardZoneMagiePiege(0));
                 }
                 break;
             case R.id.iv_terrainMagie3_ia:
-                if(listPlayer.get(1).getPlayerTerrain().getCardZoneMagiePiege(2) != null) {
-                    listPlayer.get(1).getPlayerMain().changeSelectedCard(listPlayer.get(1).getPlayerTerrain().getCardZoneMagiePiege(2),iv_terrainMagieIA_3,this,"Terrain");
-                    majbtAction(listPlayer.get(1).getPlayerTerrain().getCardZoneMagiePiege(0) );
+                if (listPlayer.get(1).getPlayerTerrain().getCardZoneMagiePiege(2) != null) {
+                    listPlayer.get(1).getPlayerMain().changeSelectedCard(listPlayer.get(1).getPlayerTerrain().getCardZoneMagiePiege(2), iv_terrainMagieIA_3, this, "Terrain");
+                    majbtAction(listPlayer.get(1).getPlayerTerrain().getCardZoneMagiePiege(0));
                 }
                 break;
             case R.id.iv_terrainMagie4_ia:
-                if(listPlayer.get(1).getPlayerTerrain().getCardZoneMagiePiege(3) != null) {
-                    listPlayer.get(1).getPlayerMain().changeSelectedCard(listPlayer.get(1).getPlayerTerrain().getCardZoneMagiePiege(3),iv_terrainMagieIA_4,this,"Terrain");
-                    majbtAction(listPlayer.get(1).getPlayerTerrain().getCardZoneMagiePiege(0) );
+                if (listPlayer.get(1).getPlayerTerrain().getCardZoneMagiePiege(3) != null) {
+                    listPlayer.get(1).getPlayerMain().changeSelectedCard(listPlayer.get(1).getPlayerTerrain().getCardZoneMagiePiege(3), iv_terrainMagieIA_4, this, "Terrain");
+                    majbtAction(listPlayer.get(1).getPlayerTerrain().getCardZoneMagiePiege(0));
                 }
                 break;
             case R.id.iv_terrainMagie5_ia:
-                if(listPlayer.get(1).getPlayerTerrain().getCardZoneMagiePiege(4) != null) {
-                    listPlayer.get(1).getPlayerMain().changeSelectedCard(listPlayer.get(1).getPlayerTerrain().getCardZoneMagiePiege(4),iv_terrainMagieIA_5,this,"Terrain");
-                    majbtAction(listPlayer.get(1).getPlayerTerrain().getCardZoneMagiePiege(0) );
+                if (listPlayer.get(1).getPlayerTerrain().getCardZoneMagiePiege(4) != null) {
+                    listPlayer.get(1).getPlayerMain().changeSelectedCard(listPlayer.get(1).getPlayerTerrain().getCardZoneMagiePiege(4), iv_terrainMagieIA_5, this, "Terrain");
+                    majbtAction(listPlayer.get(1).getPlayerTerrain().getCardZoneMagiePiege(0));
                 }
                 break;
             default:
@@ -678,27 +701,29 @@ public class Game_activity extends AppCompatActivity {
         // init list actions
 
         EffectPioche effectPioche = new EffectPioche();
-        Action actionPioche = new Action("Pioche",effectPioche );
+        Action actionPioche = new Action("Pioche", effectPioche);
         //listActionsEffect.add(actionPioche);
 
         nbplayer = listPlayer.size();
         currentplayer = listPlayer.get(0);
-        Log.d("remiplayer",currentplayer.getName());
-        Log.d("remiplayer",listPlayer.get(0).getName());
+        Log.d("remiplayer", currentplayer.getName());
+        Log.d("remiplayer", listPlayer.get(0).getName());
         phaseInit();
         //for (int i=0; i==listPlayer.size() ;i++){
         listPlayer.get(0).getPlayerDeck().shuffleDeck();
         listPlayer.get(1).getPlayerDeck().shuffleDeck();
 
-        actionPioche.getEffect().execute(this,listPlayer,0,5,null,null,null);
-        actionPioche.getEffect().execute(this,listPlayer,1,5,null,null,null);
+        actionPioche.getEffect().execute(this, listPlayer, 0, 5, null, null, null);
+        actionPioche.getEffect().execute(this, listPlayer, 1, 5, null, null, null);
 
 
         majMain();
         majNBPlayerDeckCard();
         //gameCore();
 
-    };
+    }
+
+    ;
 /*
     private void gameCore() {
 
@@ -709,26 +734,26 @@ public class Game_activity extends AppCompatActivity {
         }
     }*/
 
-    public void nextTurn(){
-        nbTurn = nbTurn +1;
-        Log.d("numPhasenbTurn",""+nbTurn);
-        Log.d("numPhasenbplayer",""+nbplayer);
+    public void nextTurn() {
+        nbTurn = nbTurn + 1;
+        Log.d("numPhasenbTurn", "" + nbTurn);
+        Log.d("numPhasenbplayer", "" + nbplayer);
         int playerTurn = nbTurn % nbplayer;
         currentplayer = listPlayer.get(playerTurn);
-        Toast.makeText(this,"Changement de tour !",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Changement de tour !", Toast.LENGTH_SHORT).show();
     }
 
 
     //initialisation avant partie
-    public void phaseInit(){
+    public void phaseInit() {
         //draw phase
         Phase newphase = new Phase("DrawPhase");
         EffectPioche effectPioche = new EffectPioche();
-        Action actionPioche = new Action("PiocheNormale",effectPioche );
+        Action actionPioche = new Action("PiocheNormale", effectPioche);
 
 
         //action activer carte piege
-        ArrayList<Action> listeAction =  new ArrayList<Action>();
+        ArrayList<Action> listeAction = new ArrayList<Action>();
         listeAction.add(actionPioche);
         newphase.setListAction(listeAction);
         listePhase.add(newphase);
@@ -742,14 +767,14 @@ public class Game_activity extends AppCompatActivity {
 
         //Ajout de l'action Invocation Normale à la liste d'action
         EffectInvoquerNormale effectInvoquerNormale = new EffectInvoquerNormale();
-        Action actionInvocationNormale = new Action("InvocationNormale",effectInvoquerNormale );
-        listeAction =  new ArrayList<Action>();
+        Action actionInvocationNormale = new Action("InvocationNormale", effectInvoquerNormale);
+        listeAction = new ArrayList<Action>();
         listeAction.add(actionInvocationNormale);
         newphase.setListAction(listeAction);
 
         //Ajout de l'action poser à la liste d'action
         EffectPoseNormal effectPoseNormale = new EffectPoseNormal();
-        Action actionPoseNormale = new Action("PoseNormale",effectPoseNormale );
+        Action actionPoseNormale = new Action("PoseNormale", effectPoseNormale);
         listeAction.add(actionPoseNormale);
 
         listePhase.add(newphase);
@@ -763,14 +788,14 @@ public class Game_activity extends AppCompatActivity {
 
         //Ajout de l'action Invocation Normale à la liste d'action
         effectInvoquerNormale = new EffectInvoquerNormale();
-        actionInvocationNormale = new Action("InvocationNormale",effectInvoquerNormale );
-        listeAction =  new ArrayList<Action>();
+        actionInvocationNormale = new Action("InvocationNormale", effectInvoquerNormale);
+        listeAction = new ArrayList<Action>();
         listeAction.add(actionInvocationNormale);
         newphase.setListAction(listeAction);
 
         //Ajout de l'action poser à la liste d'action
         effectPoseNormale = new EffectPoseNormal();
-        actionPoseNormale = new Action("PoseNormale",effectPoseNormale );
+        actionPoseNormale = new Action("PoseNormale", effectPoseNormale);
         listeAction.add(actionPoseNormale);
 
         listePhase.add(newphase);
@@ -784,12 +809,12 @@ public class Game_activity extends AppCompatActivity {
     }
 
     //permet de passer à la phase suivante
-    public void nextPhase(){
-        ordrePhase ++;
-        if(ordrePhase == 6 ){
+    public void nextPhase() {
+        ordrePhase++;
+        if (ordrePhase == 6) {
             nextTurn();
         }
-        ordrePhase =ordrePhase % 6;
+        ordrePhase = ordrePhase % 6;
         ChangePhase(ordrePhase);
         /*currentPhase = listePhase.get(ordrePhase);
         Toast.makeText(this,currentPhase.getName(),Toast.LENGTH_SHORT).show();*/
@@ -798,14 +823,14 @@ public class Game_activity extends AppCompatActivity {
     }
 
     //permet de changer de phase
-    public void ChangePhase(int p_numPhase){
-        Log.d("numPhase",""+p_numPhase);
-        Log.d("numPhasecurrentplayer",""+currentplayer.getName());
-        ordrePhase =p_numPhase;
+    public void ChangePhase(int p_numPhase) {
+        Log.d("numPhase", "" + p_numPhase);
+        Log.d("numPhasecurrentplayer", "" + currentplayer.getName());
+        ordrePhase = p_numPhase;
         currentPhase = listePhase.get(ordrePhase);
-        Toast.makeText(this,currentPhase.getName(),Toast.LENGTH_LONG).show();
-        if (currentplayer.getName().equals(listPlayer.get(0).getName())){
-            switch (ordrePhase){
+        Toast.makeText(this, currentPhase.getName(), Toast.LENGTH_LONG).show();
+        if (currentplayer.getName().equals(listPlayer.get(0).getName())) {
+            switch (ordrePhase) {
 
                 case 0:
                     //draw phase
@@ -830,7 +855,7 @@ public class Game_activity extends AppCompatActivity {
                 case 2:
                     //Main phase
                     iv_deckPlayer.clearAnimation();
-                    if(currentplayer.getPlayerMain().getSelectedCard().getCardType() != null){
+                    if (currentplayer.getPlayerMain().getSelectedCard().getCardType() != null) {
                         majbtAction(currentplayer.getPlayerMain().getSelectedCard());
                     }
 
@@ -861,8 +886,8 @@ public class Game_activity extends AppCompatActivity {
                     break;
             }
 
-        }else{
-            switch (ordrePhase){
+        } else {
+            switch (ordrePhase) {
 
                 case 0:
                     //draw phase
@@ -876,7 +901,7 @@ public class Game_activity extends AppCompatActivity {
                     //bt_EndPhase.setBackgroundColor(Color.RED);
 
 
-                    currentPhase.findActionByName("PiocheNormale").getEffect().execute(this,listPlayer,1,1,null,null,null);
+                    currentPhase.findActionByName("PiocheNormale").getEffect().execute(this, listPlayer, 1, 1, null, null, null);
 
                     // test pour faire perdre un des joueur avec les pv
                     /*EffectGainPertePV perte500 = new EffectGainPertePV();
@@ -919,55 +944,60 @@ public class Game_activity extends AppCompatActivity {
         }
 
 
-
     }
-    public void onClickBP(View view){
-        if(ordrePhase == 2) {
+
+    public void onClickBP(View view) {
+        if (ordrePhase == 2) {
             ChangePhase(3);
         }
     }
-    public void onClickMP2(View view){
-        if(ordrePhase == 3) {
+
+    public void onClickMP2(View view) {
+        if (ordrePhase == 3) {
             ChangePhase(4);
         }
     }
-    public void onClickEP(View view){
-        if(ordrePhase <=5 && ordrePhase >1) {
+
+    public void onClickEP(View view) {
+        if (ordrePhase < =5 && ordrePhase > 1) {
             ChangePhase(5);
         }
     }
-    public void OnFinishSelectPlayerCard(ArrayList<Card> listCards){
-        if(!deckPlayerCharger) {
-            deckPlayerCharger =true;
-            listPlayer.get(0).initDeckToPlay(listCards,listPlayer.get(0));
-            Toast.makeText(this,"premiere carte "+listCards.get(0).getName(),Toast.LENGTH_SHORT).show();
-            Log.w("premiere carte", "premiere carte "+listPlayer.get(0).getPlayerDeck().getListCard().get(0).getName());
-            Log.w("premiere carte", "premiere carte 2"+listCards.get(0).getName());
+
+    public void OnFinishSelectPlayerCard(ArrayList<Card> listCards) {
+        if (!deckPlayerCharger) {
+            deckPlayerCharger = true;
+            listPlayer.get(0).initDeckToPlay(listCards, listPlayer.get(0));
+            Toast.makeText(this, "premiere carte " + listCards.get(0).getName(), Toast.LENGTH_SHORT).show();
+            Log.w("premiere carte", "premiere carte " + listPlayer.get(0).getPlayerDeck().getListCard().get(0).getName());
+            Log.w("premiere carte", "premiere carte 2" + listCards.get(0).getName());
             //listPlayer.get(0).setPlayerDeck(listPlayer.get(0).initDeckToPlay(listCards));;
             //listPlayer.get(0).getPlayerDeck().setListCard(listCards);
             DeckDBManager deckDBManager = new DeckDBManager();
-            deckDBManager.selectAllCardDeck(listPlayer.get(1).getPlayerDeck(),this);
-            Toast.makeText(this,"deck joueur charger ",Toast.LENGTH_SHORT).show();
+            deckDBManager.selectAllCardDeck(listPlayer.get(1).getPlayerDeck(), this);
+            Toast.makeText(this, "deck joueur charger ", Toast.LENGTH_SHORT).show();
             //Toast.makeText(this,"premiere carte "+listPlayer.get(0).getPlayerDeck().getListCard().get(0).getName(),Toast.LENGTH_SHORT).show();
 
 
-        }else{
+        } else {
             //listPlayer.get(1).getPlayerDeck().setListCard(listCards);
-            listPlayer.get(1).initDeckToPlay(listCards,listPlayer.get(1));
+            listPlayer.get(1).initDeckToPlay(listCards, listPlayer.get(1));
             majNBPlayerDeckCard();
             gameStart();
         }
     }
-    public void ShowDrawCard(ArrayList<CardInGame> p_listCards){
-        for (CardInGame aCard : p_listCards){
-                    Toast.makeText(this,"pioche :"+ aCard.getName(),Toast.LENGTH_SHORT).show();
-                    Log.d("pioche",aCard.getName());
-                    listPlayer.get(0).getPlayerMain().getListCards().add(aCard);
-                    majNBPlayerDeckCard();
-                    Log.d("pioche"," nb carte main : " + listPlayer.get(0).getPlayerMain().getListCards().size());
+
+    public void ShowDrawCard(ArrayList<CardInGame> p_listCards) {
+        for (CardInGame aCard : p_listCards) {
+            Toast.makeText(this, "pioche :" + aCard.getName(), Toast.LENGTH_SHORT).show();
+            Log.d("pioche", aCard.getName());
+            listPlayer.get(0).getPlayerMain().getListCards().add(aCard);
+            majNBPlayerDeckCard();
+            Log.d("pioche", " nb carte main : " + listPlayer.get(0).getPlayerMain().getListCards().size());
         }
     }
-    public void majNBPlayerDeckCard(){
+
+    public void majNBPlayerDeckCard() {
 
         // nombre de carte du joueur
         int nbcardDeckPlayer = listPlayer.get(0).getPlayerDeck().getListCard().size();
@@ -975,10 +1005,10 @@ public class Game_activity extends AppCompatActivity {
 
         // on fait disparaitre l'image si on a plus de carte dans  le deck du joueur
 
-        if(nbcardDeckPlayer <= 0){
+        if (nbcardDeckPlayer <= 0) {
             //iv_deckPlayer.setVisibility(View.INVISIBLE);
             iv_deckPlayer.setImageResource(R.drawable.caseterrain);
-        }else{
+        } else {
             iv_deckPlayer.setImageResource(R.drawable.cardcover);
         }
 
@@ -987,49 +1017,95 @@ public class Game_activity extends AppCompatActivity {
         tv_nbdeckCardIA.setText(String.valueOf(nbcardDeckIA));
 
         // on fait disparaitre l'image si on a plus de carte dans  le deck de l'ia
-        if(nbcardDeckIA <= 0){
+        if (nbcardDeckIA <= 0) {
             iv_deckIA.setImageResource(R.drawable.caseterrain);
 
-        }else{
+        } else {
             iv_deckIA.setImageResource(R.drawable.cardcover);
         }
 
         //Toast.makeText(this,"joueur ia :"+ listPlayer.get(1).getPlayerDeck().getListCard().size(),Toast.LENGTH_SHORT).show();
     }
-    public void majPv(){
+
+    public void majPv() {
         tv_iaLifePoint.setText(String.valueOf(listPlayer.get(1).getLifepoint()));
         tv_playerLifePoint.setText(String.valueOf(listPlayer.get(0).getLifepoint()));
     }
-    public void majMain(){
-        listPlayer.get(0).getPlayerMain().majMain(listPlayer.get(0),this);
-        listPlayer.get(1).getPlayerMain().majMainNotVisible(listPlayer.get(1),this);
+
+    public void majMain() {
+        listPlayer.get(0).getPlayerMain().majMain(listPlayer.get(0), this);
+        listPlayer.get(1).getPlayerMain().majMainNotVisible(listPlayer.get(1), this);
     }
 
-    public void onClickInvocation (View view){
-        Main currentplayerMain =currentplayer.getPlayerMain();
-        Log.w("invocation", "count : "+currentplayer.getCountInvocationNormale() + " count max : "+ currentplayer.getMaxInvocationNormale());
+    public void onClickActivateEffectCard(View view) {
+        Main currentplayerMain = currentplayer.getPlayerMain();
+        BuilderEffectUtils builderEffectUtils = new BuilderEffectUtils();
+        if (currentplayerMain.getSelectedCard() != null) {
+            CardInGame aCard = currentplayerMain.getSelectedCard();
+            if (aCard.getCardType().toString().equals("MONSTRE")) {
+
+            }
+            else {
+                List<CardInGame> listOfCardInZone = Arrays.asList(currentplayer.getPlayerTerrain().getTableauZoneMagiePiege());
+                if (listOfCardInZone.stream().noneMatch(Objects::isNull)){
+                    // zone magie piege complete
+                }
+                else {
+                    // zone magie piege imcomplete
+                    if (listOfCardInZone.stream().noneMatch(element -> element != null
+                            && element.getIdNumberInGame() != null
+                            && element.getIdNumberInGame().equals(aCard.getIdNumberInGame()))) {
+                        onClickPoser(view);
+
+                        if (aCard.getEffects() != null && aCard.getEffects().size() == 1 && aCard.getEffects().get(0) != null) {
+                            aCard.getEffects().get(0).execute(this, listPlayer,
+                                    builderEffectUtils.knowJoueurCible(aCard.getEffectsExplaination().get(0)),
+                                    builderEffectUtils.knowQuota(aCard.getEffectsExplaination().get(0)),
+                                    builderEffectUtils.knowPileA(aCard.getEffectsExplaination().get(0)),
+                                    builderEffectUtils.knowPileB(aCard.getEffectsExplaination().get(0)),
+                                    builderEffectUtils.knowFilterCard(aCard.getEffectsExplaination().get(0), listPlayer)
+                                    );
+                        }
+                    }
+                }
+
+            }
+            majbtAction(aCard);
+            ArrayList<CardInGame> dropCard = new ArrayList<>();
+            dropCard.add(aCard);
+            new EffectMoveCardFromAtoB().execute(this, listPlayer, 0, 1, currentplayer.getPlayerTerrain(), currentplayer.getPlayerCimetiere(), dropCard);
+        }
+
+        majPv();
+        majMain();
+        majNBPlayerDeckCard();
+    }
+
+    public void onClickInvocation(View view) {
+        Main currentplayerMain = currentplayer.getPlayerMain();
+        Log.w("invocation", "count : " + currentplayer.getCountInvocationNormale() + " count max : " + currentplayer.getMaxInvocationNormale());
         if (currentPhase.containsActionByName("InvocationNormale") && currentplayer.equals(listPlayer.get(0))) {
             if (currentplayer.getCountInvocationNormale() < currentplayer.getMaxInvocationNormale()) {
                 Action invocation = currentPhase.findActionByName("InvocationNormale");
 
                 if (currentplayerMain.getSelectedCard() != null) {
-                    Monstre leMonstre =((Monstre)currentplayerMain.getSelectedCard());
-                    if (leMonstre.getLevel()< 5){
+                    Monstre leMonstre = ((Monstre) currentplayerMain.getSelectedCard());
+                    if (leMonstre.getLevel() < 5) {
                         {
-                            ArrayList<CardInGame>listfiltre =new  ArrayList<>();
+                            ArrayList<CardInGame> listfiltre = new ArrayList<>();
                             listfiltre.add(currentplayerMain.getSelectedCard());
-                            invocation.getEffect().execute(this,listPlayer,0,1,currentplayer.getPlayerMain(),currentplayer.getPlayerTerrain(),listfiltre);
+                            invocation.getEffect().execute(this, listPlayer, 0, 1, currentplayer.getPlayerMain(), currentplayer.getPlayerTerrain(), listfiltre);
                             majbtAction(currentplayerMain.getSelectedCard());
                         }
-                    }else if(leMonstre.getLevel()>4 && leMonstre.getLevel()<7){
+                    } else if (leMonstre.getLevel() > 4 && leMonstre.getLevel() < 7) {
 
-                        selection.InitSelection(this,1,"MONSTRE","Terrain","Sacrifice",currentplayerMain.getImageViewZoom(),listPlayer,leMonstre.getPlayer().getNumJoueur());
+                        selection.InitSelection(this, 1, "MONSTRE", "Terrain", "Sacrifice", currentplayerMain.getImageViewZoom(), listPlayer, leMonstre.getPlayer().getNumJoueur());
                        /* ArrayList<CardInGame>listfiltre =new  ArrayList<>();
                         listfiltre.add(currentplayerMain.getSelectedCard());
                         invocation.getEffect().execute(this,listPlayer,0,1,currentplayer.getPlayerMain(),currentplayer.getPlayerTerrain(),listfiltre);
                         majbtAction(currentplayerMain.getSelectedCard());*/
-                    }else if(leMonstre.getLevel()>6){
-                        selection.InitSelection(this,2,"MONSTRE","Terrain","Sacrifice",currentplayerMain.getImageViewZoom(),listPlayer,leMonstre.getPlayer().getNumJoueur());
+                    } else if (leMonstre.getLevel() > 6) {
+                        selection.InitSelection(this, 2, "MONSTRE", "Terrain", "Sacrifice", currentplayerMain.getImageViewZoom(), listPlayer, leMonstre.getPlayer().getNumJoueur());
                         /*ArrayList<CardInGame>listfiltre =new  ArrayList<>();
                         listfiltre.add(currentplayerMain.getSelectedCard());
                         invocation.getEffect().execute(this,listPlayer,0,1,currentplayer.getPlayerMain(),currentplayer.getPlayerTerrain(),listfiltre);
@@ -1049,49 +1125,51 @@ public class Game_activity extends AppCompatActivity {
 
 
     }
-    public void onClickPoser (View view){
-        Main currentplayerMain =currentplayer.getPlayerMain();
-        Log.w("invocation", "count : "+currentplayer.getCountInvocationNormale() + " count max : "+ currentplayer.getMaxInvocationNormale());
+
+    public void onClickPoser(View view) {
+        Main currentplayerMain = currentplayer.getPlayerMain();
+        Log.w("invocation", "count : " + currentplayer.getCountInvocationNormale() + " count max : " + currentplayer.getMaxInvocationNormale());
         if (currentPhase.containsActionByName("PoseNormale") && currentplayer.equals(listPlayer.get(0))) {
             if (currentplayerMain.getSelectedCard() != null) {
 
-            if (currentplayerMain.getSelectedCard().getCardType().toString().equals("MONSTRE")) {
+                if (currentplayerMain.getSelectedCard().getCardType().toString().equals("MONSTRE")) {
 
 
                     if (currentplayer.getCountInvocationNormale() < currentplayer.getMaxInvocationNormale()) {
                         Action invocation = currentPhase.findActionByName("PoseNormale");
 
                         if (currentplayerMain.getSelectedCard() != null) {
-                            Monstre leMonstre =((Monstre)currentplayerMain.getSelectedCard());
-                            if (leMonstre.getLevel()< 5){
+                            Monstre leMonstre = ((Monstre) currentplayerMain.getSelectedCard());
+                            if (leMonstre.getLevel() < 5) {
                                 ArrayList<CardInGame> listfiltre = new ArrayList<>();
                                 listfiltre.add(currentplayerMain.getSelectedCard());
                                 invocation.getEffect().execute(this, listPlayer, 0, 1, currentplayer.getPlayerMain(), currentplayer.getPlayerTerrain(), listfiltre);
                                 majbtAction(currentplayerMain.getSelectedCard());
-                            }else if (leMonstre.getLevel()>4 && leMonstre.getLevel()<7){
-                                selection.InitSelection(this,1,"MONSTRE","Terrain","SacrificePose",currentplayerMain.getImageViewZoom(),listPlayer,leMonstre.getPlayer().getNumJoueur());
-                            }else if (leMonstre.getLevel()>6){
-                                selection.InitSelection(this,2,"MONSTRE","Terrain","SacrificePose",currentplayerMain.getImageViewZoom(),listPlayer,leMonstre.getPlayer().getNumJoueur());
+                            } else if (leMonstre.getLevel() > 4 && leMonstre.getLevel() < 7) {
+                                selection.InitSelection(this, 1, "MONSTRE", "Terrain", "SacrificePose", currentplayerMain.getImageViewZoom(), listPlayer, leMonstre.getPlayer().getNumJoueur());
+                            } else if (leMonstre.getLevel() > 6) {
+                                selection.InitSelection(this, 2, "MONSTRE", "Terrain", "SacrificePose", currentplayerMain.getImageViewZoom(), listPlayer, leMonstre.getPlayer().getNumJoueur());
                             }
 
                         }
                     } else {
                         Toast.makeText(this, "Vous avez déjà invoquer normalement ce tour", Toast.LENGTH_SHORT).show();
                     }
-            }else if (currentplayerMain.getSelectedCard().getCardType().toString().equals("MAGIE") || currentplayerMain.getSelectedCard().getCardType().toString().equals("PIEGE")) {
-                Action pose = currentPhase.findActionByName("PoseNormale");
-                Log.w("invocation", "cardType : "+currentplayerMain.getSelectedCard().getCardType().toString());
+                } else if (currentplayerMain.getSelectedCard().getCardType().toString().equals("MAGIE") || currentplayerMain.getSelectedCard().getCardType().toString().equals("PIEGE")) {
+                    Action pose = currentPhase.findActionByName("PoseNormale");
+                    Log.w("invocation", "cardType : " + currentplayerMain.getSelectedCard().getCardType().toString());
 
-                ArrayList<CardInGame> listfiltre = new ArrayList<>();
-                listfiltre.add(currentplayerMain.getSelectedCard());
-                pose.getEffect().execute(this, listPlayer, 0, 1, currentplayer.getPlayerMain(), currentplayer.getPlayerTerrain(), listfiltre);
-                majbtAction(currentplayerMain.getSelectedCard());
-            }
+                    ArrayList<CardInGame> listfiltre = new ArrayList<>();
+                    listfiltre.add(currentplayerMain.getSelectedCard());
+                    pose.getEffect().execute(this, listPlayer, 0, 1, currentplayer.getPlayerMain(), currentplayer.getPlayerTerrain(), listfiltre);
+                    majbtAction(currentplayerMain.getSelectedCard());
+                }
             }
         }
 
 
     }
+
     public void blinkdeck() {
         Animation animation = new AlphaAnimation(1, 0.50f); //to change visibility from visible to invisible
         animation.setDuration(500); //1 second duration for each animation cycle
@@ -1102,9 +1180,9 @@ public class Game_activity extends AppCompatActivity {
 
     }
 
-    public void majbtAction(CardInGame aCard){
+    public void majbtAction(CardInGame aCard) {
         //si le joueur n'est pas l'ia
-        if(!selection.isSeclectionPhase()) {
+        if (!selection.isSeclectionPhase()) {
             if (aCard != null) {
                 if (aCard.getPlayer().getNumJoueur() == 0) {
                     if (currentplayer.getPlayerMain().getFrom().equals("Main")) {
@@ -1237,13 +1315,14 @@ public class Game_activity extends AppCompatActivity {
             }
         }
     }
-    public void onClickChangerPosition (View view){
-        Main currentplayerMain =currentplayer.getPlayerMain();
-        if (currentplayerMain.getSelectedCard() != null) {
-            CardInGame aCard =currentplayerMain.getSelectedCard();
 
-            if(aCard.getCardType().toString().equals("MONSTRE")) {
-                if(!((Monstre) aCard).isHaveChangePosition()) {
+    public void onClickChangerPosition(View view) {
+        Main currentplayerMain = currentplayer.getPlayerMain();
+        if (currentplayerMain.getSelectedCard() != null) {
+            CardInGame aCard = currentplayerMain.getSelectedCard();
+
+            if (aCard.getCardType().toString().equals("MONSTRE")) {
+                if (!((Monstre) aCard).isHaveChangePosition()) {
                     if (((Monstre) aCard).getPosition().equals("ATK")) {
 
                         currentplayer.getPlayerTerrain().monsterToDefAnnimation(this, selectedImageView);
@@ -1251,7 +1330,7 @@ public class Game_activity extends AppCompatActivity {
                         ((Monstre) aCard).setHaveChangePosition(true);
 
                     } else if (((Monstre) aCard).getPosition().equals("DEF")) {
-                        if(!aCard.isVisible()) {
+                        if (!aCard.isVisible()) {
                             aCard.setVisible(true);
                         }
                         currentplayer.getPlayerTerrain().monsterToAtkAnnimation(this, selectedImageView);
@@ -1265,80 +1344,83 @@ public class Game_activity extends AppCompatActivity {
         }
     }
 
-    public void onClickAttaque (View view){
-        Main currentplayerMain =currentplayer.getPlayerMain();
+    public void onClickAttaque(View view) {
+        Main currentplayerMain = currentplayer.getPlayerMain();
         if (currentplayerMain.getSelectedCard() != null) {
-            CardInGame aCard =currentplayerMain.getSelectedCard();
-                if(aCard.getCardType().toString().equals("MONSTRE")) {
-                    BattleSystem battleSystem = new BattleSystem();
-                    if(listPlayer.get(1).getPlayerTerrain().getCountMonstre() > 0){
-                        //select le monstre à attaquer
-                        //selection.setFirstSelected(selectedImageView);
-                        Toast.makeText(this, "Selectionner le monstre à attaquer !", Toast.LENGTH_SHORT).show();
-                        selection.InitSelection(this,1, "MONSTRE","Terrain","Battle",selectedImageView,listPlayer,listPlayer.get(1).getNumJoueur());
-                        Toast.makeText(this, "Attaque !", Toast.LENGTH_SHORT).show();
-                        ((Monstre)aCard).setCountAtk(((Monstre)aCard).getCountAtk()+1);
-                        majbtAction(aCard);
-                        majPv();
-                    }else{
-                        //attaque direct
-                        battleSystem.Battle(listPlayer,(Monstre) currentplayerMain.getSelectedCard(),null,this);
-                        majPv();
-                        Toast.makeText(this, "Attaque direct !", Toast.LENGTH_SHORT).show();
-                    }
-                    ((Monstre)aCard).setCountAtk(((Monstre)aCard).getCountAtk()+1);
+            CardInGame aCard = currentplayerMain.getSelectedCard();
+            if (aCard.getCardType().toString().equals("MONSTRE")) {
+                BattleSystem battleSystem = new BattleSystem();
+                if (listPlayer.get(1).getPlayerTerrain().getCountMonstre() > 0) {
+                    //select le monstre à attaquer
+                    //selection.setFirstSelected(selectedImageView);
+                    Toast.makeText(this, "Selectionner le monstre à attaquer !", Toast.LENGTH_SHORT).show();
+                    selection.InitSelection(this, 1, "MONSTRE", "Terrain", "Battle", selectedImageView, listPlayer, listPlayer.get(1).getNumJoueur());
+                    Toast.makeText(this, "Attaque !", Toast.LENGTH_SHORT).show();
+                    ((Monstre) aCard).setCountAtk(((Monstre) aCard).getCountAtk() + 1);
                     majbtAction(aCard);
+                    majPv();
+                } else {
+                    //attaque direct
+                    battleSystem.Battle(listPlayer, (Monstre) currentplayerMain.getSelectedCard(), null, this);
+                    majPv();
+                    Toast.makeText(this, "Attaque direct !", Toast.LENGTH_SHORT).show();
                 }
+                ((Monstre) aCard).setCountAtk(((Monstre) aCard).getCountAtk() + 1);
+                majbtAction(aCard);
             }
+        }
     }
-    public void invocationIA(ArrayList<CardInGame> listMonstre){
+
+    public void invocationIA(ArrayList<CardInGame> listMonstre) {
         Random rand = new Random();
         int action = rand.nextInt(2);
-        if(listMonstre.size()> 0){
+        if (listMonstre.size() > 0) {
             int nbinvocation = rand.nextInt(listMonstre.size());
             CardInGame cardSelectRand = listMonstre.get(nbinvocation);
-            Main currentplayerMain =currentplayer.getPlayerMain();
-            Log.w("action", "action : "+action);
+            Main currentplayerMain = currentplayer.getPlayerMain();
+            Log.w("action", "action : " + action);
             switch (action) {
-                case 0 :
+                case 0:
                     //invocation atk
                     if (currentPhase.containsActionByName("InvocationNormale") && currentplayer.equals(listPlayer.get(1))) {
                         if (currentplayer.getCountInvocationNormale() < currentplayer.getMaxInvocationNormale()) {
                             Action invocation = currentPhase.findActionByName("InvocationNormale");
-                                ArrayList<CardInGame>listfiltre =new  ArrayList<>();
-                                listfiltre.add(cardSelectRand);
-                                invocation.getEffect().execute(this,listPlayer,1,1,currentplayer.getPlayerMain(),currentplayer.getPlayerTerrain(),listfiltre);
-                                //majbtAction(currentplayerMain.getSelectedCard());
+                            ArrayList<CardInGame> listfiltre = new ArrayList<>();
+                            listfiltre.add(cardSelectRand);
+                            invocation.getEffect().execute(this, listPlayer, 1, 1, currentplayer.getPlayerMain(), currentplayer.getPlayerTerrain(), listfiltre);
+                            //majbtAction(currentplayerMain.getSelectedCard());
                         }
                     }
-                case 1 :
+                case 1:
                     //invocation def
                     if (currentPhase.containsActionByName("PoseNormale") && currentplayer.equals(listPlayer.get(1))) {
-                                if (currentplayer.getCountInvocationNormale() < currentplayer.getMaxInvocationNormale()) {
-                                    Action invocation = currentPhase.findActionByName("PoseNormale");
+                        if (currentplayer.getCountInvocationNormale() < currentplayer.getMaxInvocationNormale()) {
+                            Action invocation = currentPhase.findActionByName("PoseNormale");
 
-                                    if (currentplayerMain.getSelectedCard() != null) {
-                                        ArrayList<CardInGame> listfiltre = new ArrayList<>();
-                                        listfiltre.add(cardSelectRand);
-                                        //Log.w("ia invoq poser", "ia invoq poser : "+action);
-                                        invocation.getEffect().execute(this, listPlayer, 1, 1, currentplayer.getPlayerMain(), currentplayer.getPlayerTerrain(), listfiltre);
-                                    }
-                                }
+                            if (currentplayerMain.getSelectedCard() != null) {
+                                ArrayList<CardInGame> listfiltre = new ArrayList<>();
+                                listfiltre.add(cardSelectRand);
+                                //Log.w("ia invoq poser", "ia invoq poser : "+action);
+                                invocation.getEffect().execute(this, listPlayer, 1, 1, currentplayer.getPlayerMain(), currentplayer.getPlayerTerrain(), listfiltre);
+                            }
+                        }
                     }
                     break;
                 default:
                     break;
             }
         }
-        }
-        public void invocationApresSacrifice(CardInGame acard){
-            ArrayList<CardInGame>listfiltre =new  ArrayList<>();
-            listfiltre.add(acard);
-            Action invocation = currentPhase.findActionByName("InvocationNormale");
-            invocation.getEffect().execute(this,listPlayer,0,1,currentplayer.getPlayerMain(),currentplayer.getPlayerTerrain(),listfiltre);
-            //majbtAction(currentplayer.getPlayerMain().getSelectedCard());
-        }
-    public void PoseApresSacrifice(CardInGame acard){
+    }
+
+    public void invocationApresSacrifice(CardInGame acard) {
+        ArrayList<CardInGame> listfiltre = new ArrayList<>();
+        listfiltre.add(acard);
+        Action invocation = currentPhase.findActionByName("InvocationNormale");
+        invocation.getEffect().execute(this, listPlayer, 0, 1, currentplayer.getPlayerMain(), currentplayer.getPlayerTerrain(), listfiltre);
+        //majbtAction(currentplayer.getPlayerMain().getSelectedCard());
+    }
+
+    public void PoseApresSacrifice(CardInGame acard) {
         ArrayList<CardInGame> listfiltre = new ArrayList<>();
         listfiltre.add(acard);
         Action invocation = currentPhase.findActionByName("PoseNormale");

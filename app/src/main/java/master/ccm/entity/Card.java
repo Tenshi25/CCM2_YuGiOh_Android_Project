@@ -1,10 +1,17 @@
 package master.ccm.entity;
 
 import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import master.ccm.ccm2yugiohproject.utils.BuilderEffectUtils;
+import master.ccm.entity.Effects.EffectCard;
 import master.ccm.entity.subcard.CardInGame;
 import master.ccm.entity.subcard.Magie;
 import master.ccm.entity.subcard.Monstre;
 import master.ccm.entity.subcard.Piege;
+import master.ccm.entity.subcard.effect.Effect;
 import master.ccm.types.AttributeType;
 import master.ccm.types.CardType;
 import master.ccm.types.CardTypeSub;
@@ -28,6 +35,9 @@ public class Card {
     private int duplicate;
     //recto ou verso
     private String visible;
+
+    private List<Effect> effects;
+
 
     public CardInGame transformToCardInGame(Player aPlayer){
         CardInGame aCardInGame = new CardInGame();
@@ -84,6 +94,19 @@ public class Card {
             default :
                 break;
         }
+
+        aCardInGame.setEffectsExplaination(this.getEffects());
+
+        ArrayList<EffectCard> effectCardList = new ArrayList<>();
+        if (this.getEffects() != null && this.getEffects().size() > 0){
+            BuilderEffectUtils builderEffectUtils = new BuilderEffectUtils();
+            this.getEffects().forEach(effect -> {
+                effectCardList.add(builderEffectUtils.createEffect(effect));
+            });
+        }
+
+        aCardInGame.setEffects(effectCardList);
+
 
         return aCardInGame;
     }
@@ -207,6 +230,14 @@ public class Card {
 
     public void setVisible(String visible) {
         this.visible = visible;
+    }
+
+    public List<Effect> getEffects() {
+        return effects;
+    }
+
+    public void setEffects(List<Effect> effects) {
+        this.effects = effects;
     }
 
     @Override

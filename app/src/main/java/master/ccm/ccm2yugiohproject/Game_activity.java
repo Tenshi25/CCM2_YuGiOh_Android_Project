@@ -392,7 +392,10 @@ public class Game_activity extends AppCompatActivity {
                 }
                 break;
             case R.id.iv_mainPlayer_1:
-
+                Log.d("count4",""+ selection.isSeclectionPhase() +" / "+ selection.getTargetPlayer());
+                if(selection.isSeclectionPhase()&& selection.getTargetPlayer() ==0){
+                    selection.addTolistImageView(this,iv_mainPlayerCard_1,"Main",listPlayer,currentplayer);
+                }
                 if(lejoueur.getPlayerMain().getListCards().size() > 0) {
 
                     lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(0), iv_mainPlayerCard_1,this,"Main");
@@ -400,6 +403,9 @@ public class Game_activity extends AppCompatActivity {
                 }
                 break;
             case R.id.iv_mainPlayer_2:
+                if(selection.isSeclectionPhase()&& selection.getTargetPlayer() ==0){
+                    selection.addTolistImageView(this,iv_mainPlayerCard_2,"Main",listPlayer,currentplayer);
+                }
                 if(lejoueur.getPlayerMain().getListCards().size() > 1 ) {
 
                     lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(1), iv_mainPlayerCard_2,this,"Main");
@@ -407,7 +413,9 @@ public class Game_activity extends AppCompatActivity {
                 }
                 break;
             case R.id.iv_mainPlayer_3:
-
+                if(selection.isSeclectionPhase()&& selection.getTargetPlayer() ==0){
+                    selection.addTolistImageView(this,iv_mainPlayerCard_3,"Main",listPlayer,currentplayer);
+                }
                 if(lejoueur.getPlayerMain().getListCards().size() > 2) {
 
                     lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(2), iv_mainPlayerCard_3,this,"Main");
@@ -415,7 +423,9 @@ public class Game_activity extends AppCompatActivity {
                 }
                 break;
             case R.id.iv_mainPlayer_4:
-
+                if(selection.isSeclectionPhase()&& selection.getTargetPlayer() ==0){
+                    selection.addTolistImageView(this,iv_mainPlayerCard_4,"Main",listPlayer,currentplayer);
+                }
                 if(lejoueur.getPlayerMain().getListCards().size() > 3) {
 
                     lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(3), iv_mainPlayerCard_4,this,"Main");
@@ -423,7 +433,9 @@ public class Game_activity extends AppCompatActivity {
                 }
                 break;
             case R.id.iv_mainPlayer_5:
-
+                if(selection.isSeclectionPhase()&& selection.getTargetPlayer() ==0){
+                    selection.addTolistImageView(this,iv_mainPlayerCard_5,"Main",listPlayer,currentplayer);
+                }
                 if(lejoueur.getPlayerMain().getListCards().size() > 4) {
 
                     lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(4), iv_mainPlayerCard_5,this,"Main");
@@ -431,7 +443,9 @@ public class Game_activity extends AppCompatActivity {
                 }
                 break;
             case R.id.iv_mainPlayer_6:
-
+                if(selection.isSeclectionPhase()&& selection.getTargetPlayer() ==0){
+                    selection.addTolistImageView(this,iv_mainPlayerCard_6,"Main",listPlayer,currentplayer);
+                }
                 if(lejoueur.getPlayerMain().getListCards().size() > 5) {
 
 
@@ -440,7 +454,9 @@ public class Game_activity extends AppCompatActivity {
                 }
                 break;
             case R.id.iv_mainPlayer_7:
-
+                if(selection.isSeclectionPhase()&& selection.getTargetPlayer() ==0){
+                    selection.addTolistImageView(this,iv_mainPlayerCard_7,"Main",listPlayer,currentplayer);
+                }
                 if(lejoueur.getPlayerMain().getListCards().size() > 6) {
 
                     lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(6), iv_mainPlayerCard_7,this,"Main");
@@ -448,7 +464,9 @@ public class Game_activity extends AppCompatActivity {
                 }
                 break;
             case R.id.iv_mainPlayer_8:
-
+                if(selection.isSeclectionPhase()&& selection.getTargetPlayer() ==0){
+                    selection.addTolistImageView(this,iv_mainPlayerCard_8,"Main",listPlayer,currentplayer);
+                }
                 if(lejoueur.getPlayerMain().getListCards().size() > 7) {
 
                     lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(7), iv_mainPlayerCard_8,this,"Main");
@@ -456,6 +474,9 @@ public class Game_activity extends AppCompatActivity {
                 }
                 break;
             case R.id.iv_mainPlayer_9:
+                if(selection.isSeclectionPhase()&& selection.getTargetPlayer() ==0){
+                    selection.addTolistImageView(this,iv_mainPlayerCard_9,"Main",listPlayer,currentplayer);
+                }
                 if(lejoueur.getPlayerMain().getListCards().size() > 8){
 
                     lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(8), iv_mainPlayerCard_9,this,"Main");
@@ -463,6 +484,9 @@ public class Game_activity extends AppCompatActivity {
                 }
                 break;
             case R.id.iv_mainPlayer_10:
+                if(selection.isSeclectionPhase()&& selection.getTargetPlayer() ==0){
+                    selection.addTolistImageView(this,iv_mainPlayerCard_10,"Main",listPlayer,currentplayer);
+                }
                 if(lejoueur.getPlayerMain().getListCards().size() > 9){
 
                     lejoueur.getPlayerMain().changeSelectedCard(lejoueur.getPlayerMain().getListCards().get(9),iv_mainPlayerCard_10,this,"Main");
@@ -820,10 +844,20 @@ public class Game_activity extends AppCompatActivity {
                     break;
                 case 5:
                     //end phase
-                    currentplayer.getPlayerTerrain().desetCountAtk();
-                    currentplayer.getPlayerTerrain().desetMalActivation();
-                    currentplayer.getPlayerTerrain().desetChangePosition();
-                    nextPhase();
+                    if(currentplayer.getPlayerMain().getListCards().size() > currentplayer.getPlayerMain().getMaxMain() )
+                    {
+                        Toast.makeText(this,"vous avez plus de "+currentplayer.getPlayerMain().getMaxMain()+" cartes en main vous devez en deffausez jusqu'a en avoir "+currentplayer.getPlayerMain().getMaxMain(),Toast.LENGTH_SHORT);
+                        int nbcarteAdeffaussez = currentplayer.getPlayerMain().getListCards().size() -currentplayer.getPlayerMain().getMaxMain();
+                        selection.InitSelection(this,nbcarteAdeffaussez, "Carte","Main","DeffausseEnd",selectedImageView,listPlayer,listPlayer.get(0).getNumJoueur());
+                        majMain();
+                    }else{
+                        currentplayer.getPlayerTerrain().desetCountAtk();
+                        currentplayer.getPlayerTerrain().desetMalActivation();
+                        currentplayer.getPlayerTerrain().desetChangePosition();
+                        nextPhase();
+                    }
+
+
                     break;
             }
 
@@ -870,7 +904,7 @@ public class Game_activity extends AppCompatActivity {
                 case 5:
                     //end phase
                     //nextTurn();
-                    if(currentplayer.getPlayerMain().getListCards().size() >6 )
+                    if(currentplayer.getPlayerMain().getListCards().size() > currentplayer.getPlayerMain().getMaxMain() )
                     {
                         iaBotclass.DeffauseIA();
                         majMain();
@@ -898,7 +932,7 @@ public class Game_activity extends AppCompatActivity {
         }
     }
     public void onClickEP(View view){
-        if(ordrePhase <5 && ordrePhase >1) {
+        if(ordrePhase <=5 && ordrePhase >1) {
             ChangePhase(5);
         }
     }
@@ -1311,6 +1345,10 @@ public class Game_activity extends AppCompatActivity {
         invocation.getEffect().execute(this, listPlayer, 0, 1, currentplayer.getPlayerMain(), currentplayer.getPlayerTerrain(), listfiltre);
         //majbtAction(currentplayerMain.getSelectedCard());
     }
+    public void afterDeffausseEnd(){
+        ChangePhase(5);
+    }
+
 
 }
 

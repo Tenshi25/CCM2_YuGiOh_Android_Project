@@ -1,6 +1,7 @@
 package master.ccm.entity;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -46,6 +47,35 @@ public class Selection {
                                 finSelection(context,player);
                             }
                         }else{
+                            Toast.makeText(context,"Cette carte ne correspond pas à la selection",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }else if (aPlayer.getPlayerMain().getCardFromImageView(imageView) != null) {
+                    aCard = aPlayer.getPlayerMain().getCardFromImageView(imageView);
+                    if(aCard != null){
+                        if(aCard.getCardType().toString().equals(this.cardType)){
+                            listImageViewSelected.add(imageView);
+
+                            //listCardInGameSelected.add(aCard);
+                            this.count--;
+                            Toast.makeText(context,"il vous reste à selectionner "+ count +" "+cardType,Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(context,"count --",Toast.LENGTH_SHORT).show();
+                            if (this.count < 1) {
+                                finSelection(context,player);
+                            }
+                        }else if(this.cardType.equals("Carte")){
+                            listImageViewSelected.add(imageView);
+
+                            //listCardInGameSelected.add(aCard);
+                            this.count--;
+                            Toast.makeText(context,"il vous reste à selectionner "+ count +" "+cardType + " depuis votre main",Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(context,"count --",Toast.LENGTH_SHORT).show();
+                            Log.d("count4", ""+ this.count);
+                            if (this.count < 1) {
+                                finSelection(context,player);
+                            }
+                        }
+                        else{
                             Toast.makeText(context,"Cette carte ne correspond pas à la selection",Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -126,8 +156,30 @@ public class Selection {
             this.setSeclectionPhase(false);
             listImageViewSelected.clear();
 
+        }else if(target.equals("DeffausseEnd")){
+            Log.d("count4","je suis dans le finich");
+            if (this.listImageViewSelected.size() > 0){
+                ArrayList<CardInGame> filtre = new ArrayList<>();
+                for (ImageView imageView :listImageViewSelected){
+                    CardInGame aCard =player.getPlayerMain().getCardFromImageView(imageView) ;
+                    if(aCard !=null) {
+                        filtre.add(aCard);
+                    }
+                }
+                EffectMoveCardFromAtoB effectMoveCardFromAtoB = new EffectMoveCardFromAtoB();
+
+                effectMoveCardFromAtoB.execute(context,this.listPlayers,player.getNumJoueur(),listCardInGameSelected.size(),player.getPlayerMain(),player.getPlayerCimetiere(),filtre);
+                listPlayers.get(0).getPlayerMain().majMain(listPlayers.get(0),context);
+                listPlayers.get(1).getPlayerMain().majMainNotVisible(listPlayers.get(1),context);
+                ((Game_activity)context).afterDeffausseEnd();
+
+            }
+            this.setSeclectionPhase(false);
+            Log.d("count4",""+ this.isSeclectionPhase());
+            listImageViewSelected.clear();
+
         }
-        Toast.makeText(context,"Fin de la phase de selection",Toast.LENGTH_SHORT).show();
+
     }
 
     public ImageView getFirstSelected() {

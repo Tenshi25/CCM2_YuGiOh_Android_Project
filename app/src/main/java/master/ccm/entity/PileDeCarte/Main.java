@@ -34,6 +34,7 @@ public class Main extends PileCarte {
     private TextView descCardZoom;
     private ArrayList<ImageView> listIv_main;
     private String from = "Main"; // main, terrain
+    private int maxMain = 6;
 
     public Main( ) {
         this.selectedCard = new CardInGame();
@@ -65,7 +66,7 @@ public class Main extends PileCarte {
     }
     public void changeSelectedCard(CardInGame p_selectedCard, ImageView iv_card, Context context, String p_from) {
         if (p_selectedCard != null) {
-            Toast.makeText(context,""+p_from,Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context,"",Toast.LENGTH_SHORT).show();
             if (p_from.equals("Main")){
                 Path path = new Path();
                 ObjectAnimator animator;
@@ -234,4 +235,30 @@ public class Main extends PileCarte {
         }
         return listInvocable;
     }
+
+    public int getMaxMain() {
+        return maxMain;
+    }
+
+    public void setMaxMain(int maxMain) {
+        this.maxMain = maxMain;
+    }
+
+    public ImageView getImageViewFromCard(CardInGame aCard){
+            if(getListCards().contains(aCard)){
+                int index = getListCards().indexOf(aCard);
+                return getListIv_main().get(index);
+            }
+        return null;
+    }
+    public CardInGame getCardFromImageView(ImageView aImageView){
+
+            if(getListIv_main().contains(aImageView)){
+                int index = getListIv_main().indexOf(aImageView);
+                return getListCards().get(index);
+            }
+
+        return null;
+    }
+
 }

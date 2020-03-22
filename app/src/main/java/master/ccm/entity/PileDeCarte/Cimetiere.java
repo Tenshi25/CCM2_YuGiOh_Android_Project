@@ -24,6 +24,7 @@ public class Cimetiere extends PileCarte {
         }
     }
     public void addlistCard(CardInGame aCard,Context context){
+        Log.d("tv_cime",""+aCard.getName());
         this.listCards.add(aCard);
         Log.d("tv_cime",""+tv_countCards.getId());
         this.tv_countCards.setText(String.valueOf(this.listCards.size()));

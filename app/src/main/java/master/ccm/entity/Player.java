@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import master.ccm.entity.PileDeCarte.Bannisement;
@@ -153,6 +154,10 @@ public class Player {
     {
         return (ArrayList<CardInGame>)p_Deckcard.stream()
                 .map(element -> element.transformToCardInGame(aplayer))
+                .map(element -> {
+                    element.setIdNumberInGame(UUID.randomUUID().toString());
+                    return element;
+                })
                 .collect(Collectors.toList());
     }
 

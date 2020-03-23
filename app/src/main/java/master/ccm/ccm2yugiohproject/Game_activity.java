@@ -1287,12 +1287,20 @@ public class Game_activity extends AppCompatActivity {
                                     bt_poser.setVisibility(View.GONE);
                                     bt_attaquer.setVisibility(View.GONE);
                                     bt_changerPosition.setVisibility(View.GONE);
+
+                                    if (currentplayer.getPlayerCimetiere().getListCards().stream().anyMatch(element -> element.getIdNumberInGame().equals(aCard.getIdNumberInGame()))) {
+                                        bt_activer.setVisibility(View.GONE);
+                                    }
                                 } else {
                                     bt_activer.setVisibility(View.VISIBLE);
                                     bt_invocation.setVisibility(View.GONE);
                                     bt_poser.setVisibility(View.GONE);
                                     bt_attaquer.setVisibility(View.GONE);
                                     bt_changerPosition.setVisibility(View.GONE);
+
+                                    if (currentplayer.getPlayerCimetiere().getListCards().stream().anyMatch(element -> element.getIdNumberInGame().equals(aCard.getIdNumberInGame()))) {
+                                        bt_activer.setVisibility(View.GONE);
+                                    }
                                 }
                             } else if (aCard.getCardType().toString().equals("MAGIE")) {
                                 bt_activer.setVisibility(View.VISIBLE);
@@ -1301,6 +1309,9 @@ public class Game_activity extends AppCompatActivity {
                                 bt_attaquer.setVisibility(View.GONE);
                                 bt_changerPosition.setVisibility(View.GONE);
 
+                                if (currentplayer.getPlayerCimetiere().getListCards().stream().anyMatch(element -> element.getIdNumberInGame().equals(aCard.getIdNumberInGame()))) {
+                                    bt_activer.setVisibility(View.GONE);
+                                }
                             }
                         } else if (currentPhase.getName().equals("BattlePhase")) {
 

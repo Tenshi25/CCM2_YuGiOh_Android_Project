@@ -3,6 +3,7 @@ package master.ccm.manager;
 import android.content.Context;
 import android.util.Log;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -13,6 +14,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Source;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +29,7 @@ import master.ccm.ccm2yugiohproject.MenuDeckList_Activity;
 import master.ccm.entity.Card;
 import master.ccm.entity.CurrentUser;
 import master.ccm.entity.PileDeCarte.Deck;
+import master.ccm.entity.subcard.effect.Effect;
 import master.ccm.types.AttributeType;
 import master.ccm.types.CardType;
 import master.ccm.types.CardTypeSub;
@@ -325,6 +328,17 @@ public class DeckDBManager {
                                 }
                                 if(document.get("attribute") != null){
                                     aCard.setAttribut(((AttributeType.valueOf(document.get("attribute").toString()))));
+                                }
+
+                                if (document.get("effects") != null) {
+                                    ObjectMapper mapper = new ObjectMapper();
+                                    List<Effect> myObjects = null;
+                                    try {
+                                        myObjects = mapper.readValue(mapper.writeValueAsString(document.get("effects")), mapper.getTypeFactory().constructCollectionType(List.class, Effect.class));
+                                        aCard.setEffects(myObjects);
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
                                 aCard.setDuplicate(lalinkCard.getDuplicate());
                                 aCard.setDescription(document.get("description").toString());

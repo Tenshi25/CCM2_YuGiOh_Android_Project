@@ -55,6 +55,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.45"
                     android:text="@string/bt_activer"
+                    android:onClick="onClickActivateEffectCard"
                     android:textSize="8sp" />
 
                 <Button

@@ -1,10 +1,12 @@
 package master.ccm.entity.subcard;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.Nullable;
 import master.ccm.entity.Effects.EffectCard;
 import master.ccm.entity.Player;
+import master.ccm.entity.subcard.effect.Effect;
 import master.ccm.types.AttributeType;
 import master.ccm.types.CardType;
 import master.ccm.types.CardTypeSub;
@@ -17,7 +19,9 @@ public class CardInGame {
     private CardType cardType; //monstre, magie, piège
     private CardTypeSub cardSubType; // normal,effet, fusion syncrhro, continue etc...
     private String url;
-    private ArrayList<EffectCard >effects = new ArrayList<>();
+    private ArrayList<EffectCard> effects = new ArrayList<>();
+    private List<Effect> effectsExplaination;
+
     private Player player;
 
 
@@ -27,6 +31,7 @@ public class CardInGame {
     private int duplicate;
     //recto ou verso
     private boolean visible = false;
+    private String idNumberInGame = null;
 
     public String getId() {
         return id;
@@ -135,5 +140,21 @@ public class CardInGame {
 
     public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    public String getIdNumberInGame() {
+        return idNumberInGame;
+    }
+
+    public void setIdNumberInGame(String idNumberInGame) {
+        this.idNumberInGame = idNumberInGame;
+    }
+
+    public List<Effect> getEffectsExplaination() {
+        return effectsExplaination;
+    }
+
+    public void setEffectsExplaination(List<Effect> effectsExplaination) {
+        this.effectsExplaination = effectsExplaination;
     }
 }

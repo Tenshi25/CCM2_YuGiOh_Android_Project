@@ -1133,14 +1133,22 @@ public class Game_activity extends AppCompatActivity {
                             majbtAction(currentplayerMain.getSelectedCard());
                         }
                     } else if (leMonstre.getLevel() > 4 && leMonstre.getLevel() < 7) {
-
-                        selection.InitSelection(this, 1, "MONSTRE", "Terrain", "Sacrifice", currentplayerMain.getImageViewZoom(), listPlayer, leMonstre.getPlayer().getNumJoueur());
-                       /* ArrayList<CardInGame>listfiltre =new  ArrayList<>();
+                        if(currentplayer.getPlayerTerrain().getCountMonstre()>0){
+                            selection.InitSelection(this, 1, "MONSTRE", "Terrain", "Sacrifice", currentplayerMain.getImageViewZoom(), listPlayer, leMonstre.getPlayer().getNumJoueur());
+                        }else{
+                            Toast.makeText(this,"Vous n'avez pas deux monstres à sacrifier pour invoquer cette carte",Toast.LENGTH_SHORT).show();
+                        }
+                        /* ArrayList<CardInGame>listfiltre =new  ArrayList<>();
                         listfiltre.add(currentplayerMain.getSelectedCard());
                         invocation.getEffect().execute(this,listPlayer,0,1,currentplayer.getPlayerMain(),currentplayer.getPlayerTerrain(),listfiltre);
                         majbtAction(currentplayerMain.getSelectedCard());*/
                     } else if (leMonstre.getLevel() > 6) {
-                        selection.InitSelection(this, 2, "MONSTRE", "Terrain", "Sacrifice", currentplayerMain.getImageViewZoom(), listPlayer, leMonstre.getPlayer().getNumJoueur());
+                        if(currentplayer.getPlayerTerrain().getCountMonstre()>1){
+                            selection.InitSelection(this, 2, "MONSTRE", "Terrain", "Sacrifice", currentplayerMain.getImageViewZoom(), listPlayer, leMonstre.getPlayer().getNumJoueur());
+                        }else{
+                            Toast.makeText(this,"Vous n'avez pas deux monstres à sacrifier pour invoquer cette carte",Toast.LENGTH_SHORT).show();
+                        }
+
                         /*ArrayList<CardInGame>listfiltre =new  ArrayList<>();
                         listfiltre.add(currentplayerMain.getSelectedCard());
                         invocation.getEffect().execute(this,listPlayer,0,1,currentplayer.getPlayerMain(),currentplayer.getPlayerTerrain(),listfiltre);

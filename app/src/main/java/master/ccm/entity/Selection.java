@@ -36,47 +36,50 @@ public class Selection {
                 if(aPlayer.getPlayerTerrain().getCardFromImageView(imageView) != null ){
                     aCard =aPlayer.getPlayerTerrain().getCardFromImageView(imageView);
                     if(aCard != null){
-                        if(aCard.getCardType().toString().equals(this.cardType)){
-                            listImageViewSelected.add(imageView);
+                        if(!listImageViewSelected.contains(imageView)) {
+                            if (aCard.getCardType().toString().equals(this.cardType)) {
+                                listImageViewSelected.add(imageView);
 
-                            //listCardInGameSelected.add(aCard);
-                            this.count--;
-                            Toast.makeText(context,"il vous reste à selectionner "+ count +" "+cardType,Toast.LENGTH_SHORT).show();
-                            //Toast.makeText(context,"count --",Toast.LENGTH_SHORT).show();
-                            if (this.count < 1) {
-                                finSelection(context,player);
+                                //listCardInGameSelected.add(aCard);
+                                this.count--;
+                                Toast.makeText(context, "il vous reste à selectionner " + count + " " + cardType, Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(context,"count --",Toast.LENGTH_SHORT).show();
+                                if (this.count < 1) {
+                                    finSelection(context, player);
+                                }
+                            } else {
+                                Toast.makeText(context, "Cette carte ne correspond pas à la selection", Toast.LENGTH_SHORT).show();
                             }
-                        }else{
-                            Toast.makeText(context,"Cette carte ne correspond pas à la selection",Toast.LENGTH_SHORT).show();
                         }
                     }
                 }else if (aPlayer.getPlayerMain().getCardFromImageView(imageView) != null) {
                     aCard = aPlayer.getPlayerMain().getCardFromImageView(imageView);
                     if(aCard != null){
-                        if(aCard.getCardType().toString().equals(this.cardType)){
-                            listImageViewSelected.add(imageView);
+                        if(!listImageViewSelected.contains(imageView)) {
+                            if (aCard.getCardType().toString().equals(this.cardType)) {
+                                listImageViewSelected.add(imageView);
 
-                            //listCardInGameSelected.add(aCard);
-                            this.count--;
-                            Toast.makeText(context,"il vous reste à selectionner "+ count +" "+cardType,Toast.LENGTH_SHORT).show();
-                            //Toast.makeText(context,"count --",Toast.LENGTH_SHORT).show();
-                            if (this.count < 1) {
-                                finSelection(context,player);
-                            }
-                        }else if(this.cardType.equals("Carte")){
-                            listImageViewSelected.add(imageView);
+                                //listCardInGameSelected.add(aCard);
+                                this.count--;
+                                Toast.makeText(context, "il vous reste à selectionner " + count + " " + cardType, Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(context,"count --",Toast.LENGTH_SHORT).show();
+                                if (this.count < 1) {
+                                    finSelection(context, player);
+                                }
+                            } else if (this.cardType.equals("Carte")) {
+                                listImageViewSelected.add(imageView);
 
-                            //listCardInGameSelected.add(aCard);
-                            this.count--;
-                            Toast.makeText(context,"il vous reste à selectionner "+ count +" "+cardType + " depuis votre main",Toast.LENGTH_SHORT).show();
-                            //Toast.makeText(context,"count --",Toast.LENGTH_SHORT).show();
-                            Log.d("count4", ""+ this.count);
-                            if (this.count < 1) {
-                                finSelection(context,player);
+                                //listCardInGameSelected.add(aCard);
+                                this.count--;
+                                Toast.makeText(context, "il vous reste à selectionner " + count + " " + cardType + " depuis votre main", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(context,"count --",Toast.LENGTH_SHORT).show();
+                                Log.d("count4", "" + this.count);
+                                if (this.count < 1) {
+                                    finSelection(context, player);
+                                }
+                            } else {
+                                Toast.makeText(context, "Cette carte ne correspond pas à la selection", Toast.LENGTH_SHORT).show();
                             }
-                        }
-                        else{
-                            Toast.makeText(context,"Cette carte ne correspond pas à la selection",Toast.LENGTH_SHORT).show();
                         }
                     }
                 }

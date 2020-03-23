@@ -1049,6 +1049,24 @@ public class Game_activity extends AppCompatActivity {
                 List<CardInGame> listOfCardInZone = Arrays.asList(currentplayer.getPlayerTerrain().getTableauZoneMagiePiege());
                 if (listOfCardInZone.stream().noneMatch(Objects::isNull)){
                     // zone magie piege complete
+                    if (listOfCardInZone.stream().anyMatch(element -> element != null
+                            && element.getIdNumberInGame() != null
+                            && element.getIdNumberInGame().equals(aCard.getIdNumberInGame()))) {
+
+                        if (aCard.getEffects() != null && aCard.getEffects().size() == 1 && aCard.getEffects().get(0) != null) {
+                            aCard.getEffects().get(0).execute(this, listPlayer,
+                                    builderEffectUtils.knowJoueurCible(aCard.getEffectsExplaination().get(0)),
+                                    builderEffectUtils.knowQuota(aCard.getEffectsExplaination().get(0)),
+                                    builderEffectUtils.knowPileA(aCard.getEffectsExplaination().get(0)),
+                                    builderEffectUtils.knowPileB(aCard.getEffectsExplaination().get(0)),
+                                    builderEffectUtils.knowFilterCard(aCard.getEffectsExplaination().get(0), listPlayer)
+                            );
+                            ArrayList<CardInGame> dropCard = new ArrayList<>();
+                            dropCard.add(aCard);
+                            new EffectMoveCardFromAtoB().execute(this, listPlayer, 0, 1, currentplayer.getPlayerTerrain(), currentplayer.getPlayerCimetiere(), dropCard);
+                        }
+
+                    }
                 }
                 else {
                     // zone magie piege imcomplete
@@ -1065,15 +1083,32 @@ public class Game_activity extends AppCompatActivity {
                                     builderEffectUtils.knowPileB(aCard.getEffectsExplaination().get(0)),
                                     builderEffectUtils.knowFilterCard(aCard.getEffectsExplaination().get(0), listPlayer)
                                     );
+                            ArrayList<CardInGame> dropCard = new ArrayList<>();
+                            dropCard.add(aCard);
+                            new EffectMoveCardFromAtoB().execute(this, listPlayer, 0, 1, currentplayer.getPlayerTerrain(), currentplayer.getPlayerCimetiere(), dropCard);
+                        }
+                    }
+
+                    if (listOfCardInZone.stream().anyMatch(element -> element != null
+                            && element.getIdNumberInGame() != null
+                            && element.getIdNumberInGame().equals(aCard.getIdNumberInGame()))) {
+                        if (aCard.getEffects() != null && aCard.getEffects().size() == 1 && aCard.getEffects().get(0) != null) {
+                            aCard.getEffects().get(0).execute(this, listPlayer,
+                                    builderEffectUtils.knowJoueurCible(aCard.getEffectsExplaination().get(0)),
+                                    builderEffectUtils.knowQuota(aCard.getEffectsExplaination().get(0)),
+                                    builderEffectUtils.knowPileA(aCard.getEffectsExplaination().get(0)),
+                                    builderEffectUtils.knowPileB(aCard.getEffectsExplaination().get(0)),
+                                    builderEffectUtils.knowFilterCard(aCard.getEffectsExplaination().get(0), listPlayer)
+                            );
+                            ArrayList<CardInGame> dropCard = new ArrayList<>();
+                            dropCard.add(aCard);
+                            new EffectMoveCardFromAtoB().execute(this, listPlayer, 0, 1, currentplayer.getPlayerTerrain(), currentplayer.getPlayerCimetiere(), dropCard);
                         }
                     }
                 }
 
             }
             majbtAction(aCard);
-            ArrayList<CardInGame> dropCard = new ArrayList<>();
-            dropCard.add(aCard);
-            new EffectMoveCardFromAtoB().execute(this, listPlayer, 0, 1, currentplayer.getPlayerTerrain(), currentplayer.getPlayerCimetiere(), dropCard);
         }
 
         majPv();

@@ -1367,6 +1367,12 @@ public class Game_activity extends AppCompatActivity {
                 bt_attaquer.setVisibility(View.GONE);
                 bt_changerPosition.setVisibility(View.GONE);
             }
+        }else{
+            bt_activer.setVisibility(View.GONE);
+            bt_invocation.setVisibility(View.GONE);
+            bt_poser.setVisibility(View.GONE);
+            bt_attaquer.setVisibility(View.GONE);
+            bt_changerPosition.setVisibility(View.GONE);
         }
     }
 

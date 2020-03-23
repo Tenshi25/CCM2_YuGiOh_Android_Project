@@ -107,7 +107,7 @@ public class Selection {
         this.targetPlayer =p_targetPlayer;
         this.firstSelectedCard = p_listJoueurs.get(targetPlayer).getPlayerMain().getSelectedCard();
 
-        Toast.makeText(context,"Debut phase de selection",Toast.LENGTH_SHORT).show();
+        Toast.makeText(context,"Selectionner "+cpt +" "+p_cardType+" depuis "+p_pileCarte,Toast.LENGTH_SHORT).show();
     }
     public void finSelection(Context context,Player player){
 

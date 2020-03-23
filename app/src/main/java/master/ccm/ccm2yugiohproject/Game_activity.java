@@ -959,7 +959,7 @@ public class Game_activity extends AppCompatActivity {
     }
 
     public void onClickEP(View view) {
-        if (ordrePhase < =5 && ordrePhase > 1) {
+        if (ordrePhase <=5 && ordrePhase > 1) {
             ChangePhase(5);
         }
     }

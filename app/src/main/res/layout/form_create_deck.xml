@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/title_form_create_deck"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/title_form_createDeck"
+        android:textAlignment="center"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/et_create_deckName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/common_google_signin_btn_text_dark_pressed"
+        android:ems="10"
+        android:hint="Deck name"
+        android:inputType="textPersonName"
+        android:textColor="@android:color/white"
+        android:textColorHighlight="@color/design_default_color_primary"
+        android:textColorHint="@color/common_google_signin_btn_text_dark_default"
+        android:textColorLink="@color/design_default_color_primary"
+        android:textCursorDrawable="@android:drawable/status_bar_item_background" />
+
+    <EditText
+        android:id="@+id/et_create_deckDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Some description"
+        android:inputType="textMultiLine"
+        android:textColor="@android:color/white"
+        android:textColorHighlight="@color/design_default_color_primary"
+        android:textColorHint="@color/common_google_signin_btn_text_dark_default"
+        android:textColorLink="@color/design_default_color_primary"
+        android:textCursorDrawable="@android:drawable/status_bar_item_background" />
+
+    <Button
+        android:id="@+id/bt_addDeck"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClickAddDeck"
+        android:text="@string/bt_addDeck" />
+
+    <Button
+        android:id="@+id/bt_return"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClickReturn"
+        android:text="@string/bt_return" />
+</LinearLayout>

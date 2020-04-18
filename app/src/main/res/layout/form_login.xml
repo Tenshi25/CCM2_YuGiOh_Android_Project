@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/titile_login"
+        android:textAlignment="center"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/ET_Name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:backgroundTint="@color/common_google_signin_btn_text_dark_default"
+        android:drawableTint="@color/common_google_signin_btn_text_dark_default"
+        android:ems="10"
+        android:foregroundTint="@color/common_google_signin_btn_text_dark_default"
+        android:hint="@string/ET_Name_Text"
+        android:inputType="textPersonName"
+        android:singleLine="false"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:textColorHighlight="@color/design_default_color_primary"
+        android:textColorHint="@color/common_google_signin_btn_text_dark_default"
+        android:textColorLink="@color/design_default_color_primary"
+        android:textCursorDrawable="@android:drawable/status_bar_item_background" />
+
+    <EditText
+        android:id="@+id/ET_Password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="9dp"
+        android:backgroundTint="@color/common_google_signin_btn_text_dark_default"
+        android:drawableTint="@color/common_google_signin_btn_text_dark_default"
+        android:ems="10"
+        android:foregroundTint="@color/common_google_signin_btn_text_dark_default"
+        android:hint="@string/ET_Password_Text"
+        android:inputType="textPersonName"
+        android:password="true"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:textColorHighlight="@color/design_default_color_primary"
+        android:textColorHint="@color/common_google_signin_btn_text_dark_default"
+        android:textColorLink="@color/design_default_color_primary"
+        android:textCursorDrawable="@android:drawable/status_bar_item_background" />
+
+    <Button
+        android:id="@+id/bt_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:onClick="OnClickLogin"
+        android:text="@string/bt_login_text" />
+
+    <Button
+        android:id="@+id/bt_to_sign_up"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="OnClickToSignIn"
+        android:text="@string/bt_to_sign_up" />
+
+</LinearLayout>

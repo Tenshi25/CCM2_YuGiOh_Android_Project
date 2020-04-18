@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="array_sort">
+        <item>All</item>
+        <item>Monster</item>
+        <item>Spell</item>
+        <item>Trap</item>
+    </string-array>
+</resources>

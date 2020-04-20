@@ -9,6 +9,7 @@ import master.ccm.entity.Effects.EffectCard;
 import master.ccm.entity.Effects.EffectInvoquerNormale;
 import master.ccm.entity.Effects.EffectPioche;
 import master.ccm.entity.Effects.EffectPoseNormal;
+import master.ccm.entity.HttpRequest;
 import master.ccm.entity.IABot;
 import master.ccm.entity.PileDeCarte.Deck;
 import master.ccm.entity.Phase;
@@ -76,6 +77,7 @@ public class Game_activity extends AppCompatActivity {
     private Deck playerDeck;
     private int ordrePhase = 0;
     private boolean deckPlayerCharger;
+    private HttpRequest httpRequest;
 
     private TextView tv_iaLifePoint;
     private TextView tv_playerLifePoint;
@@ -927,6 +929,7 @@ public class Game_activity extends AppCompatActivity {
 
                     //Battle phase
                     //main phase 2
+                    httpRequest.sendPost(listPlayer.get(0).getPlayerTerrain().getTableauZoneMonstre(),(Monstre) currentplayer.getPlayerTerrain().getCardZoneMonstre(0));
                     nextPhase();
                     break;
                 case 5:

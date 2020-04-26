@@ -1125,6 +1125,7 @@ public class Game_activity extends AppCompatActivity {
 
                 if (currentplayerMain.getSelectedCard() != null) {
                     Monstre leMonstre = ((Monstre) currentplayerMain.getSelectedCard());
+
                     if (leMonstre.getLevel() < 5) {
                         {
                             ArrayList<CardInGame> listfiltre = new ArrayList<>();
@@ -1160,6 +1161,24 @@ public class Game_activity extends AppCompatActivity {
                     currentplayerMain.getListCards().remove(listPlayer.get(0).getPlayerMain().getSelectedCard());
                     currentplayerMain.majMain(currentplayer, this);
                     currentplayer.addCountInvocationNormale();*/
+
+                    if (leMonstre.getEffects().size() > 0){
+                        BuilderEffectUtils builderEffectUtils = new BuilderEffectUtils();
+                        for (int i=0; i< leMonstre.getEffects().size(); i++){
+                            if (leMonstre.getEffectsExplaination().get(i).isAutoActivable()){
+                                leMonstre.getEffects().get(i).execute(this, listPlayer,
+                                        builderEffectUtils.knowJoueurCible(leMonstre.getEffectsExplaination().get(i)),
+                                        builderEffectUtils.knowQuota(leMonstre.getEffectsExplaination().get(i)),
+                                        builderEffectUtils.knowPileA(leMonstre.getEffectsExplaination().get(i)),
+                                        builderEffectUtils.knowPileB(leMonstre.getEffectsExplaination().get(i)),
+                                        builderEffectUtils.knowFilterCard(leMonstre.getEffectsExplaination().get(i), listPlayer)
+                                );
+                                majPv();
+                                majMain();
+                                majNBPlayerDeckCard();
+                            }
+                        }
+                    }
                 }
             } else {
                 Toast.makeText(this, "Vous avez déjà invoquer normalement ce tour", Toast.LENGTH_SHORT).show();
@@ -1270,11 +1289,16 @@ public class Game_activity extends AppCompatActivity {
                     } else if (listPlayer.get(0).getPlayerMain().getFrom().equals("Terrain")) {
                         if (currentPhase.getName().equals("MainPhase") || currentPhase.getName().equals("MainPhase2")) {
                             if (aCard.getCardType().toString().equals("MONSTRE")) {
-                                bt_activer.setVisibility(View.GONE);
                                 if (((Monstre) aCard).isHaveChangePosition()) {
                                     bt_changerPosition.setVisibility(View.GONE);
                                 } else {
                                     bt_changerPosition.setVisibility(View.VISIBLE);
+                                }
+
+                                if(((Monstre) aCard).getEffects().size() > 0) {
+                                    bt_activer.setVisibility(View.VISIBLE);
+                                } else {
+                                    bt_activer.setVisibility(View.GONE);
                                 }
                                 bt_invocation.setVisibility(View.GONE);
                                 bt_poser.setVisibility(View.GONE);

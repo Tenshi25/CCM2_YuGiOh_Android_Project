@@ -22,11 +22,13 @@ public class Effect {
 
     private int costPvPercent;
 
-    private boolean isAutoActivable;
+    private boolean autoActivable;
 
-    private boolean isAlwaysActivable;
+    private boolean alwaysActivable;
 
-    private boolean isPassive;
+    private boolean passive;
+
+    private boolean flip;
 
     private String whenIsActivable;
 
@@ -98,30 +100,6 @@ public class Effect {
         this.determinedEffect = determinedEffect;
     }
 
-    public boolean isAutoActivable() {
-        return isAutoActivable;
-    }
-
-    public void setAutoActivable(boolean autoActivable) {
-        isAutoActivable = autoActivable;
-    }
-
-    public boolean isAlwaysActivable() {
-        return isAlwaysActivable;
-    }
-
-    public void setAlwaysActivable(boolean alwaysActivable) {
-        isAlwaysActivable = alwaysActivable;
-    }
-
-    public boolean isPassive() {
-        return isPassive;
-    }
-
-    public void setPassive(boolean passive) {
-        isPassive = passive;
-    }
-
     public FilterCard getFilter() {
         return filter;
     }
@@ -184,5 +162,37 @@ public class Effect {
 
     public void setMultiplePieceScores(List<MultiplePieceScore> multiplePieceScores) {
         this.multiplePieceScores = multiplePieceScores;
+    }
+
+    public boolean isAutoActivable() {
+        return autoActivable;
+    }
+
+    public void setAutoActivable(boolean autoActivable) {
+        this.autoActivable = autoActivable;
+    }
+
+    public boolean isAlwaysActivable() {
+        return alwaysActivable;
+    }
+
+    public void setAlwaysActivable(boolean alwaysActivable) {
+        this.alwaysActivable = alwaysActivable;
+    }
+
+    public boolean isPassive() {
+        return passive;
+    }
+
+    public void setPassive(boolean passive) {
+        this.passive = passive;
+    }
+
+    public boolean isFlip() {
+        return flip;
+    }
+
+    public void setFlip(boolean flip) {
+        this.flip = flip;
     }
 }

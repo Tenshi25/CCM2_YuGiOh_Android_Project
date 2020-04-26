@@ -1416,6 +1416,25 @@ public class Game_activity extends AppCompatActivity {
                     } else if (((Monstre) aCard).getPosition().equals("DEF")) {
                         if (!aCard.isVisible()) {
                             aCard.setVisible(true);
+
+                            // flip effect
+                            if (aCard.getEffects().size() > 0){
+                                BuilderEffectUtils builderEffectUtils = new BuilderEffectUtils();
+                                for (int i=0; i< aCard.getEffects().size(); i++){
+                                    if (aCard.getEffectsExplaination().get(i).isFlip()){
+                                        aCard.getEffects().get(i).execute(this, listPlayer,
+                                                builderEffectUtils.knowJoueurCible(aCard.getEffectsExplaination().get(i)),
+                                                builderEffectUtils.knowQuota(aCard.getEffectsExplaination().get(i)),
+                                                builderEffectUtils.knowPileA(aCard.getEffectsExplaination().get(i)),
+                                                builderEffectUtils.knowPileB(aCard.getEffectsExplaination().get(i)),
+                                                builderEffectUtils.knowFilterCard(aCard.getEffectsExplaination().get(i), listPlayer)
+                                        );
+                                        majPv();
+                                        majMain();
+                                        majNBPlayerDeckCard();
+                                    }
+                                }
+                            }
                         }
                         currentplayer.getPlayerTerrain().monsterToAtkAnnimation(this, selectedImageView);
                         ((Monstre) aCard).setPosition("ATK");

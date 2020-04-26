@@ -1,7 +1,5 @@
 package master.ccm.entity;
-
 import android.util.Log;
-
 import org.json.JSONObject;
 
 import java.io.DataOutputStream;
@@ -15,26 +13,33 @@ import master.ccm.entity.subcard.Monstre;
 
 public class HttpRequest {
     private String urlAdress = "mon url";
-    private ArrayList<CardJson> listCardDef = new ArrayList<CardJson>();
+    //private CardJson[] listCardDef = new CardJson[5];
 
     public void sendPost(CardInGame[] listcard, Monstre monstreAttaquant) {
-        CardJson monstreAtk = new CardJson();
-        monstreAtk.setId(monstreAttaquant.getIdNumberInGame());
-        monstreAtk.setName(monstreAttaquant.getName());
-        monstreAtk.setAtk(monstreAttaquant.getAtk());
-        monstreAtk.setDef(monstreAttaquant.getDef());
-        monstreAtk.setPosition(monstreAttaquant.getPosition());
+            CardJson[] tabMonstre = new CardJson[10];
+            CardJson monstreAtk = new CardJson();
+            monstreAtk.setId(monstreAttaquant.getId());
+            monstreAtk.setName(monstreAttaquant.getName());
+            monstreAtk.setAtk(monstreAttaquant.getAtk());
+            monstreAtk.setDef(monstreAttaquant.getDef());
+            monstreAtk.setPosition(monstreAttaquant.getPosition());
+            tabMonstre[0] =monstreAtk;
 
-        for (CardInGame card : listcard) {
+        for (int i = 5; i < 10; i++) {
             CardJson monstreDef = new CardJson();
-            monstreAtk.setId(card.getIdNumberInGame());
-            monstreAtk.setName(card.getName());
-            monstreAtk.setAtk(((Monstre) card).getAtk());
-            monstreAtk.setDef(((Monstre) card).getDef());
-            monstreAtk.setPosition(((Monstre) card).getPosition());
-            listCardDef.add(monstreDef);
-        }
+            if (listcard[i-5] != null){
 
+                monstreDef.setId(listcard[i-5].getId());
+                monstreDef.setName(listcard[i-5].getName());
+                monstreDef.setAtk(((Monstre) listcard[i-5]).getAtk());
+                monstreDef.setDef(((Monstre) listcard[i-5]).getDef());
+                monstreDef.setPosition(((Monstre) listcard[i-5]).getPosition());
+                tabMonstre[i] = monstreDef;
+            }else{
+                tabMonstre[i] = null;
+            }
+        }
+        Log.d("JSON", "SendJSON");
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -49,9 +54,9 @@ public class HttpRequest {
 
                     JSONObject jsonParam = new JSONObject();
                     jsonParam.put("monstreAttaquant", monstreAtk);
-                    jsonParam.put("monstresDeffenseur", listCardDef);
+                    jsonParam.put("monstresDeffenseur", tabMonstre);
 
-                    Log.i("JSON", jsonParam.toString());
+                    Log.d("JSON", jsonParam.toString());
                     DataOutputStream os = new DataOutputStream(conn.getOutputStream());
                     //os.writeBytes(URLEncoder.encode(jsonParam.toString(), "UTF-8"));
                     os.writeBytes(jsonParam.toString());

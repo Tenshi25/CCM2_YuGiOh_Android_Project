@@ -43,6 +43,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -77,7 +78,7 @@ public class Game_activity extends AppCompatActivity {
     private Deck playerDeck;
     private int ordrePhase = 0;
     private boolean deckPlayerCharger;
-    private HttpRequest httpRequest;
+    private HttpRequest httpRequest =new HttpRequest();
 
     private TextView tv_iaLifePoint;
     private TextView tv_playerLifePoint;
@@ -461,6 +462,7 @@ public class Game_activity extends AppCompatActivity {
                 }
                 break;
             case R.id.iv_mainPlayer_5:
+
                 if(selection.isSeclectionPhase()&& selection.getTargetPlayer() ==0){
                     selection.addTolistImageView(this,iv_mainPlayerCard_5,"Main",listPlayer,currentplayer);
                 }
@@ -924,12 +926,20 @@ public class Game_activity extends AppCompatActivity {
                     //Main phase
                     iaBotclass.invocationIA(currentplayer.getPlayerMain().getMonsterInvocable(),currentPhase);
                 case 3:
-                case 4:
-
-
                     //Battle phase
+                    ArrayList<Monstre> listmonstreIa = currentplayer.getPlayerTerrain().getMonsterOnTerrain();
+                    if(listPlayer.get(0).getPlayerTerrain().getTableauZoneMonstre().length > 0) {
+                        for (Monstre aMonster : listmonstreIa) {
+                            Log.d("JSON", aMonster.getPosition());
+                            if(aMonster.getPosition().equals("ATK")) {
+                                httpRequest.sendPost(listPlayer.get(0).getPlayerTerrain().getTableauZoneMonstre(), aMonster);
+                            }
+                        }
+                    }
+
+                case 4:
                     //main phase 2
-                    httpRequest.sendPost(listPlayer.get(0).getPlayerTerrain().getTableauZoneMonstre(),(Monstre) currentplayer.getPlayerTerrain().getCardZoneMonstre(0));
+                    //
                     nextPhase();
                     break;
                 case 5:

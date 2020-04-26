@@ -309,6 +309,15 @@ public class Terrain extends PileCarte {
         }
         return null;
     }
+    public ArrayList<Monstre> getMonsterOnTerrain(){
+        ArrayList<Monstre>listMonstreTerrain = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            if((Monstre) getCardZoneMonstre(i) !=  null) {
+                listMonstreTerrain.add((Monstre) getCardZoneMonstre(i));
+            }
+        }
+        return listMonstreTerrain;
+    }
 
 
 

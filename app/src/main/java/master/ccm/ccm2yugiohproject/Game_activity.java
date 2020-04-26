@@ -917,7 +917,7 @@ public class Game_activity extends AppCompatActivity {
                     //stand by
                 case 2:
                     //Main phase
-                    invocationIA(currentplayer.getPlayerMain().getMonsterInvocable());
+                    iaBotclass.invocationIA(currentplayer.getPlayerMain().getMonsterInvocable(),currentPhase);
                 case 3:
                 case 4:
 
@@ -1431,46 +1431,7 @@ public class Game_activity extends AppCompatActivity {
         }
     }
 
-    public void invocationIA(ArrayList<CardInGame> listMonstre) {
-        Random rand = new Random();
-        int action = rand.nextInt(2);
-        if (listMonstre.size() > 0) {
-            int nbinvocation = rand.nextInt(listMonstre.size());
-            CardInGame cardSelectRand = listMonstre.get(nbinvocation);
-            Main currentplayerMain = currentplayer.getPlayerMain();
-            Log.w("action", "action : " + action);
-            switch (action) {
-                case 0:
-                    //invocation atk
-                    if (currentPhase.containsActionByName("InvocationNormale") && currentplayer.equals(listPlayer.get(1))) {
-                        if (currentplayer.getCountInvocationNormale() < currentplayer.getMaxInvocationNormale()) {
-                            Action invocation = currentPhase.findActionByName("InvocationNormale");
-                            ArrayList<CardInGame> listfiltre = new ArrayList<>();
-                            listfiltre.add(cardSelectRand);
-                            invocation.getEffect().execute(this, listPlayer, 1, 1, currentplayer.getPlayerMain(), currentplayer.getPlayerTerrain(), listfiltre);
-                            //majbtAction(currentplayerMain.getSelectedCard());
-                        }
-                    }
-                case 1:
-                    //invocation def
-                    if (currentPhase.containsActionByName("PoseNormale") && currentplayer.equals(listPlayer.get(1))) {
-                        if (currentplayer.getCountInvocationNormale() < currentplayer.getMaxInvocationNormale()) {
-                            Action invocation = currentPhase.findActionByName("PoseNormale");
 
-                            if (currentplayerMain.getSelectedCard() != null) {
-                                ArrayList<CardInGame> listfiltre = new ArrayList<>();
-                                listfiltre.add(cardSelectRand);
-                                //Log.w("ia invoq poser", "ia invoq poser : "+action);
-                                invocation.getEffect().execute(this, listPlayer, 1, 1, currentplayer.getPlayerMain(), currentplayer.getPlayerTerrain(), listfiltre);
-                            }
-                        }
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
 
     public void invocationApresSacrifice(CardInGame acard) {
         ArrayList<CardInGame> listfiltre = new ArrayList<>();
@@ -1490,8 +1451,6 @@ public class Game_activity extends AppCompatActivity {
     public void afterDeffausseEnd(){
         ChangePhase(5);
     }
-
-
 }
 
 

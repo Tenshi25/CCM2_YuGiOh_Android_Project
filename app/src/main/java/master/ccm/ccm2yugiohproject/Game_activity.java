@@ -5,6 +5,7 @@ import master.ccm.entity.Action;
 import master.ccm.entity.BattleSystem;
 import master.ccm.entity.Card;
 import master.ccm.entity.CurrentUser;
+import master.ccm.entity.Effects.EffectCard;
 import master.ccm.entity.Effects.EffectInvoquerNormale;
 import master.ccm.entity.Effects.EffectPioche;
 import master.ccm.entity.Effects.EffectPoseNormal;
@@ -17,6 +18,8 @@ import master.ccm.entity.Selection;
 import master.ccm.entity.subcard.CardInGame;
 import master.ccm.entity.subcard.Monstre;
 import master.ccm.entity.subcard.Piege;
+import master.ccm.entity.subcard.effect.DeterminedEffect;
+import master.ccm.entity.subcard.effect.Effect;
 import master.ccm.manager.DeckDBManager;
 
 import android.animation.ObjectAnimator;
@@ -959,6 +962,19 @@ public class Game_activity extends AppCompatActivity {
     }
 
     public void onClickEP(View view) {
+        CardInGame[] listCard = currentplayer.getPlayerTerrain().getTableauZoneMonstre();
+        CardInGame[] listMagicCard = currentplayer.getPlayerTerrain().getTableauZoneMagiePiege();
+        for (CardInGame cardInGame: listCard){
+            if (cardInGame != null){
+                cardInGame.setActivateLimitedEffect(cardInGame.getCountLimitedEffect());
+            }
+        }
+        for (CardInGame cardInGame: listMagicCard){
+            if (cardInGame != null){
+                cardInGame.setActivateLimitedEffect(cardInGame.getCountLimitedEffect());
+            }
+        }
+
         if (ordrePhase <=5 && ordrePhase > 1) {
             ChangePhase(5);
         }
@@ -1043,7 +1059,44 @@ public class Game_activity extends AppCompatActivity {
         if (currentplayerMain.getSelectedCard() != null) {
             CardInGame aCard = currentplayerMain.getSelectedCard();
             if (aCard.getCardType().toString().equals("MONSTRE")) {
+                aCard.setActivateLimitedEffect(aCard.getActivateLimitedEffect() - 1);
+                ArrayList<EffectCard> effectsList = new ArrayList<>();
+                ArrayList<Effect> effectsExplanationList = new ArrayList<>();
+                for (int i=0; i< aCard.getEffects().size(); i++){
+                    if (!aCard.getEffectsExplaination().get(i).isFlip() && !aCard.getEffectsExplaination().get(i).isAutoActivable()){
+                        effectsExplanationList.add(aCard.getEffectsExplaination().get(i));
+                        effectsList.add(aCard.getEffects().get(i));
+                    }
+                }
 
+                if (effectsList.size() == 1) {
+                    if (effectsExplanationList.get(0).getDeterminedEffect() == null) {
+                        effectsList.get(0).execute(this, listPlayer,
+                                builderEffectUtils.knowJoueurCible(effectsExplanationList.get(0)),
+                                builderEffectUtils.knowQuota(effectsExplanationList.get(0)),
+                                builderEffectUtils.knowPileA(effectsExplanationList.get(0)),
+                                builderEffectUtils.knowPileB(effectsExplanationList.get(0)),
+                                builderEffectUtils.knowFilterCard(effectsExplanationList.get(0), listPlayer)
+                        );
+                    } else {
+                        int multiplier = 0;
+                        int quota = builderEffectUtils.knowQuota(effectsExplanationList.get(0));
+                        multiplier = getMultiplerValue(effectsExplanationList.get(0).getDeterminedEffect());
+                        quota = quota * multiplier;
+
+                        effectsList.get(0).execute(this, listPlayer,
+                                builderEffectUtils.knowJoueurCible(effectsExplanationList.get(0)),
+                                quota,
+                                builderEffectUtils.knowPileA(effectsExplanationList.get(0)),
+                                builderEffectUtils.knowPileB(effectsExplanationList.get(0)),
+                                builderEffectUtils.knowFilterCard(effectsExplanationList.get(0), listPlayer)
+                        );
+                    }
+                    majPv();
+                    majMain();
+                    majNBPlayerDeckCard();
+                    majbtAction(aCard);
+                }
             }
             else {
                 List<CardInGame> listOfCardInZone = Arrays.asList(currentplayer.getPlayerTerrain().getTableauZoneMagiePiege());
@@ -1295,7 +1348,9 @@ public class Game_activity extends AppCompatActivity {
                                     bt_changerPosition.setVisibility(View.VISIBLE);
                                 }
 
-                                if(((Monstre) aCard).getEffects().size() > 0) {
+                                if(((Monstre) aCard).getEffects().size() > 0
+                                        && ((Monstre) aCard).getActivateLimitedEffect() > 0
+                                        && ((Monstre) aCard).getEffectsExplaination().stream().anyMatch(element -> !element.isFlip() && !element.isAutoActivable())) {
                                     bt_activer.setVisibility(View.VISIBLE);
                                 } else {
                                     bt_activer.setVisibility(View.GONE);
@@ -1494,6 +1549,29 @@ public class Game_activity extends AppCompatActivity {
     public void afterDeffausseEnd(){
         ChangePhase(5);
     }
+
+    public int getMultiplerValue(DeterminedEffect determinedEffect){
+        Player other = new Player();
+        for (Player player : listPlayer){
+            if (!player.getName().equals(currentPhase.getName())) {
+                other = player;
+            }
+        }
+
+        if (determinedEffect.getDeterminedTypeApplication().equals("COUNT")){
+            if (determinedEffect.getLocation().equals("MAIN")){
+                if (determinedEffect.getTargetOfLocation().equals("Ennemy")){
+                    return other.getPlayerMain().getListCards().size();
+                } else {
+                    return currentplayer.getPlayerMain().getListCards().size();
+                }
+            }
+        }
+
+        return 0;
+    }
+
+
 }
 
 

@@ -28,6 +28,8 @@ public class CardInGame {
     private String description;
 
     private int limit;
+    private int countLimitedEffect = 1;
+    private int activateLimitedEffect = 1;
     private int duplicate;
     //recto ou verso
     private boolean visible = false;
@@ -156,5 +158,21 @@ public class CardInGame {
 
     public void setEffectsExplaination(List<Effect> effectsExplaination) {
         this.effectsExplaination = effectsExplaination;
+    }
+
+    public int getCountLimitedEffect() {
+        return countLimitedEffect;
+    }
+
+    public void setCountLimitedEffect(int countLimitedEffect) {
+        this.countLimitedEffect = countLimitedEffect;
+    }
+
+    public int getActivateLimitedEffect() {
+        return activateLimitedEffect;
+    }
+
+    public void setActivateLimitedEffect(int activateLimitedEffect) {
+        this.activateLimitedEffect = activateLimitedEffect;
     }
 }

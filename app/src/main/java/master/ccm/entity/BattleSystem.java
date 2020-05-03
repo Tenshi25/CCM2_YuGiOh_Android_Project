@@ -33,6 +33,7 @@ public class BattleSystem {
         int sommeDegat =0;
         ArrayList<CardInGame> filtre = new ArrayList<>();
         //
+        monstreA.setHaveChangePosition(true);
         if(monstreB.getPosition().equals("DEF")){
             if(monstreA.getAtk() > monstreB.getDef()){
                 filtre.add(monstreB);

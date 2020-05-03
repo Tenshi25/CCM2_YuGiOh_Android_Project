@@ -1349,6 +1349,7 @@ public class Game_activity extends AppCompatActivity {
                                 }
 
                                 if(((Monstre) aCard).getEffects().size() > 0
+                                        && ((Monstre) aCard).isVisible()
                                         && ((Monstre) aCard).getActivateLimitedEffect() > 0
                                         && ((Monstre) aCard).getEffectsExplaination().stream().anyMatch(element -> !element.isFlip() && !element.isAutoActivable())) {
                                     bt_activer.setVisibility(View.VISIBLE);

@@ -40,6 +40,8 @@ public class HttpRequest {
         monstreAtk.setDef(monstreAttaquant.getDef());
         monstreAtk.setPosition(monstreAttaquant.getPosition());
         tabMonstre[0] = monstreAtk;
+        Log.i("JSON","tabmonstreAtk"+tabMonstre[1]);
+        Log.i("JSON","tabmonstreAtk"+tabMonstre[0].getName());
 
         for (int i = 5; i < 10; i++) {
             CardJson monstreDef = new CardJson();
@@ -71,17 +73,19 @@ public class HttpRequest {
                     conn.setDoOutput(true);
                     conn.setDoInput(true);
 
-                    //JSONObject jsonParam = new JSONObject();
+                    JSONObject jsonParam = new JSONObject();
                     //jsonParam.put("monstreAttaquant", monstreAtk);
-                    //jsonParam.put("tabmonstres", tabMonstre);
-                    //jsonParam.put("tabmonstres", tabMonstre);
+                    jsonParam.put("tabmonstres", tabMonstre);
 
                     //Log.i("JSON", jsonParam.toString());
                     DataOutputStream os = new DataOutputStream(conn.getOutputStream());
-                    //os.writeBytes(URLEncoder.encode(jsonParam.toString(), "UTF-8"));
+                    os.writeBytes(URLEncoder.encode(jsonParam.toString(), "UTF-8"));
                     //os.writeBytes(jsonParam.toString());
-                    os.writeBytes(tabMonstre.toString());
-                    Log.i("JSON", String.valueOf(tabMonstre.length));
+                    //os.writeBytes(tabMonstre.toString());
+                    Log.i("JSON", "Debut Tableau");
+
+
+                    //Log.i("JSON", String.valueOf(tabMonstre.length));
                     Log.i("JSON", tabMonstre.toString());
                     //os.writeBytes(String.valueOf(tabMonstre));
                     //os.write(String.valueOf(tabMonstre));

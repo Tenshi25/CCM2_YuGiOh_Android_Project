@@ -925,6 +925,8 @@ public class Game_activity extends AppCompatActivity {
                 case 2:
                     //Main phase
                     iaBotclass.invocationIA(currentplayer.getPlayerMain().getMonsterInvocable(),currentPhase);
+                    nextPhase();
+                    break;
                 case 3:
                     //Battle phase
                     ArrayList<Monstre> listmonstreIa = currentplayer.getPlayerTerrain().getMonsterOnTerrain();
@@ -936,7 +938,8 @@ public class Game_activity extends AppCompatActivity {
                             }
                         }
                     }
-
+                    nextPhase();
+                    break;
                 case 4:
                     //main phase 2
                     //

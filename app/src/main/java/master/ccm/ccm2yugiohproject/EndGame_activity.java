@@ -2,6 +2,7 @@ package master.ccm.ccm2yugiohproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 import master.ccm.entity.PileDeCarte.Deck;
+import master.ccm.manager.ScoreDBManager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,6 +24,13 @@ public class EndGame_activity extends AppCompatActivity {
         labelvictory = findViewById(R.id.tv_labelVictory);
         if (extrasData.get("labelVictory") != null){
 
+            if (extrasData.getInt("labelVictory") == R.string.labelVictory){
+                ScoreDBManager scoreDBManager = new ScoreDBManager();
+                scoreDBManager.selectScore(null, "victory");
+            } else {
+                ScoreDBManager scoreDBManager = new ScoreDBManager();
+                scoreDBManager.selectScore(null, "defeat");
+            }
             labelvictory.setText(getString(extrasData.getInt("labelVictory")));
         }
     }

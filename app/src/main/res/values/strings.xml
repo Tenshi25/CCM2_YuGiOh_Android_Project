@@ -61,4 +61,6 @@
     <string name="bt_changer_position">changer position</string>
     <string name="bt_attaquer">Attaquer</string>
     <string name="sort">sort</string>
+    <string name="home_victory">Win</string>
+    <string name="home_loss">Loss</string>
 </resources>

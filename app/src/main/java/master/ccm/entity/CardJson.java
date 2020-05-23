@@ -2,17 +2,17 @@ package master.ccm.entity;
 
 public class CardJson {
     private String id;
-    private String name;
+    private String monstre;
     private int atk;
     private int def;
     private String position;
 
     public String getName() {
-        return name;
+        return monstre;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.monstre = name;
     }
 
     public int getAtk() {

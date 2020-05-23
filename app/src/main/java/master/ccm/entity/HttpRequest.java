@@ -1,9 +1,11 @@
 package master.ccm.entity;
+import android.content.Context;
 import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpResponse;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
@@ -42,7 +44,7 @@ public class HttpRequest {
     private static CardJson[] tabmonstresForJson;
     //private CardJson[] listCardDef = new CardJson[5];
 
-    public void sendPost(CardInGame[] listcard, Monstre monstreAttaquant) {
+    public void sendPost(IABot iaBot, CardInGame[] listcard, Monstre monstreAttaquant) {
         CardJson[] tabMonstre = new CardJson[10];
         CardJson monstreAtk = new CardJson();
         monstreAtk.setId(monstreAttaquant.getIdNumberInGame());
@@ -57,7 +59,7 @@ public class HttpRequest {
         }
         tabMonstre[0] = monstreAtk;
         //Log.i("JSON","tabmonstreAtk"+tabMonstre[1]);
-        Log.i("JSON","tabmonstreAtk "+tabMonstre[0].getName());
+        //Log.i("JSON","tabmonstreAtk "+tabMonstre[0].getName());
 
         for (int i = 5; i < 10; i++) {
             CardJson monstreDef = new CardJson();
@@ -75,7 +77,7 @@ public class HttpRequest {
                     monstreDef.setPosition("defense");
                 }
                 tabMonstre[i] = monstreDef;
-                Log.i("JSON","monstreDef "+tabMonstre[i].getName());
+                //Log.i("JSON","monstreDef "+tabMonstre[i].getName());
             } else {
                 tabMonstre[i] = null;
             }
@@ -154,7 +156,7 @@ public class HttpRequest {
                     //Log.i("JSON", tabMonstre.toString());
                     //os.writeBytes(String.valueOf(tabMonstre));
                     //os.write(String.valueOf(tabMonstre));
-
+                    //HttpResponse response=conn.execute(post);
                     os.flush();
                     os.close();
                     int responseCode=conn.getResponseCode();
@@ -177,12 +179,23 @@ public class HttpRequest {
                     //recuperation de la reponse
                     JSONObject obj = new JSONObject(response);
                     String action = obj.getString("action");
+
+
                     Log.i("JSON Action ", ""+action);
+
                     if(action.equals("RIEN"))
                     {
                         Log.i("JSON Action Rien","Rien");
                     }else if(action.equals("ATTAQUER")){
                         Log.i("JSON Action Attaquer", "Attaquer");
+                        JSONObject jsonmonstreDef = obj.getJSONObject("monstreAttaque");
+                        String iddef = jsonmonstreDef.getString("id");
+                        Log.i("JSON idDef ", ""+iddef);
+
+                        JSONObject jsonmonstreAtk = obj.getJSONObject("monstreAttaquant");
+                        String idatk = jsonmonstreAtk.getString("id");
+                        Log.i("JSON idAtk ", ""+idatk);
+                        iaBot.AttaqueIA(idatk,iddef);
                     }
                     //System.out.println(action);
                     //result = EntityUtils.toString(httpResponse.getEntity(), "UTF-8");
@@ -193,6 +206,7 @@ public class HttpRequest {
                     e.printStackTrace();
                 }
             }
+
         });
 
         thread.start();

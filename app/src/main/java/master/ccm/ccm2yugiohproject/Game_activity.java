@@ -30,6 +30,7 @@ import android.graphics.Color;
 import android.graphics.Path;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -917,47 +918,69 @@ public class Game_activity extends AppCompatActivity {
                     majPv();*/
                     majMain();
                     majNBPlayerDeckCard();
-                    nextPhase();
+                    waitTonextPhase(1000);
+                    //nextPhase();
                     break;
 
                 case 1:
                     //stand by
+                    //waitTonextPhase(1000);
+                    //nextPhase();
                 case 2:
                     //Main phase
                     iaBotclass.invocationIA(currentplayer.getPlayerMain().getMonsterInvocable(),currentPhase);
-                    nextPhase();
+                    waitTonextPhase(1000);
                     break;
+
                 case 3:
                     //Battle phase
                     ArrayList<Monstre> listmonstreIa = currentplayer.getPlayerTerrain().getMonsterOnTerrain();
-                    if(listPlayer.get(0).getPlayerTerrain().getTableauZoneMonstre().length > 0) {
+
                         for (Monstre aMonster : listmonstreIa) {
                             Log.d("JSON", aMonster.getPosition());
                             if(aMonster.getPosition().equals("ATK")) {
-                                httpRequest.sendPost(listPlayer.get(0).getPlayerTerrain().getTableauZoneMonstre(), aMonster);
+                                Log.d("JSON", ""+listPlayer.get(0).getPlayerTerrain().getMonsterOnTerrain().size());
+                                if(listPlayer.get(0).getPlayerTerrain().getMonsterOnTerrain().size() > 0) {
+                                    Log.d("JSON", "Attaque monstres");
+                                    Toast.makeText(this,aMonster.getName()+" Vous attaque !",Toast.LENGTH_SHORT);
+                                    httpRequest.sendPost(iaBotclass,listPlayer.get(0).getPlayerTerrain().getTableauZoneMonstre(), aMonster);
+                                }else{
+                                    Log.d("JSON", "Attaque direct");
+                                    Toast.makeText(this,aMonster.getName()+" Vous attaque ! Vous perdez "+aMonster.getAtk()+" life points",Toast.LENGTH_SHORT);
+                                    iaBotclass.AttaqueDirectIA(aMonster);
+                                }
                             }
                         }
-                    }
-                    nextPhase();
+                    waitTonextPhase(1000);
+                    //nextPhase();
                     break;
                 case 4:
                     //main phase 2
                     //
-                    nextPhase();
+                    waitTonextPhase(1000);
+                    //nextPhase();
                     break;
                 case 5:
                     //end phase
                     //nextTurn();
+
                     if(currentplayer.getPlayerMain().getListCards().size() > currentplayer.getPlayerMain().getMaxMain() )
                     {
                         iaBotclass.DeffauseIA();
                         majMain();
                     }
-
                     currentplayer.getPlayerTerrain().desetCountAtk();
                     currentplayer.getPlayerTerrain().desetMalActivation();
                     currentplayer.getPlayerTerrain().desetChangePosition();
-                    nextPhase();
+                    /*Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        public void run() {
+                            // Actions to do after 5 seconds
+                            nextPhase();
+                        }
+                    }, 1000);*/
+                    waitTonextPhase(1000);
+
                     break;
             }
         }
@@ -1588,6 +1611,15 @@ public class Game_activity extends AppCompatActivity {
         return 0;
     }
 
+    public void waitTonextPhase(int ms){
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                // Actions to do after ms seconds
+                nextPhase();
+            }
+        }, ms);
+    }
 
 }
 

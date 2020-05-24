@@ -36,67 +36,70 @@ public class BattleSystem {
         int sommeDegat =0;
         ArrayList<CardInGame> filtre = new ArrayList<>();
         //
-        monstreA.setHaveChangePosition(true);
-        Log.i("JSON BattleMonster ", ""+monstreA.getName());
-        Log.i("JSON BattleMonster ", ""+monstreA.getPosition());
-        Log.i("JSON BattleMonster ", ""+monstreA.getPlayer().getName());
-        Log.i("JSON BattleMonster ", ""+monstreB.getName());
-        Log.i("JSON BattleMonster ", ""+monstreB.getPosition());
-        Log.i("JSON BattleMonster ", ""+monstreB.getPlayer().getName());
-        if(monstreB.getPosition().equals("DEF")){
-            if(monstreA.getAtk() > monstreB.getDef()){
-                filtre.add(monstreB);
-                effectMoveCardFromAtoB.execute(context,null,0,0,monstreB.getPlayer().getPlayerTerrain(),monstreB.getPlayer().getPlayerCimetiere(),filtre);
-                //le monstre b est detruit
-            }else if (monstreA.getAtk() < monstreB.getDef()){
-                monstreB.setVisible(true);
-                monstreB.getPlayer().getPlayerTerrain().monsterToDefAnnimation(context, monstreB.getPlayer().getPlayerTerrain().getImageViewFromCard(monstreB));
-                sommeDegat =monstreA.getAtk() - monstreB.getDef();
-                Toast.makeText(context,monstreA.getPlayer().getName()+" perds "+ -sommeDegat+" point de vie !",Toast.LENGTH_SHORT).show();
-                effectGainPertePV.execute(context,listPlayer,getIntPlayer(monstreA.getPlayer()),sommeDegat,null,null,null);
 
-                // aucun des monstres est detruit
-            }else if (monstreA.getAtk() == monstreB.getDef()){
+        if (monstreA != null && monstreB != null && monstreA.getPlayer() != null && monstreB.getPlayer()!= null && monstreA.getPosition() != null && monstreB.getPosition() != null) {
+            monstreA.setHaveChangePosition(true);
+            Log.i("JSON BattleMonster ", "" + monstreA.getName());
+            Log.i("JSON BattleMonster ", "" + monstreA.getPosition());
+            Log.i("JSON BattleMonster ", "" + monstreA.getPlayer().getName());
+            Log.i("JSON BattleMonster ", "" + monstreB.getName());
+            Log.i("JSON BattleMonster ", "" + monstreB.getPosition());
+            Log.i("JSON BattleMonster ", "" + monstreB.getPlayer().getName());
+            if (monstreB.getPosition().equals("DEF")) {
+                if (monstreA.getAtk() > monstreB.getDef()) {
+                    filtre.add(monstreB);
+                    effectMoveCardFromAtoB.execute(context, null, 0, 0, monstreB.getPlayer().getPlayerTerrain(), monstreB.getPlayer().getPlayerCimetiere(), filtre);
+                    //le monstre b est detruit
+                } else if (monstreA.getAtk() < monstreB.getDef()) {
+                    monstreB.setVisible(true);
+                    monstreB.getPlayer().getPlayerTerrain().monsterToDefAnnimation(context, monstreB.getPlayer().getPlayerTerrain().getImageViewFromCard(monstreB));
+                    sommeDegat = monstreA.getAtk() - monstreB.getDef();
+                    Toast.makeText(context, monstreA.getPlayer().getName() + " perds " + -sommeDegat + " point de vie !", Toast.LENGTH_SHORT).show();
+                    effectGainPertePV.execute(context, listPlayer, getIntPlayer(monstreA.getPlayer()), sommeDegat, null, null, null);
 
-                // aucun des monstres est detruit
+                    // aucun des monstres est detruit
+                } else if (monstreA.getAtk() == monstreB.getDef()) {
+
+                    // aucun des monstres est detruit
+                }
+
+            } else if (monstreB.getPosition().equals("ATK")) {
+                if (monstreA.getAtk() > monstreB.getAtk()) {
+                    Log.i("JSON BattleMonster ", "Combat entre Monstres");
+                    Log.i("JSON BattleMonster ", "playerName" + monstreB.getPlayer().getName());
+                    filtre.add(monstreB);
+                    sommeDegat = monstreB.getAtk() - monstreA.getAtk();
+                    Log.i("JSON BattleMonster ", "somme degat : " + sommeDegat);
+                    Log.i("JSON BattleMonster ", "MB NumJoueur : " + monstreB.getPlayer().getNumJoueur());
+                    Log.i("JSON BattleMonster ", "listPlayer : " + listPlayer.size());
+                    //Toast.makeText(context,monstreB.getPlayer().getName()+" perds "+ sommeDegat+" point de vie !",Toast.LENGTH_SHORT).show();
+                    effectGainPertePV.execute(context, listPlayer, monstreB.getPlayer().getNumJoueur(), sommeDegat, null, null, null);
+                    Log.i("JSON BattleMonster", "playerName2" + monstreB.getPlayer().getName());
+                    effectMoveCardFromAtoB.execute(context, null, monstreB.getPlayer().getNumJoueur(), 0, monstreB.getPlayer().getPlayerTerrain(), monstreB.getPlayer().getPlayerCimetiere(), filtre);
+                    //le monstre b est detruit
+                    Log.i("JSON BattleMonster", "Fin");
+                } else if (monstreA.getAtk() < monstreB.getAtk()) {
+
+                    sommeDegat = monstreA.getAtk() - monstreB.getAtk();
+                    Toast.makeText(context, monstreA.getPlayer().getName() + " perds " + -sommeDegat + " point de vie !", Toast.LENGTH_SHORT).show();
+                    effectGainPertePV.execute(context, listPlayer, getIntPlayer(monstreA.getPlayer()), sommeDegat, null, null, null);
+                    filtre.add(monstreA);
+                    //monstre A est detruit
+                    effectMoveCardFromAtoB.execute(context, null, 0, 0, monstreA.getPlayer().getPlayerTerrain(), monstreA.getPlayer().getPlayerCimetiere(), filtre);
+
+                } else if (monstreA.getAtk() == monstreB.getAtk()) {
+
+                    filtre.add(monstreB);
+                    effectMoveCardFromAtoB.execute(context, null, 0, 0, monstreB.getPlayer().getPlayerTerrain(), monstreB.getPlayer().getPlayerCimetiere(), filtre);
+                    filtre.clear();
+                    filtre.add(monstreA);
+                    effectMoveCardFromAtoB.execute(context, null, 0, 0, monstreA.getPlayer().getPlayerTerrain(), monstreA.getPlayer().getPlayerCimetiere(), filtre);
+                    //les deux sont detruits
+                }
             }
-
-        }else if (monstreB.getPosition().equals("ATK")){
-            if(monstreA.getAtk() > monstreB.getAtk()){
-                Log.i("JSON BattleMonster ", "Combat entre Monstres");
-                Log.i("JSON BattleMonster ", "playerName" + monstreB.getPlayer().getName());
-                filtre.add(monstreB);
-                sommeDegat =monstreB.getAtk() - monstreA.getAtk();
-                Log.i("JSON BattleMonster ", "somme degat : "+sommeDegat);
-                Log.i("JSON BattleMonster ", "MB NumJoueur : "+monstreB.getPlayer().getNumJoueur());
-                Log.i("JSON BattleMonster ", "listPlayer : "+listPlayer.size());
-                //Toast.makeText(context,monstreB.getPlayer().getName()+" perds "+ sommeDegat+" point de vie !",Toast.LENGTH_SHORT).show();
-                effectGainPertePV.execute(context,listPlayer,monstreB.getPlayer().getNumJoueur(),sommeDegat,null,null,null);
-                Log.i("JSON BattleMonster", "playerName2" + monstreB.getPlayer().getName());
-                effectMoveCardFromAtoB.execute(context,null,monstreB.getPlayer().getNumJoueur(),0,monstreB.getPlayer().getPlayerTerrain(),monstreB.getPlayer().getPlayerCimetiere(),filtre);
-                //le monstre b est detruit
-                Log.i("JSON BattleMonster", "Fin");
-            }else if (monstreA.getAtk() < monstreB.getAtk()){
-
-                sommeDegat =monstreA.getAtk() - monstreB.getAtk();
-                Toast.makeText(context,monstreA.getPlayer().getName()+" perds "+ -sommeDegat+" point de vie !",Toast.LENGTH_SHORT).show();
-                effectGainPertePV.execute(context,listPlayer,getIntPlayer(monstreA.getPlayer()),sommeDegat,null,null,null);
-                filtre.add(monstreA);
-                //monstre A est detruit
-                effectMoveCardFromAtoB.execute(context,null,0,0,monstreA.getPlayer().getPlayerTerrain(),monstreA.getPlayer().getPlayerCimetiere(),filtre);
-
-            }else if (monstreA.getAtk() == monstreB.getAtk()){
-
-                filtre.add(monstreB);
-                effectMoveCardFromAtoB.execute(context,null,0,0,monstreB.getPlayer().getPlayerTerrain(),monstreB.getPlayer().getPlayerCimetiere(),filtre);
-                filtre.clear();
-                filtre.add(monstreA);
-                effectMoveCardFromAtoB.execute(context,null,0,0,monstreA.getPlayer().getPlayerTerrain(),monstreA.getPlayer().getPlayerCimetiere(),filtre);
-                //les deux sont detruits
+            if (sommeDegat < 0) {
+                context.majPv();
             }
-        }
-        if(sommeDegat < 0){
-            context.majPv();
         }
     }
     public int getIntPlayer(Player aplayer){

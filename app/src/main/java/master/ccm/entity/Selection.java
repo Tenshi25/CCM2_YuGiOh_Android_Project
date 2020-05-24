@@ -28,7 +28,7 @@ public class Selection {
     private CardInGame firstSelectedCard;
     private int targetPlayer;
 
-    public void addTolistImageView(Context context, ImageView imageView, String from, ArrayList<Player> listPlayer, Player player){
+    public void addTolistImageView(Game_activity context, ImageView imageView, String from, ArrayList<Player> listPlayer, Player player){
 
         CardInGame aCard;
         if(from.equals(pileCarte)) {
@@ -109,7 +109,7 @@ public class Selection {
 
         Toast.makeText(context,"Selectionner "+cpt +" "+p_cardType+" depuis "+p_pileCarte,Toast.LENGTH_SHORT).show();
     }
-    public void finSelection(Context context,Player player){
+    public void finSelection(Game_activity context,Player player){
 
         if(target.equals("Battle")){
 

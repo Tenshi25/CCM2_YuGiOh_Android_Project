@@ -32,6 +32,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -51,10 +52,10 @@ public class HttpRequest {
         monstreAtk.setName(monstreAttaquant.getName());
         monstreAtk.setAtk(monstreAttaquant.getAtk());
         monstreAtk.setDef(monstreAttaquant.getDef());
-        if(monstreAttaquant.getPosition().equals("ATK")){
+        if (monstreAttaquant.getPosition().equals("ATK")) {
 
             monstreAtk.setPosition("attaque");
-        }else{
+        } else {
             monstreAtk.setPosition("defense");
         }
         tabMonstre[0] = monstreAtk;
@@ -70,10 +71,10 @@ public class HttpRequest {
                 monstreDef.setAtk(((Monstre) listcard[i - 5]).getAtk());
                 monstreDef.setDef(((Monstre) listcard[i - 5]).getDef());
                 //monstreDef.setPosition(((Monstre) listcard[i - 5]).getPosition());
-                if(((Monstre) listcard[i - 5]).getPosition().equals("ATK")){
+                if (((Monstre) listcard[i - 5]).getPosition().equals("ATK")) {
 
                     monstreDef.setPosition("attaque");
-                }else{
+                } else {
                     monstreDef.setPosition("defense");
                 }
                 tabMonstre[i] = monstreDef;
@@ -84,6 +85,9 @@ public class HttpRequest {
         }
         tabmonstresForJson = tabMonstre;
         Log.d("JSON", "SendJSON");
+
+
+
 
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -105,9 +109,9 @@ public class HttpRequest {
 
                     ArrayList<CardJson> objList = new ArrayList<>();
                     for (int i = 0; i < 10; i++) {
-                        if(tabmonstresForJson[i] != null) {
+                        if (tabmonstresForJson[i] != null) {
                             objList.add(tabmonstresForJson[i]);
-                        }else{
+                        } else {
                             CardJson newCard = new CardJson();
                             objList.add(newCard);
                         }
@@ -125,8 +129,7 @@ public class HttpRequest {
                     String json = gson.toJson(iaDto);
 
 
-
-                     //String json = new Gson().toJson(objList);
+                    //String json = new Gson().toJson(objList);
                     //array = jsonParser.parse(tabmonstresForJson).getAsJsonArray();
                     //jsonParam.put("monstreAttaquant", monstreAtk);
                     //jsonParam.put("tabmonstres", json);
@@ -158,22 +161,22 @@ public class HttpRequest {
                     //os.write(String.valueOf(tabMonstre));
                     //HttpResponse response=conn.execute(post);
                     os.flush();
-                    os.close();
-                    int responseCode=conn.getResponseCode();
+
+                    int responseCode = conn.getResponseCode();
 
                     if (responseCode == HttpsURLConnection.HTTP_OK) {
                         String line;
-                        BufferedReader br=new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                        while ((line=br.readLine()) != null) {
+                        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                        while ((line = br.readLine()) != null) {
                             response += line;
                         }
-                    }
-                    else {
-                        response="";
+                        os.close();
+                    } else {
+                        response = "";
 
                     }
-                    Log.i("JSON", "res : "+response);
-                    Log.i("JSON", "STATUS : "+String.valueOf(conn.getResponseCode()));
+                    Log.i("JSON", "res : " + response);
+                    Log.i("JSON", "STATUS : " + String.valueOf(conn.getResponseCode()));
                     Log.i("MSG", conn.getResponseMessage());
                     //Game_activity.
                     //recuperation de la reponse
@@ -181,21 +184,20 @@ public class HttpRequest {
                     String action = obj.getString("action");
 
 
-                    Log.i("JSON Action ", ""+action);
+                    Log.i("JSON Action ", "" + action);
 
-                    if(action.equals("RIEN"))
-                    {
-                        Log.i("JSON Action Rien","Rien");
-                    }else if(action.equals("ATTAQUER")){
+                    if (action.equals("RIEN")) {
+                        Log.i("JSON Action Rien", "Rien");
+                    } else if (action.equals("ATTAQUER")) {
                         Log.i("JSON Action Attaquer", "Attaquer");
                         JSONObject jsonmonstreDef = obj.getJSONObject("monstreAttaque");
                         String iddef = jsonmonstreDef.getString("id");
-                        Log.i("JSON idDef ", ""+iddef);
+                        Log.i("JSON idDef ", "" + iddef);
 
                         JSONObject jsonmonstreAtk = obj.getJSONObject("monstreAttaquant");
                         String idatk = jsonmonstreAtk.getString("id");
-                        Log.i("JSON idAtk ", ""+idatk);
-                        iaBot.AttaqueIA(idatk,iddef);
+                        Log.i("JSON idAtk ", "" + idatk);
+                        iaBot.AttaqueIA(idatk, iddef);
                     }
                     //System.out.println(action);
                     //result = EntityUtils.toString(httpResponse.getEntity(), "UTF-8");
@@ -205,10 +207,11 @@ public class HttpRequest {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }
 
+            }
         });
 
         thread.start();
     }
 }
+

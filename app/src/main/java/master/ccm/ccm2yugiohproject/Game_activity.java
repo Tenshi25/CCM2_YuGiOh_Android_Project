@@ -71,6 +71,7 @@ import master.ccm.entity.subcard.Piege;
 import master.ccm.manager.DeckDBManager;
 
 public class Game_activity extends AppCompatActivity {
+    public static Game_activity myContext;
     private int nbTurn;
     private int nbplayer;
     private String nomPlayer;
@@ -184,6 +185,8 @@ public class Game_activity extends AppCompatActivity {
         // Hide the status bar.
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
+
+        myContext = this;
 
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);

@@ -100,6 +100,7 @@ public class HttpRequest {
                     conn.setRequestMethod("POST");
                     conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
                     conn.setRequestProperty("Accept", "application/json");
+
                     conn.setDoOutput(true);
                     conn.setDoInput(true);
 
@@ -197,7 +198,12 @@ public class HttpRequest {
                         JSONObject jsonmonstreAtk = obj.getJSONObject("monstreAttaquant");
                         String idatk = jsonmonstreAtk.getString("id");
                         Log.i("JSON idAtk ", "" + idatk);
-                        iaBot.AttaqueIA(idatk, iddef);
+                        Game_activity.myContext.runOnUiThread(new Runnable() {
+                            public void run() {
+                                iaBot.AttaqueIA(idatk, iddef);
+                            }
+                        });
+
                     }
                     //System.out.println(action);
                     //result = EntityUtils.toString(httpResponse.getEntity(), "UTF-8");

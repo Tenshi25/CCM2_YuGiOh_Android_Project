@@ -210,13 +210,15 @@ public class Terrain extends PileCarte {
                             Log.i("JSON Terrain ", "aCard  "+ aCard.getIdNumberInGame());
                             Log.i("JSON Terrain ", "aCard "+ aCard.getName());
                             tableauZoneMonstre[i] = null;
+                            if(((Monstre)aCard).getPosition().equals("DEF")) {
+                                monsterToAtkAnnimation(context,tableauZoneMonstreImageView[i]);
+                            }
 
-                            //monsterToAtkAnnimation(context,tableauZoneMonstreImageView[i]);
                             Log.i("JSON Terrain ", "Fin Animation ");
-                            ToAtkAndViderimageView(tableauZoneMonstreImageView[i],context);
+                            viderimageView(tableauZoneMonstreImageView[i],context);
 
                             //Picasso.with(context).load(aCard.getUrl()).error(R.drawable.cardunknow).into(tableauZoneMonstreImageView[i]);
-                            //Picasso.with(context).load(R.drawable.caseterrain).error(R.drawable.caseterrain).into(tableauZoneMonstreImageView[i]);
+                            //Picasso.with(context).load(R.drawable.caseterrain).error(R.drawable.).into(tableauZoneMonstreImageView[i]);
                             Log.i("JSON Terrain ", "Fin ");
                             break;
                         }
@@ -275,7 +277,7 @@ public class Terrain extends PileCarte {
                 //tableauZoneMonstreImageView[i].setRotation(0);
                 tableauZoneMonstreImageView[i].setImageDrawable(context.getResources().getDrawable(R.drawable.caseterrain));
                 //Picasso.with(context).load(R.drawable.caseterrain).error(R.drawable.caseterrain).into(tableauZoneMonstreImageView[i]);
-                tableauZoneMonstreImageView[i].setRotation(0);
+
             }
         }
 

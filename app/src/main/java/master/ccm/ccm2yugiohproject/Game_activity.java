@@ -9,6 +9,7 @@ import master.ccm.entity.Effects.EffectCard;
 import master.ccm.entity.Effects.EffectInvoquerNormale;
 import master.ccm.entity.Effects.EffectPioche;
 import master.ccm.entity.Effects.EffectPoseNormal;
+import master.ccm.entity.HttpRequest;
 import master.ccm.entity.IABot;
 import master.ccm.entity.PileDeCarte.Deck;
 import master.ccm.entity.Phase;
@@ -29,6 +30,7 @@ import android.graphics.Color;
 import android.graphics.Path;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -42,6 +44,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -68,6 +71,7 @@ import master.ccm.entity.subcard.Piege;
 import master.ccm.manager.DeckDBManager;
 
 public class Game_activity extends AppCompatActivity {
+    public static Game_activity myContext;
     private int nbTurn;
     private int nbplayer;
     private String nomPlayer;
@@ -76,6 +80,7 @@ public class Game_activity extends AppCompatActivity {
     private Deck playerDeck;
     private int ordrePhase = 0;
     private boolean deckPlayerCharger;
+    private HttpRequest httpRequest =new HttpRequest();
 
     private TextView tv_iaLifePoint;
     private TextView tv_playerLifePoint;
@@ -180,6 +185,8 @@ public class Game_activity extends AppCompatActivity {
         // Hide the status bar.
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
+
+        myContext = this;
 
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
@@ -459,6 +466,7 @@ public class Game_activity extends AppCompatActivity {
                 }
                 break;
             case R.id.iv_mainPlayer_5:
+
                 if(selection.isSeclectionPhase()&& selection.getTargetPlayer() ==0){
                     selection.addTolistImageView(this,iv_mainPlayerCard_5,"Main",listPlayer,currentplayer);
                 }
@@ -913,35 +921,69 @@ public class Game_activity extends AppCompatActivity {
                     majPv();*/
                     majMain();
                     majNBPlayerDeckCard();
-                    nextPhase();
+                    waitTonextPhase(1000);
+                    //nextPhase();
                     break;
 
                 case 1:
                     //stand by
+                    //waitTonextPhase(1000);
+                    //nextPhase();
                 case 2:
                     //Main phase
                     iaBotclass.invocationIA(currentplayer.getPlayerMain().getMonsterInvocable(),currentPhase);
+                    waitTonextPhase(1000);
+                    break;
+
                 case 3:
-                case 4:
-
-
                     //Battle phase
+                    ArrayList<Monstre> listmonstreIa = currentplayer.getPlayerTerrain().getMonsterOnTerrain();
+
+                        for (Monstre aMonster : listmonstreIa) {
+                            Log.d("JSON", aMonster.getPosition());
+                            if(aMonster.getPosition().equals("ATK")) {
+                                Log.d("JSON", ""+listPlayer.get(0).getPlayerTerrain().getMonsterOnTerrain().size());
+                                if(listPlayer.get(0).getPlayerTerrain().getMonsterOnTerrain().size() > 0) {
+                                    Log.d("JSON", "Attaque monstres");
+                                    Toast.makeText(this,aMonster.getName()+" Vous attaque !",Toast.LENGTH_SHORT);
+                                    httpRequest.sendPost(iaBotclass,listPlayer.get(0).getPlayerTerrain().getTableauZoneMonstre(), aMonster);
+                                }else{
+                                    Log.d("JSON", "Attaque direct");
+                                    Toast.makeText(this,aMonster.getName()+" Vous attaque ! Vous perdez "+aMonster.getAtk()+" life points",Toast.LENGTH_SHORT);
+                                    iaBotclass.AttaqueDirectIA(aMonster);
+                                }
+                            }
+                        }
+                    waitTonextPhase(1000);
+                    //nextPhase();
+                    break;
+                case 4:
                     //main phase 2
-                    nextPhase();
+                    //
+                    waitTonextPhase(1000);
+                    //nextPhase();
                     break;
                 case 5:
                     //end phase
                     //nextTurn();
+
                     if(currentplayer.getPlayerMain().getListCards().size() > currentplayer.getPlayerMain().getMaxMain() )
                     {
                         iaBotclass.DeffauseIA();
                         majMain();
                     }
-
                     currentplayer.getPlayerTerrain().desetCountAtk();
                     currentplayer.getPlayerTerrain().desetMalActivation();
                     currentplayer.getPlayerTerrain().desetChangePosition();
-                    nextPhase();
+                    /*Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        public void run() {
+                            // Actions to do after 5 seconds
+                            nextPhase();
+                        }
+                    }, 1000);*/
+                    waitTonextPhase(1000);
+
                     break;
             }
         }
@@ -1572,6 +1614,15 @@ public class Game_activity extends AppCompatActivity {
         return 0;
     }
 
+    public void waitTonextPhase(int ms){
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                // Actions to do after ms seconds
+                nextPhase();
+            }
+        }, ms);
+    }
 
 }
 

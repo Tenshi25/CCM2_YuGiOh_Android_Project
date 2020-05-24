@@ -195,14 +195,33 @@ public class Terrain extends PileCarte {
 
     }
     public void removeListCard(ArrayList<CardInGame> listCardaRemove, Context context){
+        Log.i("JSON Terrain ", "Debut Remove ");
         for (CardInGame aCard :listCardaRemove){
             if(aCard.getCardType().toString().equals("MONSTRE")){
                 for (int i = 0; i < 5; i++) {
-                    if(aCard == tableauZoneMonstre[i] ){
-                        tableauZoneMonstre[i] = null;
-                        monsterToAtkAnnimation(context,tableauZoneMonstreImageView[i]);
-                        viderimageView(tableauZoneMonstreImageView[i],context);
-                        break;
+                    Log.i("JSON Terrain ", "a Card "+ aCard.getName());
+                    Log.i("JSON Terrain ", "number aCard "+ aCard.getIdNumberInGame());
+                    if(tableauZoneMonstre[i] != null){
+                        Log.i("JSON Terrain ", "number tableauZoneMonstre[i]"+ tableauZoneMonstre[i].getIdNumberInGame());
+
+                        if(aCard.getIdNumberInGame().equals(tableauZoneMonstre[i].getIdNumberInGame())){
+                            Log.i("JSON Terrain ", "tableauZoneMonstre i "+ tableauZoneMonstre[i].getIdNumberInGame());
+                            Log.i("JSON Terrain ", "tableauZoneMonstre i "+ tableauZoneMonstre[i].getName());
+                            Log.i("JSON Terrain ", "aCard  "+ aCard.getIdNumberInGame());
+                            Log.i("JSON Terrain ", "aCard "+ aCard.getName());
+                            tableauZoneMonstre[i] = null;
+                            if(((Monstre)aCard).getPosition().equals("DEF")) {
+                                monsterToAtkAnnimation(context,tableauZoneMonstreImageView[i]);
+                            }
+
+                            Log.i("JSON Terrain ", "Fin Animation ");
+                            viderimageView(tableauZoneMonstreImageView[i],context);
+
+                            //Picasso.with(context).load(aCard.getUrl()).error(R.drawable.cardunknow).into(tableauZoneMonstreImageView[i]);
+                            //Picasso.with(context).load(R.drawable.caseterrain).error(R.drawable.).into(tableauZoneMonstreImageView[i]);
+                            Log.i("JSON Terrain ", "Fin ");
+                            break;
+                        }
                     }
 
                 }
@@ -245,7 +264,22 @@ public class Terrain extends PileCarte {
 
     }
     public void viderimageView(ImageView imageView, Context context){
+        Log.i("JSON Terrain ", "vider Picasso : " +imageView.getId());
+        Log.i("JSON Terrain ", "vider Picasso context: " +context.getClass().getName());
         Picasso.with(context).load(R.drawable.caseterrain).error(R.drawable.cardunknow).into(imageView);
+
+    }
+    public void ToAtkAndViderimageView(ImageView imageView, Context context){
+        Log.i("JSON Terrain ", "vider Picasso : " +imageView.getId());
+        Log.i("JSON Terrain ", "vider Picasso context: " +context.getClass().getName());
+        for (int i = 0; i < 5; i++) {
+            if(tableauZoneMonstreImageView[i].getId() == imageView.getId()){
+                //tableauZoneMonstreImageView[i].setRotation(0);
+                tableauZoneMonstreImageView[i].setImageDrawable(context.getResources().getDrawable(R.drawable.caseterrain));
+                //Picasso.with(context).load(R.drawable.caseterrain).error(R.drawable.caseterrain).into(tableauZoneMonstreImageView[i]);
+
+            }
+        }
 
     }
     public int getCountMonstre(){
@@ -308,6 +342,15 @@ public class Terrain extends PileCarte {
             }
         }
         return null;
+    }
+    public ArrayList<Monstre> getMonsterOnTerrain(){
+        ArrayList<Monstre>listMonstreTerrain = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            if((Monstre) getCardZoneMonstre(i) !=  null) {
+                listMonstreTerrain.add((Monstre) getCardZoneMonstre(i));
+            }
+        }
+        return listMonstreTerrain;
     }
 
 

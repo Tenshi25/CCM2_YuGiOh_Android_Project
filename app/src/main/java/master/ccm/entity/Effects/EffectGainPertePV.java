@@ -3,6 +3,7 @@ package master.ccm.entity.Effects;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -23,6 +24,7 @@ public class EffectGainPertePV extends EffectCard {
             if(nb<0){
                 Log.i("JSON EffectGainPV ", "pv joueurCibler Av: "+ listJoueurs.get(joueurCibler).getLifepoint());
                 listJoueurs.get(joueurCibler).perteLifepoint(-nb);
+                Toast.makeText(context,""+listJoueurs.get(joueurCibler).getName() +" perds " +nb + " points de vie",Toast.LENGTH_LONG).show();
                 Log.i("JSON EffectGainPV ", "pv joueurCibler Ap: "+ listJoueurs.get(joueurCibler).getLifepoint());
                 if(listJoueurs.get(joueurCibler).getLifepoint() == 0){
                     Intent intent = new Intent(context, EndGame_activity.class);
@@ -38,6 +40,7 @@ public class EffectGainPertePV extends EffectCard {
                 }
             }else{
                 listJoueurs.get(joueurCibler).gainLifepoint(nb);
+                Toast.makeText(context,""+listJoueurs.get(joueurCibler).getName() +" gagne " +nb + " points de vie",Toast.LENGTH_LONG).show();
             }
 
         }else{

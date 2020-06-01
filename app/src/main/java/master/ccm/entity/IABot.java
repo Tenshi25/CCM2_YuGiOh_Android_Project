@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import master.ccm.ccm2yugiohproject.Game_activity;
+import master.ccm.ccm2yugiohproject.utils.BuilderEffectUtils;
 import master.ccm.entity.Effects.EffectMoveCardFromAtoB;
 import master.ccm.entity.PileDeCarte.Main;
 import master.ccm.entity.subcard.CardInGame;
@@ -52,6 +53,42 @@ public class IABot {
                             listfiltre.add(cardSelectRand);
                             invocation.getEffect().execute(context, listPlayer, 1, 1, Iabot.getPlayerMain(), Iabot.getPlayerTerrain(), listfiltre);
                             //majbtAction(currentplayerMain.getSelectedCard());
+
+
+                            Monstre leMonstre = (Monstre) cardSelectRand;
+
+                            if (leMonstre.getEffects().size() > 0){
+                                BuilderEffectUtils builderEffectUtils = new BuilderEffectUtils();
+                                for (int i=0; i< leMonstre.getEffects().size(); i++){
+                                    if (leMonstre.getEffectsExplaination().get(i).isAutoActivable()){
+
+                                        if (leMonstre.getEffectsExplaination().get(0).getDeterminedEffect() == null) {
+                                            leMonstre.getEffects().get(i).execute(Game_activity.myContext, listPlayer,
+                                                    builderEffectUtils.knowJoueurCible(leMonstre.getEffectsExplaination().get(i), leMonstre.getPlayer()),
+                                                    builderEffectUtils.knowQuota(leMonstre.getEffectsExplaination().get(i)),
+                                                    builderEffectUtils.knowPileA(leMonstre.getEffectsExplaination().get(i)),
+                                                    builderEffectUtils.knowPileB(leMonstre.getEffectsExplaination().get(i)),
+                                                    builderEffectUtils.knowFilterCard(leMonstre.getEffectsExplaination().get(i), listPlayer)
+                                            );
+                                        } else {
+                                            int multiplier = 0;
+                                            int quota = builderEffectUtils.knowQuota(leMonstre.getEffectsExplaination().get(0));
+                                            multiplier = Game_activity.myContext.getMultiplerValue(leMonstre.getEffectsExplaination().get(0).getDeterminedEffect());
+                                            quota = quota * multiplier;
+                                            leMonstre.getEffects().get(0).execute(Game_activity.myContext, listPlayer,
+                                                    builderEffectUtils.knowJoueurCible(leMonstre.getEffectsExplaination().get(0), leMonstre.getPlayer()),
+                                                    quota,
+                                                    builderEffectUtils.knowPileA(leMonstre.getEffectsExplaination().get(0)),
+                                                    builderEffectUtils.knowPileB(leMonstre.getEffectsExplaination().get(0)),
+                                                    builderEffectUtils.knowFilterCard(leMonstre.getEffectsExplaination().get(0), listPlayer)
+                                            );
+                                        }
+                                        Game_activity.myContext.majPv();
+                                        Game_activity.myContext.majMain();
+                                        Game_activity.myContext.majNBPlayerDeckCard();
+                                    }
+                                }
+                            }
                         }
                     }
                 case 1:
@@ -96,7 +133,7 @@ public class IABot {
                     }
                 }
                 Log.i("JSON MonstreATK ", ""+monstreAttaquant.getName());
-                if(monstreAttaquant != null) {
+                if(monstreAttaquant != null && monstreAttaquant.getCountAtk() != null && monstreAttaquant.getMaxcountAtk() != null) {
                     if (monstreAttaquant.getCountAtk() < monstreAttaquant.getMaxcountAtk()) {
                         ((Monstre) monstreAttaquant).setCountAtk(((Monstre) monstreAttaquant).getCountAtk() + 1);
                         battleSystem.Battle(listPlayer, (Monstre) monstreAttaquant, monstreDef, context);

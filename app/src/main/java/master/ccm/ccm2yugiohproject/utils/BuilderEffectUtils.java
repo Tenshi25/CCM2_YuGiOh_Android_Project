@@ -3,6 +3,7 @@ package master.ccm.ccm2yugiohproject.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import master.ccm.ccm2yugiohproject.Game_activity;
 import master.ccm.entity.Card;
 import master.ccm.entity.Effects.EffectCard;
 import master.ccm.entity.Effects.EffectGainPertePV;
@@ -45,14 +46,27 @@ public class BuilderEffectUtils {
         return value;
     }
 
-    public int knowJoueurCible(Effect effect) {
-        if (effect.getTarget().equals("Me")) {
-            return 0;
+    public int knowJoueurCible(Effect effect, Player ownerCard) {
+        if (ownerCard.getName().equals(Game_activity.myContext.getAllPLayers().get(0).getName())) {
+
+            if (effect.getTarget().equals("Me")) {
+                return 0;
+            } else {
+                if (effect.getTarget().equals("Ennemy")) {
+                    return 1;
+                } else {
+                    return 2;
+                }
+            }
         } else {
-            if (effect.getTarget().equals("Ennemy")) {
+            if (effect.getTarget().equals("Me")) {
                 return 1;
             } else {
-                return 2;
+                if (effect.getTarget().equals("Ennemy")) {
+                    return 0;
+                } else {
+                    return 2;
+                }
             }
         }
     }

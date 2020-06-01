@@ -12,6 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 import master.ccm.ccm2yugiohproject.Game_activity;
+import master.ccm.ccm2yugiohproject.utils.BuilderEffectUtils;
 import master.ccm.entity.Effects.EffectCard;
 import master.ccm.entity.Effects.EffectGainPertePV;
 import master.ccm.entity.Effects.EffectMoveCardFromAtoB;
@@ -48,19 +49,29 @@ public class BattleSystem {
             if (monstreB.getPosition().equals("DEF")) {
                 if (monstreA.getAtk() > monstreB.getDef()) {
                     filtre.add(monstreB);
+                    if (!monstreB.isVisible()) {
+                        flipEffectActivateInBattle(monstreB);
+                    }
                     effectMoveCardFromAtoB.execute(context, null, 0, 0, monstreB.getPlayer().getPlayerTerrain(), monstreB.getPlayer().getPlayerCimetiere(), filtre);
                     //le monstre b est detruit
                 } else if (monstreA.getAtk() < monstreB.getDef()) {
-                    monstreB.setVisible(true);
-                    monstreB.getPlayer().getPlayerTerrain().monsterToDefAnnimation(context, monstreB.getPlayer().getPlayerTerrain().getImageViewFromCard(monstreB));
                     sommeDegat = monstreA.getAtk() - monstreB.getDef();
                     Toast.makeText(context, monstreA.getPlayer().getName() + " perds " + -sommeDegat + " point de vie !", Toast.LENGTH_SHORT).show();
+                    if (!monstreB.isVisible()) {
+                        flipEffectActivateInBattle(monstreB);
+                    }
+                    monstreB.setVisible(true);
+                    monstreB.getPlayer().getPlayerTerrain().monsterToDefAnnimation(context, monstreB.getPlayer().getPlayerTerrain().getImageViewFromCard(monstreB));
                     effectGainPertePV.execute(context, listPlayer, getIntPlayer(monstreA.getPlayer()), sommeDegat, null, null, null);
 
                     // aucun des monstres est detruit
                 } else if (monstreA.getAtk() == monstreB.getDef()) {
-
                     // aucun des monstres est detruit
+                    if (!monstreB.isVisible()) {
+                        flipEffectActivateInBattle(monstreB);
+                    }
+                    monstreB.setVisible(true);
+                    monstreB.getPlayer().getPlayerTerrain().monsterToDefAnnimation(context, monstreB.getPlayer().getPlayerTerrain().getImageViewFromCard(monstreB));
                 }
 
             } else if (monstreB.getPosition().equals("ATK")) {
@@ -119,6 +130,42 @@ public class BattleSystem {
             return 0;
         }else {
             return 1;
+        }
+
+    }
+
+    public void flipEffectActivateInBattle(Monstre aCard){
+        // flip effect
+        if (aCard.getEffects().size() > 0){
+            BuilderEffectUtils builderEffectUtils = new BuilderEffectUtils();
+            for (int i=0; i< aCard.getEffects().size(); i++){
+                if (aCard.getEffectsExplaination().get(i).isFlip()){
+                    if (aCard.getEffectsExplaination().get(i).getDeterminedEffect() == null) {
+                        aCard.getEffects().get(i).execute(Game_activity.myContext, Game_activity.myContext.getAllPLayers(),
+                                builderEffectUtils.knowJoueurCible(aCard.getEffectsExplaination().get(i), aCard.getPlayer()),
+                                builderEffectUtils.knowQuota(aCard.getEffectsExplaination().get(i)),
+                                builderEffectUtils.knowPileA(aCard.getEffectsExplaination().get(i)),
+                                builderEffectUtils.knowPileB(aCard.getEffectsExplaination().get(i)),
+                                builderEffectUtils.knowFilterCard(aCard.getEffectsExplaination().get(i), Game_activity.myContext.getAllPLayers())
+                        );
+                    } else {
+                        int multiplier = 0;
+                        int quota = builderEffectUtils.knowQuota(aCard.getEffectsExplaination().get(i));
+                        multiplier = Game_activity.myContext.getMultiplerValue(aCard.getEffectsExplaination().get(i).getDeterminedEffect());
+                        quota = quota * multiplier;
+                        aCard.getEffects().get(i).execute(Game_activity.myContext, Game_activity.myContext.getAllPLayers(),
+                                builderEffectUtils.knowJoueurCible(aCard.getEffectsExplaination().get(i), aCard.getPlayer()),
+                                quota,
+                                builderEffectUtils.knowPileA(aCard.getEffectsExplaination().get(i)),
+                                builderEffectUtils.knowPileB(aCard.getEffectsExplaination().get(i)),
+                                builderEffectUtils.knowFilterCard(aCard.getEffectsExplaination().get(i), Game_activity.myContext.getAllPLayers())
+                        );
+                    }
+                    Game_activity.myContext.majPv();
+                    Game_activity.myContext.majMain();
+                    Game_activity.myContext.majNBPlayerDeckCard();
+                }
+            }
         }
 
     }

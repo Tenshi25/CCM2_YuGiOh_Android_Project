@@ -1134,7 +1134,7 @@ public class Game_activity extends AppCompatActivity {
                 if (effectsList.size() == 1) {
                     if (effectsExplanationList.get(0).getDeterminedEffect() == null) {
                         effectsList.get(0).execute(this, listPlayer,
-                                builderEffectUtils.knowJoueurCible(effectsExplanationList.get(0)),
+                                builderEffectUtils.knowJoueurCible(effectsExplanationList.get(0),  aCard.getPlayer()),
                                 builderEffectUtils.knowQuota(effectsExplanationList.get(0)),
                                 builderEffectUtils.knowPileA(effectsExplanationList.get(0)),
                                 builderEffectUtils.knowPileB(effectsExplanationList.get(0)),
@@ -1147,7 +1147,7 @@ public class Game_activity extends AppCompatActivity {
                         quota = quota * multiplier;
 
                         effectsList.get(0).execute(this, listPlayer,
-                                builderEffectUtils.knowJoueurCible(effectsExplanationList.get(0)),
+                                builderEffectUtils.knowJoueurCible(effectsExplanationList.get(0),  aCard.getPlayer()),
                                 quota,
                                 builderEffectUtils.knowPileA(effectsExplanationList.get(0)),
                                 builderEffectUtils.knowPileB(effectsExplanationList.get(0)),
@@ -1169,13 +1169,27 @@ public class Game_activity extends AppCompatActivity {
                             && element.getIdNumberInGame().equals(aCard.getIdNumberInGame()))) {
 
                         if (aCard.getEffects() != null && aCard.getEffects().size() == 1 && aCard.getEffects().get(0) != null) {
-                            aCard.getEffects().get(0).execute(this, listPlayer,
-                                    builderEffectUtils.knowJoueurCible(aCard.getEffectsExplaination().get(0)),
-                                    builderEffectUtils.knowQuota(aCard.getEffectsExplaination().get(0)),
-                                    builderEffectUtils.knowPileA(aCard.getEffectsExplaination().get(0)),
-                                    builderEffectUtils.knowPileB(aCard.getEffectsExplaination().get(0)),
-                                    builderEffectUtils.knowFilterCard(aCard.getEffectsExplaination().get(0), listPlayer)
-                            );
+                            if (aCard.getEffectsExplaination().get(0).getDeterminedEffect() == null) {
+                                aCard.getEffects().get(0).execute(this, listPlayer,
+                                        builderEffectUtils.knowJoueurCible(aCard.getEffectsExplaination().get(0), aCard.getPlayer()),
+                                        builderEffectUtils.knowQuota(aCard.getEffectsExplaination().get(0)),
+                                        builderEffectUtils.knowPileA(aCard.getEffectsExplaination().get(0)),
+                                        builderEffectUtils.knowPileB(aCard.getEffectsExplaination().get(0)),
+                                        builderEffectUtils.knowFilterCard(aCard.getEffectsExplaination().get(0), listPlayer)
+                                );
+                            } else {
+                                int multiplier = 0;
+                                int quota = builderEffectUtils.knowQuota(aCard.getEffectsExplaination().get(0));
+                                multiplier = getMultiplerValue(aCard.getEffectsExplaination().get(0).getDeterminedEffect());
+                                quota = quota * multiplier;
+                                aCard.getEffects().get(0).execute(this, listPlayer,
+                                        builderEffectUtils.knowJoueurCible(aCard.getEffectsExplaination().get(0), aCard.getPlayer()),
+                                        quota,
+                                        builderEffectUtils.knowPileA(aCard.getEffectsExplaination().get(0)),
+                                        builderEffectUtils.knowPileB(aCard.getEffectsExplaination().get(0)),
+                                        builderEffectUtils.knowFilterCard(aCard.getEffectsExplaination().get(0), listPlayer)
+                                );
+                            }
                             ArrayList<CardInGame> dropCard = new ArrayList<>();
                             dropCard.add(aCard);
                             new EffectMoveCardFromAtoB().execute(this, listPlayer, 0, 1, currentplayer.getPlayerTerrain(), currentplayer.getPlayerCimetiere(), dropCard);
@@ -1191,13 +1205,27 @@ public class Game_activity extends AppCompatActivity {
                         onClickPoser(view);
 
                         if (aCard.getEffects() != null && aCard.getEffects().size() == 1 && aCard.getEffects().get(0) != null) {
-                            aCard.getEffects().get(0).execute(this, listPlayer,
-                                    builderEffectUtils.knowJoueurCible(aCard.getEffectsExplaination().get(0)),
-                                    builderEffectUtils.knowQuota(aCard.getEffectsExplaination().get(0)),
-                                    builderEffectUtils.knowPileA(aCard.getEffectsExplaination().get(0)),
-                                    builderEffectUtils.knowPileB(aCard.getEffectsExplaination().get(0)),
-                                    builderEffectUtils.knowFilterCard(aCard.getEffectsExplaination().get(0), listPlayer)
-                                    );
+                            if (aCard.getEffectsExplaination().get(0).getDeterminedEffect() == null) {
+                                aCard.getEffects().get(0).execute(this, listPlayer,
+                                        builderEffectUtils.knowJoueurCible(aCard.getEffectsExplaination().get(0), aCard.getPlayer()),
+                                        builderEffectUtils.knowQuota(aCard.getEffectsExplaination().get(0)),
+                                        builderEffectUtils.knowPileA(aCard.getEffectsExplaination().get(0)),
+                                        builderEffectUtils.knowPileB(aCard.getEffectsExplaination().get(0)),
+                                        builderEffectUtils.knowFilterCard(aCard.getEffectsExplaination().get(0), listPlayer)
+                                );
+                            } else {
+                                int multiplier = 0;
+                                int quota = builderEffectUtils.knowQuota(aCard.getEffectsExplaination().get(0));
+                                multiplier = getMultiplerValue(aCard.getEffectsExplaination().get(0).getDeterminedEffect());
+                                quota = quota * multiplier;
+                                aCard.getEffects().get(0).execute(this, listPlayer,
+                                        builderEffectUtils.knowJoueurCible(aCard.getEffectsExplaination().get(0), aCard.getPlayer()),
+                                        quota,
+                                        builderEffectUtils.knowPileA(aCard.getEffectsExplaination().get(0)),
+                                        builderEffectUtils.knowPileB(aCard.getEffectsExplaination().get(0)),
+                                        builderEffectUtils.knowFilterCard(aCard.getEffectsExplaination().get(0), listPlayer)
+                                );
+                            }
                             ArrayList<CardInGame> dropCard = new ArrayList<>();
                             dropCard.add(aCard);
                             new EffectMoveCardFromAtoB().execute(this, listPlayer, 0, 1, currentplayer.getPlayerTerrain(), currentplayer.getPlayerCimetiere(), dropCard);
@@ -1208,13 +1236,27 @@ public class Game_activity extends AppCompatActivity {
                             && element.getIdNumberInGame() != null
                             && element.getIdNumberInGame().equals(aCard.getIdNumberInGame()))) {
                         if (aCard.getEffects() != null && aCard.getEffects().size() == 1 && aCard.getEffects().get(0) != null) {
-                            aCard.getEffects().get(0).execute(this, listPlayer,
-                                    builderEffectUtils.knowJoueurCible(aCard.getEffectsExplaination().get(0)),
-                                    builderEffectUtils.knowQuota(aCard.getEffectsExplaination().get(0)),
-                                    builderEffectUtils.knowPileA(aCard.getEffectsExplaination().get(0)),
-                                    builderEffectUtils.knowPileB(aCard.getEffectsExplaination().get(0)),
-                                    builderEffectUtils.knowFilterCard(aCard.getEffectsExplaination().get(0), listPlayer)
-                            );
+                            if (aCard.getEffectsExplaination().get(0).getDeterminedEffect() == null) {
+                                aCard.getEffects().get(0).execute(this, listPlayer,
+                                        builderEffectUtils.knowJoueurCible(aCard.getEffectsExplaination().get(0), aCard.getPlayer()),
+                                        builderEffectUtils.knowQuota(aCard.getEffectsExplaination().get(0)),
+                                        builderEffectUtils.knowPileA(aCard.getEffectsExplaination().get(0)),
+                                        builderEffectUtils.knowPileB(aCard.getEffectsExplaination().get(0)),
+                                        builderEffectUtils.knowFilterCard(aCard.getEffectsExplaination().get(0), listPlayer)
+                                );
+                            } else {
+                                int multiplier = 0;
+                                int quota = builderEffectUtils.knowQuota(aCard.getEffectsExplaination().get(0));
+                                multiplier = getMultiplerValue(aCard.getEffectsExplaination().get(0).getDeterminedEffect());
+                                quota = quota * multiplier;
+                                aCard.getEffects().get(0).execute(this, listPlayer,
+                                        builderEffectUtils.knowJoueurCible(aCard.getEffectsExplaination().get(0), aCard.getPlayer()),
+                                        quota,
+                                        builderEffectUtils.knowPileA(aCard.getEffectsExplaination().get(0)),
+                                        builderEffectUtils.knowPileB(aCard.getEffectsExplaination().get(0)),
+                                        builderEffectUtils.knowFilterCard(aCard.getEffectsExplaination().get(0), listPlayer)
+                                );
+                            }
                             ArrayList<CardInGame> dropCard = new ArrayList<>();
                             dropCard.add(aCard);
                             new EffectMoveCardFromAtoB().execute(this, listPlayer, 0, 1, currentplayer.getPlayerTerrain(), currentplayer.getPlayerCimetiere(), dropCard);
@@ -1281,13 +1323,28 @@ public class Game_activity extends AppCompatActivity {
                         BuilderEffectUtils builderEffectUtils = new BuilderEffectUtils();
                         for (int i=0; i< leMonstre.getEffects().size(); i++){
                             if (leMonstre.getEffectsExplaination().get(i).isAutoActivable()){
-                                leMonstre.getEffects().get(i).execute(this, listPlayer,
-                                        builderEffectUtils.knowJoueurCible(leMonstre.getEffectsExplaination().get(i)),
-                                        builderEffectUtils.knowQuota(leMonstre.getEffectsExplaination().get(i)),
-                                        builderEffectUtils.knowPileA(leMonstre.getEffectsExplaination().get(i)),
-                                        builderEffectUtils.knowPileB(leMonstre.getEffectsExplaination().get(i)),
-                                        builderEffectUtils.knowFilterCard(leMonstre.getEffectsExplaination().get(i), listPlayer)
-                                );
+
+                                if (leMonstre.getEffectsExplaination().get(0).getDeterminedEffect() == null) {
+                                    leMonstre.getEffects().get(i).execute(this, listPlayer,
+                                            builderEffectUtils.knowJoueurCible(leMonstre.getEffectsExplaination().get(i), leMonstre.getPlayer()),
+                                            builderEffectUtils.knowQuota(leMonstre.getEffectsExplaination().get(i)),
+                                            builderEffectUtils.knowPileA(leMonstre.getEffectsExplaination().get(i)),
+                                            builderEffectUtils.knowPileB(leMonstre.getEffectsExplaination().get(i)),
+                                            builderEffectUtils.knowFilterCard(leMonstre.getEffectsExplaination().get(i), listPlayer)
+                                    );
+                                } else {
+                                    int multiplier = 0;
+                                    int quota = builderEffectUtils.knowQuota(leMonstre.getEffectsExplaination().get(0));
+                                    multiplier = getMultiplerValue(leMonstre.getEffectsExplaination().get(0).getDeterminedEffect());
+                                    quota = quota * multiplier;
+                                    leMonstre.getEffects().get(0).execute(this, listPlayer,
+                                            builderEffectUtils.knowJoueurCible(leMonstre.getEffectsExplaination().get(0), leMonstre.getPlayer()),
+                                            quota,
+                                            builderEffectUtils.knowPileA(leMonstre.getEffectsExplaination().get(0)),
+                                            builderEffectUtils.knowPileB(leMonstre.getEffectsExplaination().get(0)),
+                                            builderEffectUtils.knowFilterCard(leMonstre.getEffectsExplaination().get(0), listPlayer)
+                                    );
+                                }
                                 majPv();
                                 majMain();
                                 majNBPlayerDeckCard();
@@ -1540,13 +1597,27 @@ public class Game_activity extends AppCompatActivity {
                                 BuilderEffectUtils builderEffectUtils = new BuilderEffectUtils();
                                 for (int i=0; i< aCard.getEffects().size(); i++){
                                     if (aCard.getEffectsExplaination().get(i).isFlip()){
-                                        aCard.getEffects().get(i).execute(this, listPlayer,
-                                                builderEffectUtils.knowJoueurCible(aCard.getEffectsExplaination().get(i)),
-                                                builderEffectUtils.knowQuota(aCard.getEffectsExplaination().get(i)),
-                                                builderEffectUtils.knowPileA(aCard.getEffectsExplaination().get(i)),
-                                                builderEffectUtils.knowPileB(aCard.getEffectsExplaination().get(i)),
-                                                builderEffectUtils.knowFilterCard(aCard.getEffectsExplaination().get(i), listPlayer)
-                                        );
+                                        if (aCard.getEffectsExplaination().get(i).getDeterminedEffect() == null) {
+                                            aCard.getEffects().get(i).execute(this, listPlayer,
+                                                    builderEffectUtils.knowJoueurCible(aCard.getEffectsExplaination().get(i), aCard.getPlayer()),
+                                                    builderEffectUtils.knowQuota(aCard.getEffectsExplaination().get(i)),
+                                                    builderEffectUtils.knowPileA(aCard.getEffectsExplaination().get(i)),
+                                                    builderEffectUtils.knowPileB(aCard.getEffectsExplaination().get(i)),
+                                                    builderEffectUtils.knowFilterCard(aCard.getEffectsExplaination().get(i), listPlayer)
+                                            );
+                                        } else {
+                                            int multiplier = 0;
+                                            int quota = builderEffectUtils.knowQuota(aCard.getEffectsExplaination().get(i));
+                                            multiplier = getMultiplerValue(aCard.getEffectsExplaination().get(i).getDeterminedEffect());
+                                            quota = quota * multiplier;
+                                            aCard.getEffects().get(i).execute(this, listPlayer,
+                                                    builderEffectUtils.knowJoueurCible(aCard.getEffectsExplaination().get(i), aCard.getPlayer()),
+                                                    quota,
+                                                    builderEffectUtils.knowPileA(aCard.getEffectsExplaination().get(i)),
+                                                    builderEffectUtils.knowPileB(aCard.getEffectsExplaination().get(i)),
+                                                    builderEffectUtils.knowFilterCard(aCard.getEffectsExplaination().get(i), listPlayer)
+                                            );
+                                        }
                                         majPv();
                                         majMain();
                                         majNBPlayerDeckCard();
@@ -1642,6 +1713,14 @@ public class Game_activity extends AppCompatActivity {
                 nextPhase();
             }
         }, ms);
+    }
+
+    public ArrayList<Player> getAllPLayers(){
+        return this.listPlayer;
+    }
+
+    public Player getTheCurrentPlayer(){
+        return currentplayer;
     }
 
 }

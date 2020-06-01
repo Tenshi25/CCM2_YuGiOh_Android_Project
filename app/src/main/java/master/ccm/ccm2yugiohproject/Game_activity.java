@@ -80,7 +80,8 @@ public class Game_activity extends AppCompatActivity {
     private Deck playerDeck;
     private int ordrePhase = 0;
     private boolean deckPlayerCharger;
-    private HttpRequest httpRequest =new HttpRequest();
+    private static HttpRequest httpRequest =new HttpRequest();
+    private static ArrayList<Monstre> listMonstreHttpRequest = new ArrayList<>();
 
     private TextView tv_iaLifePoint;
     private TextView tv_playerLifePoint;
@@ -946,7 +947,9 @@ public class Game_activity extends AppCompatActivity {
                                 if(listPlayer.get(0).getPlayerTerrain().getMonsterOnTerrain().size() > 0) {
                                     Log.d("JSON", "Attaque monstres");
                                     Toast.makeText(this,aMonster.getName()+" Vous attaque !",Toast.LENGTH_SHORT);
-                                    httpRequest.sendPost(iaBotclass,listPlayer.get(0).getPlayerTerrain().getTableauZoneMonstre(), aMonster);
+                                    //httpRequest.sendPost(iaBotclass,listPlayer.get(0).getPlayerTerrain().getTableauZoneMonstre(), aMonster);
+                                    // ajouter a une list
+                                    listMonstreHttpRequest.add(aMonster);
                                 }else{
                                     Log.d("JSON", "Attaque direct");
                                     Toast.makeText(this,aMonster.getName()+" Vous attaque ! Vous perdez "+aMonster.getAtk()+" life points",Toast.LENGTH_SHORT);
@@ -954,6 +957,7 @@ public class Game_activity extends AppCompatActivity {
                                 }
                             }
                         }
+                    NextHttpRequest();
                     waitTonextPhase(1000);
                     //nextPhase();
                     break;
@@ -990,7 +994,23 @@ public class Game_activity extends AppCompatActivity {
 
 
     }
+    public void NextHttpRequest(){
+        if(listMonstreHttpRequest.size() > 0){
+            Monstre aMonster = listMonstreHttpRequest.get(0);
+            listMonstreHttpRequest.remove(0);
+            if(listPlayer.get(0).getPlayerTerrain().getMonsterOnTerrain().size() > 0) {
+                httpRequest.sendPost(this,iaBotclass,listPlayer.get(0).getPlayerTerrain().getTableauZoneMonstre(), aMonster);
+            }else{
+                Log.d("JSON", "Attaque direct");
+                Toast.makeText(this,aMonster.getName()+" Vous attaque ! Vous perdez "+aMonster.getAtk()+" life points",Toast.LENGTH_SHORT);
+                iaBotclass.AttaqueDirectIA(aMonster);
+                this.majPv();
+                NextHttpRequest();
+            }
 
+        }
+
+    }
     public void onClickBP(View view) {
         if (ordrePhase == 2) {
             ChangePhase(3);

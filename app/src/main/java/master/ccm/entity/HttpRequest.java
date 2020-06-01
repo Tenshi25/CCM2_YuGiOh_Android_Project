@@ -45,7 +45,7 @@ public class HttpRequest {
     private static CardJson[] tabmonstresForJson;
     //private CardJson[] listCardDef = new CardJson[5];
 
-    public void sendPost(IABot iaBot, CardInGame[] listcard, Monstre monstreAttaquant) {
+    public void sendPost(Game_activity context, IABot iaBot, CardInGame[] listcard, Monstre monstreAttaquant) {
         CardJson[] tabMonstre = new CardJson[10];
         CardJson monstreAtk = new CardJson();
         monstreAtk.setId(monstreAttaquant.getIdNumberInGame());
@@ -201,6 +201,7 @@ public class HttpRequest {
                         Game_activity.myContext.runOnUiThread(new Runnable() {
                             public void run() {
                                 iaBot.AttaqueIA(idatk, iddef);
+                                context.NextHttpRequest();
                             }
                         });
 

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import master.ccm.ccm2yugiohproject.EndGame_activity;
 import master.ccm.ccm2yugiohproject.Game_activity;
 import master.ccm.ccm2yugiohproject.R;
+import master.ccm.ccm2yugiohproject.utils.SoundMusicUtils;
 import master.ccm.entity.Card;
 import master.ccm.entity.PileDeCarte.PileCarte;
 import master.ccm.entity.Player;
@@ -65,6 +66,8 @@ public class EffectGainPertePV extends EffectCard {
 
             }
         }
+
+        SoundMusicUtils.launchSoundEffect(Game_activity.myContext, R.raw.life_point_sound_effect);
 
     }
 }

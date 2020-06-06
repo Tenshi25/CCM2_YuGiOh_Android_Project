@@ -227,7 +227,7 @@ public class Terrain extends PileCarte {
                 }
             }else {
                 for (int i = 0; i < 5; i++) {
-                    if(aCard == tableauZoneMagiePiege[i] ){
+                    if(tableauZoneMagiePiege[i] != null && aCard.getIdNumberInGame().equals(tableauZoneMagiePiege[i].getIdNumberInGame()) ){
                         tableauZoneMagiePiege[i] = null;
                         viderimageView(tableauZoneMagiePiegeImageView[i],context);
                     }

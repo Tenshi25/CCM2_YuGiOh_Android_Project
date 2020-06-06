@@ -8,6 +8,8 @@ public class Effect {
 
     private EffectType action;
 
+    private String subAction;
+
     private String quota;
 
     private String locationFrom;
@@ -50,6 +52,14 @@ public class Effect {
 
     public void setAction(EffectType action) {
         this.action = action;
+    }
+
+    public String getSubAction() {
+        return subAction;
+    }
+
+    public void setSubAction(String subAction) {
+        this.subAction = subAction;
     }
 
     public String getQuota() {

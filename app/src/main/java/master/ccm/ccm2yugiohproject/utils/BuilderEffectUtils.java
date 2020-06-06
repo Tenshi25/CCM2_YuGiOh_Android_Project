@@ -5,6 +5,12 @@ import java.util.List;
 
 import master.ccm.ccm2yugiohproject.Game_activity;
 import master.ccm.entity.Card;
+import master.ccm.entity.Effects.DestroyAllMagiesPieges;
+import master.ccm.entity.Effects.DestroyAllMonsters;
+import master.ccm.entity.Effects.DestroyBetterAtk;
+import master.ccm.entity.Effects.DestroyBetterDef;
+import master.ccm.entity.Effects.DestroyWorstAtk;
+import master.ccm.entity.Effects.DestroyWorstDef;
 import master.ccm.entity.Effects.EffectCard;
 import master.ccm.entity.Effects.EffectGainPertePV;
 import master.ccm.entity.Effects.EffectPioche;
@@ -29,6 +35,33 @@ public class BuilderEffectUtils {
                 break;
             case "PIOCHER_CARTE":
                 effectCard = new EffectPioche();
+                break;
+            case "DETRUIRE_CARTE":
+                if (effect.getSubAction() != null) {
+                    switch (effect.getSubAction()) {
+                        case "MAGIES_PIEGES":
+                            effectCard = new DestroyAllMagiesPieges();
+                            break;
+                        case "MONSTRES":
+                            effectCard = new DestroyAllMonsters();
+                            break;
+                        case "MEILLEUR_DEF":
+                            effectCard = new DestroyBetterDef();
+                            break;
+                        case "MEILLEUR_ATK":
+                            effectCard = new DestroyBetterAtk();
+                            break;
+                        case "PIRE_DEF":
+                            effectCard = new DestroyWorstDef();
+                            break;
+                        case "PIRE_ATK":
+                            effectCard = new DestroyWorstAtk();
+                            break;
+                            default:
+                                break;
+                    }
+                }
+                break;
             default:
                 break;
         }
